@@ -5,9 +5,9 @@ class Arrays {
 
     /**
      * Removes the given item from the given array.
-     * @param {Array} source Source array for the remove operations. This array will be modified at the end of the operation.
-     * @param {any} target
-     * @returns {boolean} If the operation ended sucessfully than "true", else "false"
+     * @param {Array} source Source array for the remove operation. This array will be modified at the end of the operation.
+     * @param {any} target Target to match.
+     * @returns {boolean} If the operation ended sucessfully than "true", else "false".
      */
     remove(source: Array<any>, target: any): boolean {
         for (let i = source.length; i--;) {
@@ -20,15 +20,15 @@ class Arrays {
     }
 
     /**
-     *
-     * @param source
-     * @param targetKey
-     * @param target
-     * @returns {boolean}
+     * Removes the item with target value from the given array. Checks arrayItem[key] === target removes if matches.
+     * @param {Array} source Source array for the remove operation. This array will be modified at the end of the operation.
+     * @param {string} key Key for checking array items.
+     * @param {any} target Target to match.
+     * @returns {boolean} If the operation ended sucessfully than "true", else "false".
      */
-    removeByKey(source: Array<any>, targetKey: string, target: any): boolean {
+    removeByKey(source: Array<any>, key: string, target: any): boolean {
         for (let i = source.length; i--;) {
-            if (source[i][targetKey] === target[targetKey]) {
+            if (source[i][key] === target[key]) {
                 source.splice(i, 1);
                 return true;
             }
@@ -55,13 +55,13 @@ class Arrays {
     /**
      *
      * @param source
-     * @param targetKey
+     * @param key
      * @param target
      * @returns {*}
      */
-    indexOfByKey(source: Array<any>, targetKey: string, target: any): number {
+    indexOfByKey(source: Array<any>, key: string, target: any): number {
         for (let i = source.length; i--;) {
-            if (source[i][targetKey] === target[targetKey]) {
+            if (source[i][key] === target[key]) {
                 return i;
             }
         }
@@ -71,25 +71,25 @@ class Arrays {
     /**
      *
      * @param source
-     * @param targetKey
+     * @param key
      * @param target
      * @returns {*}
      */
-    getValueByKey(source: Array<any>, targetKey: string, target: any): any {
-        const index: number = this.indexOfByKey(source, targetKey, target);
+    getValueByKey(source: Array<any>, key: string, target: any): any {
+        const index: number = this.indexOfByKey(source, key, target);
         return index != -1 ? source[index] : undefined;
     }
 
     /**
      *
      * @param source
-     * @param targetKey
+     * @param key
      * @param target
      * @returns {boolean}
      */
-    isExistByKey(source: Array<any>, targetKey: string, target: any): boolean {
+    isExistByKey(source: Array<any>, key: string, target: any): boolean {
         for (let i = source.length; i--;) {
-            if (source[i][targetKey] === target[targetKey]) {
+            if (source[i][key] === target[key]) {
                 return true;
             }
         }
