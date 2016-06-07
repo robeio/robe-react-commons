@@ -5,9 +5,9 @@ class Arrays {
 
     /**
      * Removes the given item from the given array.
-     * @param {Array} source Source array for the remove operation. This array will be modified at the end of the operation.
+     * @param {Array} source Source array for the remove operation. *This array will be modified at the end of the operation.*
      * @param {any} target Target to match.
-     * @returns {boolean} If the operation ended sucessfully than "true", else "false".
+     * @returns {boolean} "true": target removed , "false": target not found.
      */
     remove(source: Array<any>, target: any): boolean {
         for (let i = source.length; i--;) {
@@ -24,7 +24,7 @@ class Arrays {
      * @param {Array} source Source array for the remove operation. This array will be modified at the end of the operation.
      * @param {string} key Key for checking array items.
      * @param {any} target Target to match.
-     * @returns {boolean} If the operation ended sucessfully than "true", else "false".
+     * @returns {boolean} "true": target removed , "false": target not found.
      */
     removeByKey(source: Array<any>, key: string, target: any): boolean {
         for (let i = source.length; i--;) {
@@ -38,10 +38,10 @@ class Arrays {
 
 
     /**
-     *
-     * @param source
-     * @param target
-     * @returns {*}
+     * Finds the index of the given target in the given array.
+     * @param {Array} source Source array for the operation.
+     * @param {any} target Target to match.
+     * @returns {number} The index of the target. Returns "-1" in case of no match.
      */
     indexOf(source: Array<any>, target: any): number {
         for (let i = source.length; i--;) {
@@ -53,11 +53,11 @@ class Arrays {
     }
 
     /**
-     *
-     * @param source
-     * @param key
-     * @param target
-     * @returns {*}
+     * Finds the index of the item with target value from the given array. Checks arrayItem[key] === target returns index if matches.
+     * @param {Array} source Source array for the operation.
+     * @param {string} key Key for checking array items.
+     * @param {any} target Target to match.
+     * @returns {number} The index of the target. Returns "-1" in case of no match.
      */
     indexOfByKey(source: Array<any>, key: string, target: any): number {
         for (let i = source.length; i--;) {
@@ -69,23 +69,23 @@ class Arrays {
     }
 
     /**
-     *
-     * @param source
-     * @param key
-     * @param target
-     * @returns {*}
+     * Returns the value of the item with the given key from the array. Checks arrayItem[key] === target returns value if matches.
+     * @param {Array} source Source array for the operation.
+     * @param {string} key Key for checking array items.
+     * @param {any} target Target to match.
+     * @returns {any} The item. Returns "undefined" in case of no match.
      */
     getValueByKey(source: Array<any>, key: string, target: any): any {
         const index: number = this.indexOfByKey(source, key, target);
-        return index != -1 ? source[index] : undefined;
+        return index !== -1 ? source[index] : undefined;
     }
 
     /**
-     *
-     * @param source
-     * @param key
-     * @param target
-     * @returns {boolean}
+     * Checks if the value of the item with the given key from the array exists. Checks arrayItem[key] === target returns "true" if matches.
+     * @param {Array} source Source array for the operation.
+     * @param {string} key Key for checking array items.
+     * @param {any} target Target to match.
+     * @returns {boolean} If exists "true", else "false".
      */
     isExistByKey(source: Array<any>, key: string, target: any): boolean {
         for (let i = source.length; i--;) {
@@ -98,33 +98,33 @@ class Arrays {
 
 
     /**
-     *
-     * @param mapArray
-     * @param key
-     * @returns {Array}
+     * Extracts an array from the given array. Collects all values with the given key from array items and returns as an array.
+     * @param {Array} source Source array for the operation.
+     * @param {string} key Key for checking array items.
+     * @returns {Array} The resulting array with the values. Returns an empty array in case of no key match.
      */
-    extractArray(mapArray, key) {
+    extractValueArray(source: Array<any>, key: string): Array<any> {
         let array = [];
-        for (let i = 0; i < mapArray.length; i++) {
-            if (mapArray[i].hasOwnProperty(key)) {
-                array.push(mapArray[i][key]);
+        for (let i = 0; i < source.length; i++) {
+            if (source[i].hasOwnProperty(key)) {
+                array.push(source[i][key]);
             }
         }
         return array;
-    };
+    }
 
     /**
-     *
-     * @param array
-     * @param key
-     * @param target
-     * @returns {Array}
+     * Extracts an array from the given array. Collects all items with the given key,target match from array and returns as an array.
+     * @param {Array} source Source array for the operation.
+     * @param {string} key Key for checking array items.
+     * @param {any} target Target to match.
+     * @returns {Array} The resulting array of items matches. Returns an empty array in case of no key match.
      */
-    extractItem(array, key, target) {
+    extractItemArray(source: Array<any>, key: string, target: any): Array<any> {
         let newArray = [];
-        for (let i = 0; i < array.length; i++) {
-            if (array[i][key] != target) {
-                newArray.push(array[i]);
+        for (let i = 0; i < source.length; i++) {
+            if (source[i][key] !== target) {
+                newArray.push(source[i]);
             }
         }
         return newArray;
