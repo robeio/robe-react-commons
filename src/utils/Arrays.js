@@ -1,15 +1,18 @@
+/**
+ * A singleton class which implements mostly used array operations.
+ */
 class Arrays {
 
     /**
-     *
-     * @param sourceArray
-     * @param targetObject
-     * @returns {boolean}
+     * Removes the given item from the given array.
+     * @param {Array} source Source array for the remove operations. This array will be modified at the end of the operation.
+     * @param {any} target
+     * @returns {boolean} If the operation ended sucessfully than "true", else "false"
      */
-    removeByValue(sourceArray: Array<any>, targetObject : any): boolean {
-        for (let i = sourceArray.length; i--;) {
-            if (sourceArray[i] === target) {
-                sourceArray.splice(i, 1);
+    remove(source: Array<any>, target: any): boolean {
+        for (let i = source.length; i--;) {
+            if (source[i] === target) {
+                source.splice(i, 1);
                 return true;
             }
         }
@@ -18,15 +21,15 @@ class Arrays {
 
     /**
      *
-     * @param sourceArray
+     * @param source
      * @param targetKey
-     * @param targetObject
+     * @param target
      * @returns {boolean}
      */
-    removeByKey(sourceArray : Array<any>, targetKey : string, targetObject : any) : boolean {
-        for (let i = sourceArray.length; i--;) {
-            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
-                sourceArray.splice(i, 1);
+    removeByKey(source: Array<any>, targetKey: string, target: any): boolean {
+        for (let i = source.length; i--;) {
+            if (source[i][targetKey] === target[targetKey]) {
+                source.splice(i, 1);
                 return true;
             }
         }
@@ -36,13 +39,13 @@ class Arrays {
 
     /**
      *
-     * @param sourceArray
-     * @param targetObject
+     * @param source
+     * @param target
      * @returns {*}
      */
-    indexOf(sourceArray: Array<any>, targetObject : any) : number {
-        for (let i = sourceArray.length; i--;) {
-            if (sourceArray[i] === targetObject) {
+    indexOf(source: Array<any>, target: any): number {
+        for (let i = source.length; i--;) {
+            if (source[i] === target) {
                 return i;
             }
         }
@@ -51,14 +54,14 @@ class Arrays {
 
     /**
      *
-     * @param sourceArray
+     * @param source
      * @param targetKey
-     * @param targetObject
+     * @param target
      * @returns {*}
      */
-    indexOfByKey(sourceArray : Array<any>, targetKey : string, targetObject : any)  : number {
-        for (let i = sourceArray.length; i--;) {
-            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
+    indexOfByKey(source: Array<any>, targetKey: string, target: any): number {
+        for (let i = source.length; i--;) {
+            if (source[i][targetKey] === target[targetKey]) {
                 return i;
             }
         }
@@ -67,26 +70,26 @@ class Arrays {
 
     /**
      *
-     * @param sourceArray
+     * @param source
      * @param targetKey
-     * @param targetObject
+     * @param target
      * @returns {*}
      */
-    getValueByKey(sourceArray : Array<any>, targetKey : string, targetObject : any) : any {
-        const index : number =  this.indexOfByKey(sourceArray,targetKey,targetObject);
-        return index != -1 ? sourceArray[index] : undefined;
+    getValueByKey(source: Array<any>, targetKey: string, target: any): any {
+        const index: number = this.indexOfByKey(source, targetKey, target);
+        return index != -1 ? source[index] : undefined;
     }
 
     /**
      *
-     * @param sourceArray
+     * @param source
      * @param targetKey
-     * @param targetObject
+     * @param target
      * @returns {boolean}
      */
-    isExistByKey(sourceArray : Array<any>, targetKey : string, targetObject : any)  : boolean {
-        for (let i = sourceArray.length; i--;) {
-            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
+    isExistByKey(source: Array<any>, targetKey: string, target: any): boolean {
+        for (let i = source.length; i--;) {
+            if (source[i][targetKey] === target[targetKey]) {
                 return true;
             }
         }
