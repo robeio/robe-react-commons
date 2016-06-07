@@ -1,7 +1,15 @@
 {
   "source": "./src",
   "destination": "./esdoc",
+  "builtinExternal": true,
+  "title": "Robe React Common",
+  "coverage": true,
+  "includeSource": true,
+  "includes": ["\\.jsx?$"],
   "access": ["public", "protected", "private"],
+  "autoPrivate": true,
+  "unexportIdentifier": false,
+  "undocumentIdentifier": true,
   "debug": false,
   "index": "./README.md",
   "package": "./package.json",
@@ -20,5 +28,6 @@
   },
   "plugins": [
     {"name": "esdoc-es7-plugin"}
-  ]
+  ],
+  "lint": true
 }

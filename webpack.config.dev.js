@@ -48,7 +48,7 @@ commonSettings.entry = {
 };
 
 commonSettings.output= {
-    path: './dist',
+    path: commonSettings.paths.build,
     filename: '[name].js',
     library: 'RobeReactCommon',
     libraryTarget: 'umd',
