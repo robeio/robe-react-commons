@@ -25,38 +25,34 @@ commonSettings.debug = true;
  * source-map - A SourceMap is emitted. See also output.sourceMapFilename.
  * @type {string}
  */
-commonSettings.devtool = "eval";
+commonSettings.devtool = "source-map";
 
-/*
-*
-*
-*
-*/
-module.exports = function(config) {
-    config.set({
-        browsers: ['PhantomJS'],
-        singleRun: true,
-        plugins : [
-            'karma-webpack',
-            'karma-mocha',
-            'karma-phantomjs-launcher',
-            'karma-mocha-reporter',
-            'karma-bamboo-reporter'
-        ],
-        frameworks: ['mocha'],
 
-        files: [
-            '__test__/**/*.spec.js'
-        ],
-        preprocessors: {
-            '__test__/**/*.spec.js': ['webpack']
-        },
-        reporters: ['mocha','bamboo'],
+/**
+ * @link https://github.com/MoOx/eslint-loader
+ * added eslint-loader plugin for check the syntax of code by rules
+ */
 
-        webpack:commonSettings,
-        webpackServer: {
-            noInfo: true
-        }
-    });
+commonSettings.module.loaders.push( {
+    test: /(\.jsx|\.js)$/,
+    loader: "eslint-loader",
+    exclude: /node_modules/
+});
+
+/**
+ *
+ * @type {{root: *[]}}
+ */
+commonSettings.entry = {
+    'robe-react-common': '../src/index.js'
 };
 
+commonSettings.output= {
+    path: './dist',
+    filename: '[name].js',
+    library: 'RobeReactCommon',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
+};
+
+module.exports = commonSettings;

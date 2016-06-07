@@ -14,9 +14,9 @@ class Cookies {
      */
     __createCookie = (name, value, days) => {
         if (days) {
-            var date = new Date();
+            let date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
+            let expires = "; expires=" + date.toGMTString();
         }
         else var expires = "";
         document.cookie = name + "=" + value + expires + "; path=/";
@@ -35,7 +35,7 @@ class Cookies {
     clearAll = () => {
         var cookies = document.cookie.split(";");
         for (var i = 0; i < cookies.length; i++) {
-            console.log(cookies[i]);
+            //console.log(cookies[i]);
             this.__eraseCookie(cookies[i].split("=")[0]);
         }
 
@@ -57,7 +57,7 @@ class Cookies {
 
         var path = window.location.pathname;
         path = path.substring(0, path.length - 1);
-        console.log(name, window.location.hostname, path);
+        //console.log(name, window.location.hostname, path);
         cookie.remove(name, {
             "domain": window.location.hostname,
             "path": path
@@ -87,7 +87,7 @@ class Cookies {
      */
     get = (name, defaultVal) => {
         var value = cookie.load(name);
-        if (value == undefined)
+        if (value === undefined)
             return defaultVal;
         return value
     }

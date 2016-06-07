@@ -1,6 +1,6 @@
 "use strict";
 
-import Maps from "libs/util/Maps";
+import Maps from "utils/Maps";
 import chai from "chai";
 
 describe("Maps.js", () => {

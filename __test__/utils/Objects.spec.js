@@ -1,10 +1,9 @@
 "use strict";
 
-import Objects from "libs/util/Objects";
+import Objects from "utils/Objects";
 import chai from "chai";
 
 describe("Objects.js", () => {
-
     it("equals", () => {
         let map1 = {"key": "a", "value": "a1"};
         let map2 = {"key": "a", "value": "a1"};

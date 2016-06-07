@@ -5,17 +5,8 @@ import shallowCompare from "react-addons-shallow-compare";
  *
  */
 class ShallowComponent extends React.Component {
-
     /**
-     *
-     * @param props
-     */
-    constructor(props: Object) {
-        super(props);
-    }
-
-    /**
-     *
+     * kamil
      * @returns {*}
      */
     render() : string {

@@ -5,7 +5,8 @@
     },
     "ecmaVersion": 6,
     "ecmaFeatures": {
-        "experimentalObjectRestSpread": true
+        "ecmaVersion": 6,
+        "sourceType": "module"
     },
     "parser": "babel-eslint",
     "parserOptions": {
@@ -16,10 +17,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "flowtype"
+        "react"
     ],
     "rules": {
+        "max-len": [2, 300],
         "quotes": [
             2,
             "double",
@@ -66,35 +67,9 @@
                 ]
             }
         ],
-        "flowtype/require-parameter-type": 1,
-        "flowtype/require-return-type": [
-            1,
-            "always",
-            {
-                "annotateUndefined": "never"
-            }
-        ],
-        "flowtype/space-after-type-colon": [
-            1,
-            "always"
-        ],
-        "flowtype/space-before-type-colon": [
-            1,
-            "never"
-        ],
-        "flowtype/type-id-match": [
-            1,
-            "^([A-Z][a-z0-9]+)+Type$"
-        ],
-        "arrow-body-style": ["error", "always"],
-        "max-len": ["error", 300]
-
-
+        "arrow-body-style": ["error", "always"]
     },
     "settings": {
-        "flowtype": {
-            "onlyFilesWithFlowAnnotation": false
-        },
         "import/resolver": {
             "webpack": {
                 "config": "webpack.config.common.js"
