@@ -1,0 +1,1 @@
+export {ShallowComponent} from "./ShallowComponent";

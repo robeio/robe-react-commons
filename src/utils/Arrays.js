@@ -1,61 +1,105 @@
 class Arrays {
-    remove(array: Array<any>, target: any): boolean {
-        for (let i = array.length; i--;) {
-            if (array[i] === target) {
-                array.splice(i, 1);
+
+    /**
+     *
+     * @param sourceArray
+     * @param targetObject
+     * @returns {boolean}
+     */
+    removeByValue(sourceArray: Array<any>, targetObject : any): boolean {
+        for (let i = sourceArray.length; i--;) {
+            if (sourceArray[i] === target) {
+                sourceArray.splice(i, 1);
                 return true;
             }
         }
         return false;
     }
 
-    removeItem(array, key, target) {
-        for (let i = array.length; i--;) {
-            if (array[i][key] === target[key]) {
-                array.splice(i, 1);
+    /**
+     *
+     * @param sourceArray
+     * @param targetKey
+     * @param targetObject
+     * @returns {boolean}
+     */
+    removeByKey(sourceArray : Array<any>, targetKey : string, targetObject : any) : boolean {
+        for (let i = sourceArray.length; i--;) {
+            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
+                sourceArray.splice(i, 1);
                 return true;
             }
         }
         return false;
     }
 
-    findItem(array, key, target) {
-        for (let i = array.length; i--;) {
-            if (array[i][key] === target[key]) {
-                return true;
-            }
-        }
-        return false;
-    }
-    findIndex(array, target) {
-        for (let i = array.length; i--;) {
-            if (array[i] === target) {
+
+    /**
+     *
+     * @param sourceArray
+     * @param targetObject
+     * @returns {*}
+     */
+    indexOf(sourceArray: Array<any>, targetObject : any) : number {
+        for (let i = sourceArray.length; i--;) {
+            if (sourceArray[i] === targetObject) {
                 return i;
             }
         }
         return -1;
     }
 
-
-    findIndexByProperty(array, key, target) {
-        for (let i = array.length; i--;) {
-            if (array[i][key] === target) {
-
+    /**
+     *
+     * @param sourceArray
+     * @param targetKey
+     * @param targetObject
+     * @returns {*}
+     */
+    indexOfByKey(sourceArray : Array<any>, targetKey : string, targetObject : any)  : number {
+        for (let i = sourceArray.length; i--;) {
+            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
                 return i;
             }
         }
         return -1;
     }
 
-    findValueByProperty(array, key, target) {
-        for (let i = array.length; i--;) {
-            if (array[i][key] === target) {
-                return array[i];
-            }
-        }
-        return undefined;
+    /**
+     *
+     * @param sourceArray
+     * @param targetKey
+     * @param targetObject
+     * @returns {*}
+     */
+    getValueByKey(sourceArray : Array<any>, targetKey : string, targetObject : any) : any {
+        const index : number =  this.indexOfByKey(sourceArray,targetKey,targetObject);
+        return index != -1 ? sourceArray[index] : undefined;
     }
 
+    /**
+     *
+     * @param sourceArray
+     * @param targetKey
+     * @param targetObject
+     * @returns {boolean}
+     */
+    isExistByKey(sourceArray : Array<any>, targetKey : string, targetObject : any)  : boolean {
+        for (let i = sourceArray.length; i--;) {
+            if (sourceArray[i][targetKey] === targetObject[targetKey]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     *
+     * @param mapArray
+     * @param key
+     * @returns {Array}
+     */
     extractArray(mapArray, key) {
         let array = [];
         for (let i = 0; i < mapArray.length; i++) {
@@ -66,6 +110,13 @@ class Arrays {
         return array;
     };
 
+    /**
+     *
+     * @param array
+     * @param key
+     * @param target
+     * @returns {Array}
+     */
     extractItem(array, key, target) {
         let newArray = [];
         for (let i = 0; i < array.length; i++) {
@@ -76,4 +127,5 @@ class Arrays {
         return newArray;
     }
 }
-module.exports = new Arrays();
+
+export default new Arrays();

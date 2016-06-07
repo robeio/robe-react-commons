@@ -33,3 +33,5 @@ build/*
 node_modules
 
 mocha.json
+
+esdoc

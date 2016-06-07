@@ -3,8 +3,10 @@
 import Arrays from "libs/util/Arrays";
 import chai from "chai";
 
+/** @test {MyClass} */
 describe("Arrays.js", () => {
 
+    /** @test {MyClass#sayMyName} */
     it("remove", () => {
         let array = ["a", "b", "c"];
         let removeExpected = ["b", "c"];

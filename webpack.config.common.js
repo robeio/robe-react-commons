@@ -86,18 +86,17 @@ module.exports = {
                  * npm install react-hot-loader --save-dev
                  */
                 test: /\.js?$|\.jsx?$/,
-                loaders: ["react-hot"],
+                loader :"babel",
+                loaders :["react-hot","babel"],
                 exclude: /(node_modules|bower_components|fonts)/,
-                include: [paths.app, paths.lib]
-            },
-            {
-                /**
-                 * @link https://github.com/babel/babel-loader
-                 * npm install babel-loader --save-dev
-                 */
-                test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components|fonts)/,
-                loader: "babel-loader"
+                include: [paths.app, paths.lib],
+                query : {
+                    "presets": [
+                        "react",
+                        "es2015",
+                        "stage-0"
+                    ]
+                }
             },
             {
                 /**

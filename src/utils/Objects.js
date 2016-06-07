@@ -29,4 +29,4 @@ class Objects {
     }
 }
 
-module.exports = new Objects();
+export default new Objects();

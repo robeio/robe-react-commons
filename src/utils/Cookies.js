@@ -1,7 +1,17 @@
 import cookie from "react-cookie";
 
+/**
+ *
+ */
 class Cookies {
 
+    /**
+     *
+     * @param name
+     * @param value
+     * @param days
+     * @private
+     */
     __createCookie = (name, value, days) => {
         if (days) {
             var date = new Date();
@@ -11,9 +21,17 @@ class Cookies {
         else var expires = "";
         document.cookie = name + "=" + value + expires + "; path=/";
     };
+    /**
+     *
+     * @param name
+     * @private
+     */
     __eraseCookie = (name) => {
         this.__createCookie(name, "", -1);
     };
+    /**
+     *
+     */
     clearAll = () => {
         var cookies = document.cookie.split(";");
         for (var i = 0; i < cookies.length; i++) {
@@ -23,6 +41,10 @@ class Cookies {
 
     };
 
+    /**
+     *
+     * @param name
+     */
     remove = (name) => {
         cookie.remove(name, {
             "domain": window.location.hostname,
@@ -46,11 +68,23 @@ class Cookies {
         });
     };
 
+    /**
+     *
+     * @param name
+     * @param value
+     * @param options
+     */
     put = (name, value, options) => {
         cookie.save(name, value, options);
     };
 
 
+    /**
+     *
+     * @param name
+     * @param defaultVal
+     * @returns {*}
+     */
     get = (name, defaultVal) => {
         var value = cookie.load(name);
         if (value == undefined)
@@ -61,4 +95,4 @@ class Cookies {
 
 }
 
-module.exports = new Cookies();
+export default new Cookies();
