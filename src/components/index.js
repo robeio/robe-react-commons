@@ -1,1 +1,1 @@
-export {ShallowComponent} from "./ShallowComponent";
+export { ShallowComponent } from "./ShallowComponent";

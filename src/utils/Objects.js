@@ -16,7 +16,7 @@ class Objects {
      * @param {any} dest Destination object to compare the equality
      * @returns : {boolean} if the string value of the given source equals the string value of the given destination then "true" else "false"
      */
-    equals(src: any, dest: any) : boolean {
+    equals(src : Object, dest: Object) : boolean {
         return JSON.stringify(src) === JSON.stringify(dest);
     }
 
@@ -29,7 +29,7 @@ class Objects {
      * @param src the given source object
      * @returns the clonse of the given source object
      */
-    deepCopy(src) {
+    deepCopy(src : Object) : Object {
         return JSON.parse(JSON.stringify(src));
     }
 }

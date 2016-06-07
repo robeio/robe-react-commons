@@ -17,9 +17,12 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "flowtype"
     ],
     "rules": {
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "no-restricted-syntax": 0,
         "max-len": [2, 300],
         "quotes": [
             2,
@@ -67,9 +70,28 @@
                 ]
             }
         ],
+        "flowtype/require-parameter-type": 1,
+        "flowtype/require-return-type": [
+            1,
+            "always",
+            {
+                "annotateUndefined": "never"
+            }
+        ],
+        "flowtype/space-after-type-colon": [
+            1,
+            "always"
+        ],
+        "flowtype/type-id-match": [
+            1,
+            "^([A-Z][a-z0-9]+)+Type$"
+        ],
         "arrow-body-style": ["error", "always"]
     },
     "settings": {
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": false
+        },
         "import/resolver": {
             "webpack": {
                 "config": "webpack.config.common.js"
