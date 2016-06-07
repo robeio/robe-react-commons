@@ -3,8 +3,7 @@
 #### Commons library for react projects.
 
 [![Build Status](https://travis-ci.org/robeio/robe-react-commons.svg?branch=master)](https://travis-ci.org/robeio/robe-react-commons)
-
-
+[![Docs Coverage](https://doc.esdoc.org/github.com/robeio/robe-react-commons/badge.svg)](https://doc.esdoc.org/github.com/robeio/robe-react-commons/badge.svg)
 RRC = Robe-React-Commons
 
 ##### Motivation
