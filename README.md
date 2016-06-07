@@ -2,6 +2,8 @@
 
 #### Commons library for react projects.
 
+[![Build Status](https://travis-ci.org/robeio/robe-react-commons.svg?branch=master)](https://travis-ci.org/robeio/robe-react-commons)
+
 
 RRC = Robe-React-Commons
 
