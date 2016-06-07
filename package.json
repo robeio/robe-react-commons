@@ -21,6 +21,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "assertion-error": "^1.0.2",
     "babel-core": "6.8.0",
     "babel-eslint": "6.0.2",
     "babel-loader": "6.2.4",
