@@ -5,27 +5,10 @@ const path = require("path");
  * @type {{root: (string|*), node_modules: (string|*)}}
  */
 const paths = {
-    root: path.join(__dirname, "/src"), // application base path
+    app: path.join(__dirname, "/src"), // application base path
+    test: path.join(__dirname, "/__test__"),
     node_modules: path.join(__dirname, "/node_modules") // modules path
 };
-
-/**
- * application path
- * @type {string|*}
- */
-paths.app = path.join(paths.root, "/app"); // app path in base path
-
-/**
- * application lib path
- * @type {string|*}
- */
-paths.lib = path.join(paths.root, "/lib"); // library path in base path
-
-/**
- * assets path
- * @type {string|*}
- */
-paths.assets = path.join(paths.root, "/assets"); // assets path in base path
 
 /**
  * build path
@@ -52,7 +35,7 @@ module.exports = {
          * May also be an array of directories. This setting should be used to add individual directories to the search path.
          * It must be an absolute path! Don’t pass something like ./app/modules.
          */
-        root: [paths.root],
+        root: [paths.app],
         /**
          * @link https://webpack.github.io/docs/configuration.html#resolve-extensions
          * An array of extensions that should be used to resolve modules.
@@ -89,7 +72,7 @@ module.exports = {
                 loader :"babel",
                 loaders :["react-hot","babel"],
                 exclude: /(node_modules|bower_components|fonts)/,
-                include: [paths.app, paths.lib],
+                include: [paths.app,paths.test],
                 query : {
                     "presets": [
                         "react",
@@ -97,31 +80,6 @@ module.exports = {
                         "stage-0"
                     ]
                 }
-            },
-            {
-                /**
-                 * @link https://github.com/webpack/json-loader
-                 * npm install json-loader --save-dev
-                 */
-                test: /\.json$/,
-                loader: "json-loader"
-            },
-            {
-                /**
-                 * @link https://github.com/webpack/style-loader
-                 * npm install style-loader --save-dev
-                 */
-                test: /\.s?css$/,
-                loader: "style-loader!css-loader"
-            },
-            {
-                /**
-                 * @link https://github.com/webpack/file-loader
-                 * npm install file-loader --save-dev
-                 */
-                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-                loader: "file-loader",
-                include: /fonts/
             }
         ]
     },

@@ -1,5 +1,5 @@
 /**
- * A singleton class which implements mostly used array operations.
+ * @desciption A singleton class which implements mostly used array operations.
  */
 class Arrays {
 
@@ -61,7 +61,7 @@ class Arrays {
      */
     indexOfByKey(source: Array<any>, key: string, target: any): number {
         for (let i = source.length; i--;) {
-            if (source[i][key] === target[key]) {
+            if (source[i][key] === target) {
                 return i;
             }
         }
@@ -75,7 +75,7 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {any} The item. Returns "undefined" in case of no match.
      */
-    getValueByKey(source: Array<any>, key: string, target: any): any {
+    getValueByKey(source: Array<any>, key: string, target: any) : any {
         const index: number = this.indexOfByKey(source, key, target);
         return index !== -1 ? source[index] : undefined;
     }

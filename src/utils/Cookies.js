@@ -2,97 +2,103 @@ import cookie from "react-cookie";
 
 /**
  * A singleton class which implements mostly used cookie operations.
+ *  @desciption Manages the keeps cookies in the browser
+ *
  */
 class Cookies {
 
     /**
+     * @description creates new cookie by set name and value with expire day.
      *
-     * @param name
-     * @param value
-     * @param days
+     * @param name {string} describes cookie name
+     * @param value {string} describes cookie value
+     * @param days expire days
      * @private
      */
     __createCookie = (name: string, value: string, days: number) => {
+        let expires;
         if (days) {
             let date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
+            expires = `; expires=${date.toGMTString()}`;
+        } else {
+            expires = "";
         }
-        else var expires = "";
-        document.cookie = name + "=" + value + expires + "; path=/";
+        document.cookie = `${name}=${value + expires}; path=/`;
     };
     /**
+     *  @description deletes cookie by name
      *
-     * @param name
-     * @private
+     *  @param name {string} describes cookie name
+     *  @private
      */
-    __eraseCookie = (name) => {
+    __eraseCookie = (name : string) => {
         this.__createCookie(name, "", -1);
     };
+
     /**
+     *  @description deletes all cookies.
      *
+     *  @public
      */
     clearAll = () => {
-        var cookies = document.cookie.split(";");
-        for (var i = 0; i < cookies.length; i++) {
-            console.log(cookies[i]);
+        let cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
             this.__eraseCookie(cookies[i].split("=")[0]);
         }
-
     };
 
     /**
+     * @description remove cookie by name.
      *
-     * @param name
+     * @param name {string} describes cookie name
+     * @private
      */
-    remove = (name) => {
+    remove = (name : string) => {
         cookie.remove(name, {
-            "domain": window.location.hostname,
-            "path": "/"
+            domain: window.location.hostname,
+            path: "/"
         });
         cookie.remove(name, {
-            "domain": "." + window.location.hostname,
-            "path": "/"
+            domain: `.${window.location.hostname}`,
+            path: "/"
         });
-
-        var path = window.location.pathname;
+        let path = window.location.pathname;
         path = path.substring(0, path.length - 1);
-        console.log(name, window.location.hostname, path);
         cookie.remove(name, {
-            "domain": window.location.hostname,
-            "path": path
+            domain: window.location.hostname,
+            path
         });
         cookie.remove(name, {
-            "domain": "." + window.location.hostname,
-            "path": path
+            domain: `.${window.location.hostname}`,
+            path
         });
     };
 
     /**
+     * @description puts new param by set name and value .
      *
-     * @param name
-     * @param value
-     * @param options
+     * @param name {string} describes cookie name
+     * @param value {any} describes cookie value
+     * @param options {Object} describes cookie options
      */
-    put = (name, value, options) => {
+    put = (name : string, value : any, options : Object) => {
         cookie.save(name, value, options);
     };
 
-
     /**
+     * @description get value by name. Returns default value if parameter is not exist .
      *
-     * @param name
-     * @param defaultVal
-     * @returns {*}
+     * @param name {string} describes cookie name
+     * @param defaultVal {any} describes cookie value
      */
-    get = (name, defaultVal) => {
-        var value = cookie.load(name);
-        if (value == undefined)
+    get = (name : string, defaultVal : any) : any => {
+        const value = cookie.load(name);
+        if (value === undefined) {
             return defaultVal;
-        return value
+        }
+        return value;
     }
-
-
 }
 
 export default new Cookies();

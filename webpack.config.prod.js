@@ -1,12 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-/**
-* @link ./file-changer.js
-* file-changer plugin for using move file from anywhere to another place and placeholder some parameters.
-* @type {ChangerPlugin|exports|module.exports}
-*/
-const Changer = require("webpack-file-changer");
-
 
 /**
  * import common webpack settings
@@ -41,41 +34,18 @@ commonSettings.plugins.push(new webpack.optimize.MinChunkSizePlugin({ minChunkSi
 
 /**
  *
- * @type {{app: *[]}}
+ * @type {{root: *[]}}
  */
 commonSettings.entry = {
-    app: [commonSettings.paths.app]
+    'robe-react-common': '../src/index.js'
 };
 
-/**
- *
- * @type {{path: (string|*), filename: string, chunkFilename: string}}
- */
-commonSettings.output = {
+commonSettings.output= {
     path: commonSettings.paths.build,
-    filename: "bundle.[hash].js",
-    chunkFilename: "[id].[hash].bundle.js"
+    filename: '[name].min.js',
+    library: 'RobeReactCommon',
+    libraryTarget: 'umd'
 };
-/**
- path: commonSettings.paths.build,
- filename: "bundle.[hash].js",
- chunkFilename: "[id].[hash].bundle.js"
- */
-commonSettings.plugins.push(new Changer({
-    move: [{
-        from: commonSettings.paths.assets,
-        to: commonSettings.paths.build
-    }
-    ],
-    change: [{
-        file: path.join(commonSettings.output.path, "index.html"),
-        parameters: {
-            "bundle.js": "bundle.[hash].js",
-            BUILD_TIME: new Date().toString(),
-            BUILD_NO: new Date().getTime()
-        }
-    }
-    ]
-}));
+
 
 module.exports = commonSettings;
