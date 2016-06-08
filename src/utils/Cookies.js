@@ -92,7 +92,7 @@ class Cookies {
      * @param name {string} describes cookie name
      * @param defaultVal {any} describes cookie value
      */
-    get = (name : string, defaultVal : any) : any => {
+    get (name : string, defaultVal : string ) : string {
         const value = cookie.load(name);
         if (value === undefined) {
             return defaultVal;

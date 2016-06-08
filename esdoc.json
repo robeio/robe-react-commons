@@ -17,6 +17,9 @@
     "type": "mocha",
     "source": "./__test__"
   },
+  "plugins": [
+    {"name": "esdoc-es7-plugin"}
+  ],
   "manual": {
     "overview": ["./manual/overview.md", "./manual/feature.md"],
     "installation": ["./manual/installation.md"],
@@ -26,8 +29,5 @@
     "faq": ["./manual/faq.md"],
     "changelog": ["./CHANGELOG.md"]
   },
-  "plugins": [
-    {"name": "esdoc-es7-plugin"}
-  ],
   "lint": true
 }
