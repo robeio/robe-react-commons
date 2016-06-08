@@ -1,7 +1,7 @@
 import cookie from "react-cookie";
 
 /**
- *
+ * A singleton class which implements mostly used cookie operations.
  */
 class Cookies {
 
@@ -12,9 +12,9 @@ class Cookies {
      * @param days
      * @private
      */
-    __createCookie = (name, value, days) => {
+    __createCookie = (name: string, value: string, days: number) => {
         if (days) {
-            var date = new Date();
+            let date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
             var expires = "; expires=" + date.toGMTString();
         }
