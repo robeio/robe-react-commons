@@ -2,20 +2,17 @@ import cookie from "react-cookie";
 
 /**
  * A singleton class which implements mostly used cookie operations.
- *  @desciption Manages the keeps cookies in the browser
- *
  */
 class Cookies {
 
     /**
-     * @description creates new cookie by set name and value with expire day.
-     *
-     * @param name {string} describes cookie name
-     * @param value {string} describes cookie value
-     * @param days expire days
+     * Creates new cookie by set name and value with expire day.
+     * @param {string} name Cookie name
+     * @param {string} value Cookie value
+     * @param {number} days Number of days to live
      * @private
      */
-    __createCookie = (name: string, value: string, days: number) => {
+    __createCookie(name: string, value: string, days: number) {
         let expires;
         if (days) {
             let date = new Date();
@@ -25,36 +22,36 @@ class Cookies {
             expires = "";
         }
         document.cookie = `${name}=${value + expires}; path=/`;
-    };
+    }
     /**
-     *  @description deletes cookie by name
+     *  Deletes cookie by name.
      *
-     *  @param name {string} describes cookie name
+     *  @param {string} name Cookie name
      *  @private
      */
-    __eraseCookie = (name : string) => {
+    __deleteCookie(name: string) {
         this.__createCookie(name, "", -1);
-    };
+    }
 
     /**
-     *  @description deletes all cookies.
+     *  Clears all the flat pathed cookies.
      *
      *  @public
      */
-    clearAll = () => {
+    clearAll() {
         let cookies = document.cookie.split(";");
         for (let i = 0; i < cookies.length; i++) {
-            this.__eraseCookie(cookies[i].split("=")[0]);
+            this.__deleteCookie(cookies[i].split("=")[0]);
         }
-    };
+    }
 
     /**
-     * @description remove cookie by name.
+     * Remove cookie by name.
      *
-     * @param name {string} describes cookie name
+     * @param {string} name Cookie name
      * @private
      */
-    remove = (name : string) => {
+    remove = (name: string) => {
         cookie.remove(name, {
             domain: window.location.hostname,
             path: "/"
@@ -76,26 +73,27 @@ class Cookies {
     };
 
     /**
-     * @description puts new param by set name and value .
+     * Put a cookie with the given name, value and options.
      *
-     * @param name {string} describes cookie name
-     * @param value {any} describes cookie value
-     * @param options {Object} describes cookie options
+     * @param {string} name Cookie name
+     * @param {any} value Cookie value
+     * @param {Object} options Cookie options
      */
-    put = (name : string, value : any, options : Object) => {
+    put = (name: string, value: any, options: Object) => {
         cookie.save(name, value, options);
     };
 
     /**
-     * @description get value by name. Returns default value if parameter is not exist .
+     * Gets the value of the cookie with the given name.
+     * Returns default value in case of no match.
      *
-     * @param name {string} describes cookie name
-     * @param defaultVal {any} describes cookie value
+     * @param {string} name Cookie name.
+     * @param defaultValue {any} Fallback value in case of no match.
      */
-    get = (name : string, defaultVal : any) : any => {
+    get = (name: string, defaultValue: any): any => {
         const value = cookie.load(name);
         if (value === undefined) {
-            return defaultVal;
+            return defaultValue;
         }
         return value;
     }
