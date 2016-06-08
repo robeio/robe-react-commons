@@ -70,6 +70,7 @@ class Cookies {
             domain: `.${window.location.hostname}`,
             path
         });
+        cookie.remove(name);
     };
 
     /**
@@ -90,7 +91,7 @@ class Cookies {
      * @param {string} name Cookie name.
      * @param defaultValue {any} Fallback value in case of no match.
      */
-    get = (name: string, defaultValue: any): any => {
+    get = (name: string, defaultValue: string): string => {
         const value = cookie.load(name);
         if (value === undefined) {
             return defaultValue;
