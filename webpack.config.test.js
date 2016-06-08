@@ -32,31 +32,35 @@ commonSettings.devtool = "eval";
 *
 *
 */
-module.exports = function(config) {
+module.exports = function configure(config) {
     config.set({
-        browsers: ['PhantomJS'],
+        browsers: ["PhantomJS"],
         singleRun: true,
-        plugins : [
-            'karma-webpack',
-            'karma-mocha',
-            'karma-phantomjs-launcher',
-            'karma-mocha-reporter',
-            'karma-bamboo-reporter'
+        plugins: [
+            "karma-webpack",
+            "karma-mocha",
+            "karma-coverage",
+            "karma-phantomjs-launcher",
+            "karma-mocha-reporter",
+            "karma-bamboo-reporter"
         ],
-        frameworks: ['mocha'],
+        frameworks: ["mocha"],
 
         files: [
-            '__test__/**/*.spec.js'
+            "__test__/**/*.spec.js"
         ],
         preprocessors: {
-            '__test__/**/*.spec.js': ['webpack']
+            "__test__/**/*.spec.js": ["webpack", "coverage"]
         },
-        reporters: ['mocha','bamboo'],
+        reporters: ["mocha", "bamboo", "coverage"],
 
-        webpack:commonSettings,
+        webpack: commonSettings,
         webpackServer: {
             noInfo: true
-        }
+        },
+        coverageReporter: {
+            reporters: [{ type: "lcov" }]
+        },
     });
 };
 
