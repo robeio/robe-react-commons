@@ -1,5 +1,5 @@
 /**
- * A singleton class which implements mostly used array operations.
+ * @desciption A singleton class which implements mostly used array operations.
  */
 class Arrays {
 

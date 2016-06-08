@@ -1,14 +1,17 @@
 import cookie from "react-cookie";
 
 /**
+ *  @desciption Manages the keeps cookies in the browser
  *
  */
 class Cookies {
 
     /**
-     * @param name
-     * @param value
-     * @param days
+     * @description creates new cookie by set name and value with expire day.
+     *
+     * @param name {string} describes cookie name
+     * @param value {string} describes cookie value
+     * @param days expire days
      * @private
      */
     __createCookie = (name : string, value : string, days : number) => {
@@ -23,15 +26,19 @@ class Cookies {
         document.cookie = `${name}=${value + expires}; path=/`;
     };
     /**
+     *  @description deletes cookie by name
      *
-     * @param name
-     * @private
+     *  @param name {string} describes cookie name
+     *  @private
      */
     __eraseCookie = (name : string) => {
         this.__createCookie(name, "", -1);
     };
+
     /**
+     *  @description deletes all cookies.
      *
+     *  @public
      */
     clearAll = () => {
         let cookies = document.cookie.split(";");
@@ -41,8 +48,10 @@ class Cookies {
     };
 
     /**
+     * @description remove cookie by name.
      *
-     * @param name
+     * @param name {string} describes cookie name
+     * @private
      */
     remove = (name : string) => {
         cookie.remove(name, {
@@ -66,21 +75,21 @@ class Cookies {
     };
 
     /**
+     * @description puts new param by set name and value .
      *
-     * @param name
-     * @param value
-     * @param options
+     * @param name {string} describes cookie name
+     * @param value {any} describes cookie value
+     * @param options {Object} describes cookie options
      */
     put = (name : string, value : any, options : Object) => {
         cookie.save(name, value, options);
-    }
-
+    };
 
     /**
+     * @description get value by name. Returns default value if parameter is not exist .
      *
-     * @param name
-     * @param defaultVal
-     * @returns {*}
+     * @param name {string} describes cookie name
+     * @param defaultVal {any} describes cookie value
      */
     get = (name : string, defaultVal : any) : any => {
         const value = cookie.load(name);
