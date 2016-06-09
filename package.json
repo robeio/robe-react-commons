@@ -8,8 +8,9 @@
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
     "start": "webpack --config webpack.config.dev.js --progress --colors --watch",
+    "dev": "webpack --config webpack.config.dev.js  --progress --profile --colors",
     "prod": "webpack --config webpack.config.prod.js  --progress --profile --colors",
-    "build": "babel ./src --out-dir ./dist"
+    "lib": "babel ./src --out-dir ./lib"
   },
   "keywords": [
     "react",
