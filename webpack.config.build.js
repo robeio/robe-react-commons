@@ -39,6 +39,15 @@ commonSettings.entry = {
     "robe-react-commons": "../src/index.js"
 };
 
+/**
+ * @link https://webpack.github.io/docs/configuration.html#devtool
+ * Choose a developer tool to enhance debugging.
+ * source-map - A SourceMap is emitted. See also output.sourceMapFilename.
+ * @type {string}
+ */
+commonSettings.devtool = "source-map";
+
+
 commonSettings.output = {
     path: commonSettings.paths.dist,
     filename: "[name].min.js",
