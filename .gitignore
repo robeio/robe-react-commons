@@ -35,6 +35,5 @@ node_modules
 mocha.json
 
 esdoc
-
 dist
-build
+lib
