@@ -1,4 +1,3 @@
-const path = require("path");
 const webpack = require("webpack");
 
 /**
@@ -37,14 +36,14 @@ commonSettings.plugins.push(new webpack.optimize.MinChunkSizePlugin({ minChunkSi
  * @type {{root: *[]}}
  */
 commonSettings.entry = {
-    'robe-react-common': '../src/index.js'
+    "robe-react-commons": "../src/index.js"
 };
 
-commonSettings.output= {
+commonSettings.output = {
     path: commonSettings.paths.build,
-    filename: '[name].min.js',
-    library: 'RobeReactCommon',
-    libraryTarget: 'umd'
+    filename: "[name].min.js",
+    library: "RobeReactCommon",
+    libraryTarget: "umd"
 };
 
 

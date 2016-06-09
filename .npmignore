@@ -46,3 +46,4 @@ manual
 .npmignore
 .travis.yml
 esdoc.json
+src

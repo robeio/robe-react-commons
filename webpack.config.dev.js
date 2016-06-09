@@ -1,4 +1,3 @@
-"use strict";
 /**
  * import common webpack settings
  */
@@ -33,7 +32,7 @@ commonSettings.devtool = "source-map";
  * added eslint-loader plugin for check the syntax of code by rules
  */
 
-commonSettings.module.loaders.push( {
+commonSettings.module.loaders.push({
     test: /(\.jsx|\.js)$/,
     loader: "eslint-loader",
     exclude: /node_modules/
@@ -44,14 +43,14 @@ commonSettings.module.loaders.push( {
  * @type {{root: *[]}}
  */
 commonSettings.entry = {
-    'robe-react-common': '../src/index.js'
+    "robe-react-common": "../src/index.js"
 };
 
-commonSettings.output= {
+commonSettings.output = {
     path: commonSettings.paths.build,
-    filename: '[name].js',
-    library: 'RobeReactCommon',
-    libraryTarget: 'umd',
+    filename: "[name].js",
+    library: "RobeReactCommon",
+    libraryTarget: "umd",
     umdNamedDefine: true
 };
 

@@ -7,14 +7,10 @@ const path = require("path");
 const paths = {
     app: path.join(__dirname, "/src"), // application base path
     test: path.join(__dirname, "/__test__"),
-    node_modules: path.join(__dirname, "/node_modules") // modules path
+    node_modules: path.join(__dirname, "/node_modules"), // modules path,
+    build: path.join(__dirname, "/build") // build path in base path
 };
 
-/**
- * build path
- * @type {string|*}
- */
-paths.build = path.join(__dirname, "/build"); // build path in base path
 
 module.exports = {
     paths: paths, // reference path variable
@@ -69,12 +65,12 @@ module.exports = {
                  * npm install react-hot-loader --save-dev
                  */
                 test: /\.js?$|\.jsx?$/,
-                loader :"babel",
-                loaders :["react-hot","babel"],
+                loader: "babel",
+                loaders: ["react-hot", "babel"],
                 exclude: /(node_modules|bower_components|fonts)/,
-                include: [paths.app,paths.test],
-                query : {
-                    "presets": [
+                include: [paths.app, paths.test],
+                query: {
+                    presets: [
                         "react",
                         "es2015",
                         "stage-0"
