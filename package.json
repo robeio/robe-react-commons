@@ -7,9 +7,7 @@
     "test": "karma start webpack.config.test.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
-    "start": "webpack --config webpack.config.dev.js --progress --colors --watch",
-    "dev": "webpack --config webpack.config.dev.js  --progress --profile --colors",
-    "prod": "webpack --config webpack.config.prod.js  --progress --profile --colors",
+    "build": "webpack --config webpack.config.build.js  --progress --profile --colors",
     "lib": "babel ./src --out-dir ./lib"
   },
   "keywords": [
