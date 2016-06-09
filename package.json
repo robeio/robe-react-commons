@@ -1,7 +1,7 @@
 {
-  "name": "robe-react-common",
-  "version": "1.0.0",
-  "description": "Robe React Common",
+  "name": "robe-react-commons",
+  "version": "1.0.3",
+  "description": "Robe React Commons",
   "main": "index.js",
   "scripts": {
     "test": "karma start webpack.config.test.js",
