@@ -8,7 +8,8 @@ const paths = {
     app: path.join(__dirname, "/src"), // application base path
     test: path.join(__dirname, "/__test__"),
     node_modules: path.join(__dirname, "/node_modules"), // modules path,
-    build: path.join(__dirname, "/build") // build path in base path
+    dist: path.join(__dirname, "/dist"), // build path in base path
+    lib : path.join(__dirname, "/lib")
 };
 
 

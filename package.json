@@ -7,9 +7,8 @@
     "test": "karma start webpack.config.test.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
-    "start": "webpack --config webpack.config.dev.js --progress --colors --watch",
-    "prod": "webpack --config webpack.config.prod.js  --progress --profile --colors",
-    "build": "babel ./src --out-dir ./dist"
+    "build": "webpack --config webpack.config.build.js  --progress --profile --colors",
+    "lib": "babel ./src --out-dir ./lib"
   },
   "keywords": [
     "react",
