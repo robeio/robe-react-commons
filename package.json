@@ -2,7 +2,7 @@
   "name": "robe-react-commons",
   "version": "1.0.6",
   "description": "Robe React Commons",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "karma start webpack.config.test.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
