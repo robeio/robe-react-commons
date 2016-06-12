@@ -1,1 +1,1 @@
-export { ShallowComponent } from "./ShallowComponent";
+export { default as ShallowComponent } from "./ShallowComponent";
