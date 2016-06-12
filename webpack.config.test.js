@@ -1,4 +1,3 @@
-"use strict";
 /**
  * import common webpack settings
  */
@@ -33,12 +32,12 @@ commonSettings.debug = true;
  */
 commonSettings.devtool = "inline-source-map";
 
-commonSettings.module.preLoaders.push( { test: /.jsx?$/, loader: "eslint", exclude: /node_modules/} );
-commonSettings.module.loaders.push({ //delays coverage til after tests are run, fixing transpiled source coverage error
-        test: /\.jsx?/,
-        exclude: /(__test__|node_modules|bower_components)\//,
-        loader: "isparta"
-    }
+commonSettings.module.preLoaders.push({ test: /.jsx?$/, loader: "eslint", exclude: /node_modules/ });
+commonSettings.module.loaders.push({
+    test: /\.jsx?/,
+    exclude: /(__test__|node_modules|bower_components)\//,
+    loader: "isparta"
+}
 );
 
 // *optional* isparta options: istanbul behind isparta will use it
@@ -75,10 +74,10 @@ module.exports = function configure(config) {
         webpackServer: {
             noInfo: true
         },
-        reporters: ["mocha","coverage" ],
+        reporters: ["mocha", "coverage"],
         coverageReporter: {
-            type: "html", //produces a html document after code is run
-            dir: "coverage/" //path to created html doc
+            type: "html",
+            dir: "coverage/"
         }
     });
 };

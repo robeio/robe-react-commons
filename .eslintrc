@@ -22,6 +22,7 @@
         "flowtype"
     ],
     "rules": {
+        "object-shorthand": ["warn", "always", { "ignoreConstructors": true }],
         "linebreak-style": [
             "error",
             "unix"
