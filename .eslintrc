@@ -22,7 +22,7 @@
         "flowtype"
     ],
     "rules": {
-        "object-shorthand": ["warn", "always", { "ignoreConstructors": true }],
+        "object-shorthand": ["off", "always", { "ignoreConstructors": true }],
         "linebreak-style": [
             "error",
             "unix"

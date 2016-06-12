@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -43,6 +43,7 @@
     "eslint-plugin-react": "5.1.1",
     "file-loader": "0.8.5",
     "isparta-loader": "2.0.0",
+    "jajax": "git+https://github.com/kbukum/jajax.git",
     "karma": "0.13.22",
     "karma-bamboo-reporter": "0.1.2",
     "karma-chai": "0.1.0",
@@ -63,6 +64,8 @@
     "react": "15.0.2",
     "react-addons-shallow-compare": "15.0.2",
     "react-cookie": "0.4.6",
-    "react-dom": "15.0.2"
+    "react-dom": "15.0.2",
+    "is-js": "0.1.1",
+    "jajax": "git+https://github.com/kbukum/jajax.git"
   }
 }
