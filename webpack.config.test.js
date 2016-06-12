@@ -41,7 +41,6 @@ commonSettings.module.loaders.push({ //delays coverage til after tests are run, 
     }
 );
 
-
 // *optional* isparta options: istanbul behind isparta will use it
 commonSettings.isparta = {
     embedSource: true,
