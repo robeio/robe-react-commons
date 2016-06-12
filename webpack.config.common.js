@@ -77,6 +77,23 @@ module.exports = {
                         "stage-0"
                     ]
                 }
+            },
+            {
+                /**
+                 * @link https://github.com/webpack/json-loader
+                 * npm install json-loader --save-dev
+                 */
+                test: /\.json$/,
+                loader: "json-loader"
+            },
+            {
+                /**
+                 * @link https://github.com/webpack/file-loader
+                 * npm install file-loader --save-dev
+                 */
+                test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+                loader: "file-loader",
+                include: /fonts/
             }
         ]
     },
