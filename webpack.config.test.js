@@ -47,7 +47,7 @@ commonSettings.isparta = {
     noAutoWrap: true,
     // these babel options will be passed only to isparta and not to babel-loader
     babel: {
-        presets: ['es2015', 'stage-0', 'react']
+        presets: ["es2015", "stage-0", "react"]
     }
 };
 
