@@ -1,4 +1,4 @@
-export { Arrays } from "./Arrays";
-export { Objects } from "./Objects";
-export { Maps } from "./Maps";
-export { Cookies } from "./Cookies";
+export { default as Arrays } from "./Arrays";
+export { default as Objects } from "./Objects";
+export { default as Maps } from "./Maps";
+export { default as Cookies } from "./Cookies";
