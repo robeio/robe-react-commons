@@ -1,7 +1,5 @@
 import jajax from "jajax";
-import Objects from "utils/Objects";
-import Maps from "utils/Maps";
-import DataWrapper from "utils/DataWrapper";
+import { Objects, Maps, DataWrapper } from "../utils";
 
 export default class BaseStore {
 
