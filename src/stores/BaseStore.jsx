@@ -1,5 +1,5 @@
 import jajax from "jajax";
-import { Objects, Maps, DataWrapper } from "../utils";
+import { Objects, Maps, DataWrapper, Validations } from "../utils";
 
 export default class BaseStore {
 
@@ -48,11 +48,13 @@ export default class BaseStore {
 
     constructor(params) {
         if (params) {
+            if (!params.url) {
+                throw new Error(`params.url${params.url}`);
+            }
             // Set base url
-            if (BaseStore.baseURLPrefix) {
+            if (!Validations.isUrl(params.url) && BaseStore.baseURLPrefix) {
                 params.url = BaseStore.baseURLPrefix + params.url;
             }
-
             if (params.url) {
                 this._create.url = params.url;
                 this._read.url = params.url;
