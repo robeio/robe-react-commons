@@ -1,10 +1,8 @@
 import jajax from "jajax";
 import { Objects, Maps, DataWrapper, Validations } from "../utils";
+import Application from "application/Application";
 
 export default class BaseStore {
-
-    static baseURLPrefix = "";
-
     // Ajax request properties
     _create = {
         type: "POST",
@@ -52,8 +50,8 @@ export default class BaseStore {
                 throw new Error(`params.url${params.url}`);
             }
             // Set base url
-            if (!Validations.isUrl(params.url) && BaseStore.baseURLPrefix) {
-                params.url = BaseStore.baseURLPrefix + params.url;
+            if (!Validations.isUrl(params.url) && Application.getBaseUrlPath()) {
+                params.url = Application.getBaseUrlPath() + params.url;
             }
             if (params.url) {
                 this._create.url = params.url;
@@ -87,6 +85,7 @@ export default class BaseStore {
                 this.__idField = params.idField;
             }
         }
+        this.baseUrlPrefix = Application.getProps().get("")
     }
 
     registerAndRead = (id, component, key) => {
