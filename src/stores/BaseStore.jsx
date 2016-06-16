@@ -49,6 +49,10 @@ export default class BaseStore {
     constructor(params) {
         if (params) {
             // Set base url
+            if (BaseStore.baseURLPrefix) {
+                params.url = BaseStore.baseURLPrefix + params.url;
+            }
+
             if (params.url) {
                 this._create.url = params.url;
                 this._read.url = params.url;
