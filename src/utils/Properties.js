@@ -42,4 +42,3 @@ export default class Properties {
         return true;
     }
 }
-
