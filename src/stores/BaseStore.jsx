@@ -3,7 +3,7 @@ import { Objects, Maps, DataWrapper } from "../utils";
 
 export default class BaseStore {
 
-    static baseURLPrefix;
+    static baseURLPrefix = "";
 
     // Ajax request properties
     _create = {
@@ -139,7 +139,7 @@ export default class BaseStore {
             }
 
             if (_query) {
-                if (_offset || _limit || hasFilter !== -1) {
+                if (_offset || _limit || hasFilter != -1) {
                     url += (`&_q=${_offset}`);
                 } else {
                     url += (`?_q=${_offset}`);
@@ -175,7 +175,9 @@ export default class BaseStore {
             }
             return this.__ajaxRead();
         }
+        return this.__ajaxRead();
     }
+
 
     create = (item:Map, callback) => {
         if (this.__ajax) {
@@ -311,7 +313,7 @@ export default class BaseStore {
             data: JSON.stringify(item)
         };
         Maps.merge(this._update, props);
-        props.url = `${props.url}/${item[this.__idField]}`;
+        props.url = `${BaseStore.baseURLPrefix}"/"${item[this.__idField]}`;
         jajax.ajax(props);
     }
 
