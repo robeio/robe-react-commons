@@ -22,10 +22,11 @@ class Assertions {
     }
 
     /**
-     * Removes the given item from the given array.
-     * @param {Array} source Source array for the remove operation. *This array will be modified at the end of the operation.*
-     * @param {any} target Target to match.
-     * @returns {boolean} "true": target removed , "false": target not found.
+     * Checks if the string is a valid URL.
+     * @param {String} url string to check.
+     * @param {boolean} error defines the return type of method. If it is true it will throw in case of error , else it will return false.
+     * @returns {boolean} "true": is url , "false": is not url.
+     * @throws exception if error is true and url provided is not valid.
      */
     isUrl(url: String, error: boolean): boolean {
         if (!this.urlPattern.test(url)) {
@@ -38,9 +39,11 @@ class Assertions {
     }
 
     /**
-     * Check is Empty or not
-     * @param arg
-     * @returns {*|{name, pass}|boolean}
+     * Checks is Empty or not
+     * @param {any} object to check
+     * @param {boolean} error defines the return type of method. If it is true it will throw in case of error , else it will return false.
+     * @returns {boolean} "true": is not empty , "false": is empty.
+     * @throws exception if error is true and object provided is  empty.
      */
     isNotEmpty(arg: any, error: boolean): boolean {
         if (IsJS.empty(arg)) {
@@ -52,6 +55,14 @@ class Assertions {
         return true;
     }
 
+
+    /**
+     * Checks is not undefined
+     * @param {any} object to check
+     * @param {boolean} error defines the return type of method. If it is true it will throw in case of error , else it will return false.
+     * @returns {boolean} "true": is not undefined , "false": is undefined.
+     * @throws exception if error is true and object provided is  undefined.
+     */
     isNotUndefined(arg: any, error: boolean): boolean {
         if (arg === undefined) {
             if (error) {
