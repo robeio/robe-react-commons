@@ -123,7 +123,7 @@ class Arrays {
     extractItemArray(source: Array<any>, key: string, target: any): Array<any> {
         let newArray = [];
         for (let i = 0; i < source.length; i++) {
-            if (source[i][key] !== target) {
+            if (source[i][key] === target) {
                 newArray.push(source[i]);
             }
         }
