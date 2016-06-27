@@ -76,8 +76,11 @@ module.exports = function configure(config) {
         },
         reporters: ["mocha", "coverage"],
         coverageReporter: {
-            type: "html",
-            dir: "coverage/"
+            // specify a common output directory
+            dir: 'coverage',
+            reporters: [
+                { type: 'lcov', subdir: 'report-lcov' }
+            ]
         }
     });
 };
