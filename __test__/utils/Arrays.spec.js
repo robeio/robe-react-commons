@@ -47,7 +47,11 @@ describe("Arrays.js", () => {
         chai.assert.deepEqual(result, removeExpected);
         chai.assert.equal(Arrays.getValueByKey(array, "id", 3), undefined);
     });
-
+    it("isExistByKey", () => {
+        let array = [{ id: 1, name: "a" }, { id: 2, name: "b" }];
+        chai.assert.equal(Arrays.isExistByKey(array, "id", { id: 1, name: "a" }), true);
+        chai.assert.equal(Arrays.isExistByKey(array, "id", { id: 3, name: "a" }), false);
+    });
 
     it("extractArray", () => {
         let array = [
@@ -67,7 +71,7 @@ describe("Arrays.js", () => {
         let expectedKeyArray = [
             { key: "a", value: "a1" },
             { key: "a", value: "b1" }];
-        let valueArray = Arrays.extractItemArray(array, "key","a");
+        let valueArray = Arrays.extractItemArray(array, "key", "a");
         chai.assert.deepEqual(valueArray, expectedKeyArray);
     });
 });
