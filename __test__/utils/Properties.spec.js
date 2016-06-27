@@ -1,11 +1,11 @@
-import Property from "utils/Properties";
+import Properties from "utils/Properties";
 import chai from "chai";
 
 const should = chai.should();
 const assert = chai.assert;
 
-describe("Property.js", () => {
-    let prop = new Property();
+describe("Properties.js", () => {
+    let prop = new Properties();
 
     it("get(key: string) : any", () => {
         let expected = {
@@ -20,5 +20,13 @@ describe("Property.js", () => {
         assert.equal(prop.get("UserCount"), expected.UserCount);
         let element = prop.get("Unknown");
         should.equal(element, undefined);
+    });
+    it("remove", () => {
+
+        prop.set("FrameworkName", "value1");
+
+        assert.equal(prop.get("FrameworkName"), "value1");
+        assert.equal(prop.remove("FrameworkName"), true);
+        assert.equal(prop.remove("FrameworkName"), false);
     });
 });
