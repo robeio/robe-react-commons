@@ -2,6 +2,10 @@ import Cookies from "utils/Cookies";
 import chai from "chai";
 
 describe("Cookies.js", () => {
+    it("__createCookie", () => {
+        Cookies.__createCookie("__createCookie", 2);
+        chai.assert.strictEqual(Cookies.get("__createCookie", 1), 2);
+    });
     it("get&put", () => {
         chai.assert.strictEqual(Cookies.get("get", 1), 1);
         Cookies.put("get", 2);
