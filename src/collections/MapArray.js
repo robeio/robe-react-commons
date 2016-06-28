@@ -83,8 +83,8 @@ class MapArray {
     * @param {Object} newItem to put
     * @return {boolean} "true" item replaced / "false" oldItem does not exists.
     */
-    replace = (oldItem: Object, newItem: Object) => {
-        let result = this.__findById(this.__getId(oldItem), (parent: Object, index: number) => {
+    replace = (oldItem: Object, newItem: Object): boolean => {
+        let result = this.__findById(this.__getId(oldItem), (parent: Object, index: number): Object => {
             delete parent[index];
             parent[index] = newItem;
             return newItem;
@@ -98,8 +98,8 @@ class MapArray {
     * @param {Object} item to remove
     * @return {boolean} "true" item removes / "false" item does not exists.
     */
-    remove = (item: Object) => {
-        let result = this.__findById(this.__getId(item), (parent: Object, index: number) => {
+    remove = (item: Object): boolean => {
+        let result = this.__findById(this.__getId(item), (parent: Object, index: number): Object => {
             delete parent[index];
             parent = parent.splice(index, 1);
             return true;
@@ -123,7 +123,7 @@ class MapArray {
      * @param {fn} callback function to call at the match.
      * @return {any} result of the callback
      */
-    __findById = (id: Object, cb): Object => {
+    __findById = (id: Object, cb: Function): Object => {
         let i = this.__data.length;
         while (i--) {
             if (this.__getId(this.__data[i]) === id) {
@@ -136,7 +136,7 @@ class MapArray {
     };
 
 
-    __returnIdCallBack = (parent: Object, index: number) => {
+    __returnIdCallBack = (parent: Object, index: number): Object => {
         return parent[index];
     };
 
