@@ -1,4 +1,4 @@
-import Properties from "application/Properties";
+import Properties from "./Properties";
 /**
  * A singleton class which hold all application general informations.
  */
