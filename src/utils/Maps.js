@@ -37,7 +37,7 @@ class Maps {
      * @param src
      * @param dest
      */
-    merge(src : Object, dest : Object) {
+    merge(src : Object, dest : Object): Object {
         for (const key in src) {
             if (src.hasOwnProperty(key)) {
                 if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {

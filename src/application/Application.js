@@ -1,4 +1,5 @@
 import Properties from "./Properties";
+import Assertions from "../utils/Assertions";
 /**
  * A singleton class which hold all application general informations.
  */

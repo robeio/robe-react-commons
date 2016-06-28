@@ -10,12 +10,12 @@ export default class ShallowComponent extends React.Component {
     static componentCount = 0;
     __objectId;
 
-    constructor(props) {
+    constructor(props: Object) {
         super(props);
         this.__objectId = ShallowComponent.componentCount++;
     }
 
-    getObjectId = () => {
+    getObjectId = (): number => {
         return this.__objectId;
     }
 
@@ -26,7 +26,7 @@ export default class ShallowComponent extends React.Component {
         return shallowCompare(this, nextProps, nextState);
     }
 
-    getName = () => {
+    getName = (): string => {
         return this.constructor.name;
     }
 }
