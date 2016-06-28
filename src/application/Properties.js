@@ -1,4 +1,4 @@
-import Assertions from "utils/Assertions";
+import Assertions from "../utils/Assertions";
 /**
  * A singleton class which hold all application general informations.
  */
