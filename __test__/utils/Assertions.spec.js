@@ -1,10 +1,8 @@
 import Assertions from "utils/Assertions";
 import chai from "chai";
 
-/** @test {Validations} */
-
 describe("utils/Assertions", () => {
-    it("isUrl(url: string)", () => {
+    it("isUrl", () => {
         let url = "https://github.com/robeio/robe";
         chai.assert.equal(Assertions.isUrl(url), true);
 
@@ -13,17 +11,15 @@ describe("utils/Assertions", () => {
 
         let result = false;
         try {
-            chai.assert.equal(Assertions.isUrl(url,true), false);
+            chai.assert.equal(Assertions.isUrl(url, true), false);
             result = false;
         } catch (e) {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
-
     });
 
-
-    it("isNotEmpty(arg: any, error: boolean): boolean", () => {
+    it("isNotEmpty", () => {
         let value = { a: "1" };
         chai.assert.equal(Assertions.isNotEmpty(value), true);
 
@@ -32,16 +28,15 @@ describe("utils/Assertions", () => {
 
         let result = false;
         try {
-            chai.assert.equal(Assertions.isNotEmpty(value,true), false);
+            chai.assert.equal(Assertions.isNotEmpty(value, true), false);
             result = false;
         } catch (e) {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
-
     });
-    
-    it("isNotUndefined(arg: any, error: boolean): boolean", () => {
+
+    it("isNotUndefined", () => {
         let value = { a: "1" };
         chai.assert.equal(Assertions.isNotUndefined(value), true);
 
@@ -50,12 +45,11 @@ describe("utils/Assertions", () => {
 
         let result = false;
         try {
-            chai.assert.equal(Assertions.isNotUndefined(value,true), false);
+            chai.assert.equal(Assertions.isNotUndefined(value, true), false);
             result = false;
         } catch (e) {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
-
     });
 });

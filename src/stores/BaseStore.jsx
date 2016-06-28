@@ -85,7 +85,7 @@ export default class BaseStore {
                 this.__idField = params.idField;
             }
         }
-        this.baseUrlPrefix = Application.getProps().get("")
+        this.baseUrlPrefix = Application.getProps().get("");
     }
 
     registerAndRead = (id, component, key) => {
@@ -100,8 +100,7 @@ export default class BaseStore {
     getUrl = () => {
         return this._read.url;
     };
-    // unRegister = (id, component, key) => {
-    unRegister = (id, component, key) => {
+    unRegister = (id) => {
         for (let i = this._registeredComponents.length; i--;) {
             if (this._registeredComponents[i].id === id) {
                 this._registeredComponents.splice(i, 1);
@@ -144,7 +143,7 @@ export default class BaseStore {
             }
 
             if (_query) {
-                if (_offset || _limit || hasFilter != -1) {
+                if (_offset || _limit || hasFilter !== -1) {
                     url += (`&_q=${_offset}`);
                 } else {
                     url += (`?_q=${_offset}`);

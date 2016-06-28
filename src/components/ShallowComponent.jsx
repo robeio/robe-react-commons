@@ -7,14 +7,14 @@ import shallowCompare from "react-addons-shallow-compare";
  */
 export default class ShallowComponent extends React.Component {
 
-    constructor(props) {
+    constructor(props: any) {
         super(props);
     }
 
-    render() : string {
+    render(): string {
         return this.props.children;
     }
-    shouldComponentUpdate(nextProps : Object, nextState : Object) : boolean {
+    shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
         return shallowCompare(this, nextProps, nextState);
     }
 }

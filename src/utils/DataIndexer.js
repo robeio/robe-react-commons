@@ -4,7 +4,7 @@ import is from "is-js";
 /**
  * This is a wrapper class for all kind of data. Basic it wraps the data and generates an ID index for all sub data
  */
-class DataWrapper {
+class DataIndexer {
     __data;
 
     // An array which holds pairs for hashes of objects. Pair contains two elements , 1st is path to object 2nd is hash of object
@@ -113,4 +113,4 @@ class DataWrapper {
 
 }
 
-export default DataWrapper;
+export default DataIndexer;

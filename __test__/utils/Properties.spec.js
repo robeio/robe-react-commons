@@ -22,7 +22,6 @@ describe("Properties.js", () => {
         should.equal(element, undefined);
     });
     it("remove", () => {
-
         prop.set("FrameworkName", "value1");
 
         assert.equal(prop.get("FrameworkName"), "value1");

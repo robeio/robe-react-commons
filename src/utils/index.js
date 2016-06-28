@@ -5,4 +5,4 @@ export { default as Maps } from "./Maps";
 export { default as Cookies } from "./Cookies";
 export { default as Assertions } from "./Assertions";
 export { default as RequestUtils } from "./RequestUtils";
-export { default as DataWrapper } from "./DataWrapper";
+export { default as DataIndexer } from "./DataIndexer";

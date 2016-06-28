@@ -6,4 +6,6 @@ export { default as Maps } from "./utils/Maps";
 export { default as Cookies } from "./utils/Cookies";
 export { default as Assertions } from "./utils/Assertions";
 export { default as RequestUtils } from "./utils/RequestUtils";
-export { default as DataWrapper } from "./utils/DataWrapper";
+export { default as DataIndexer } from "./utils/DataIndexer";
+
+export { default as MapArray } from "./collections/MapArray";

@@ -2,7 +2,13 @@ import jajax from "jajax";
 
 class RequestUtils {
 
-    makeRequest(path: string, type: string, data: Object, complete: Function, success: Function, error: Function, async: Function) {
+    makeRequest(
+        path: string,
+        type: string,
+        data: Object,
+        complete: Function,
+        success: Function,
+        error: Function, async: Function) {
         if (async === undefined) {
             async = true;
         }
