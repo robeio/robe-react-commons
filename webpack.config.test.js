@@ -81,6 +81,11 @@ module.exports = function configure(config) {
             reporters: [
                 { type: 'lcov', subdir: 'report-lcov' }
             ]
+        },
+        client: {
+            mocha: {
+                timeout: 15000
+            }
         }
     });
 };
