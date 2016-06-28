@@ -1,4 +1,4 @@
-import Objects from "utils/Objects";
+import Objects from "../utils/Objects";
 import is from "is-js";
 
 /**
