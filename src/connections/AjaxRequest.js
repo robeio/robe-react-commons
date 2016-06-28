@@ -1,5 +1,5 @@
 import jajax from "jajax";
-import Maps from "utils/Maps";
+import Maps from "../utils/Maps";
 
 export default class AjaxRequest {
 
@@ -15,9 +15,7 @@ export default class AjaxRequest {
         async: true,
         crossDomain: true
     };
-    authCheckUrl
-
-
+    
     constructor(props: Object) {
         Maps.merge(props, this.__props);
     }
