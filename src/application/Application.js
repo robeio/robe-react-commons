@@ -4,15 +4,29 @@ import Properties from "application/Properties";
  */
 class Application {
 
-    constructor() {
-        this.props = new Properties();
+    _baseUrlPathKey = "BASE_URL_PROPERTY";
+
+    constructor(props) {
+        this.props = (props !== null && props !== undefined) ? props : new Properties();
+        console.log(this.props);
     }
 
     getProps = (): Properties => {
         return this.props;
     }
-    getBaseUrlPath(): string {
-        return this.props.get("BASE_URL_PROPERTY");
+
+    setBaseUrlPath = (value): boolean => {
+        Assertions.isUrl(value, true);
+        value = value.trim();
+        if (value.endsWith("/")) {
+            value = `${value}/`;
+        }
+        this.props.set(this._baseUrlPathKey, value);
+    }
+
+    getBaseUrlPath = () : any => {
+        console.log(this.getProps());
+        return this.getProps().get(this._baseUrlPathKey);
     }
 }
 
