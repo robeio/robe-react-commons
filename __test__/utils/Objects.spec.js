@@ -1,17 +1,15 @@
 import Objects from "utils/Objects";
 import chai from "chai";
 
-/** @test {ClassDocBuilder} */
-
-describe("utils/Objects", () => {
-    it("equals(src: any, dest: any)", () => {
+describe("Objects.js", () => {
+    it("equals", () => {
         let map1 = { key: "a", value: "a1" };
         let map2 = { key: "a", value: "a1" };
         let map3 = { key: "a", value: "a2" };
         chai.assert.equal(Objects.equals(map1, map2), true);
         chai.assert.equal(Objects.equals(map1, map3), false);
     });
-    it("deepCopy(src : any)", () => {
+    it("deepCopy", () => {
         let map1 = { key: "a", value: "a1" };
         let map2 = Objects.deepCopy(map1);
         chai.assert.deepEqual(map1, map2);

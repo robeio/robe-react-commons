@@ -1,4 +1,4 @@
-import Properties from "utils/Properties";
+import Properties from "application/Properties";
 import chai from "chai";
 
 const should = chai.should();
@@ -7,7 +7,7 @@ const assert = chai.assert;
 describe("Properties.js", () => {
     let prop = new Properties();
 
-    it("get(key: string) : any", () => {
+    it("get", () => {
         let expected = {
             FrameworkName: "value1",
             UserCount: 0

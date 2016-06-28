@@ -1,13 +1,15 @@
-import Objects from "./Objects";
+import Objects from "utils/Objects";
 import is from "is-js";
 
 /**
- * This is a wrapper class for all kind of data. Basic it wraps the data and generates an ID index for all sub data
+ * This is a wrapper class for large data sets. It creates a fast linear index for object ids. Basic it wraps the data and generates an ID index for all sub data
  */
-class DataIndexer {
+class IndexedWrapper {
     __data;
 
-    // An array which holds pairs for hashes of objects. Pair contains two elements , 1st is path to object 2nd is hash of object
+    /*
+    * An array which holds pairs for hashes of objects. Pair contains two elements , 1st is path to object 2nd is hash of object
+    */
     __idTree = [];
     __idField = "oid";
 
@@ -113,4 +115,4 @@ class DataIndexer {
 
 }
 
-export default DataIndexer;
+export default IndexedWrapper;
