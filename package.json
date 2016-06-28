@@ -4,7 +4,7 @@
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
-    "test": "eslint src/**/*.js,src/**/*.jsx --fix&&eslint src/**/*.js --fix&&karma start webpack.config.test.js",
+    "test": "karma start webpack.config.test.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
     "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib "
