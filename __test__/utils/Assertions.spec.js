@@ -52,4 +52,30 @@ describe("utils/Assertions", () => {
         }
         chai.assert.isOk(result, "Exception expected.");
     });
+
+    it("isObject", () => {
+        let value = { a: "1" };
+        chai.assert.equal(Assertions.isObject(value), true);
+
+        value = undefined;
+        chai.assert.equal(Assertions.isObject(value), false);
+
+        value = "blabla";
+        chai.assert.equal(Assertions.isObject(value), false);
+
+        value = 3;
+        chai.assert.equal(Assertions.isObject(value), false);
+
+        value = 3;
+        chai.assert.equal(Assertions.isObject(value), false);
+
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isObject(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
 });

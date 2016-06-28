@@ -20,9 +20,17 @@ describe("Maps.js", () => {
     });
 
     it("merge", () => {
-        let src = { key: "a" };
-        let dest = { value: "a1" };
-        let expectedMap = { key: "a", value: "a1" };
+        let src = {
+            a: {
+                aa: "aa"
+            }
+        };
+        let dest = {
+            a: {
+                bb: "bb"
+            }
+        };
+        let expectedMap = { a: { aa: "aa", bb: "bb" } };
         Maps.merge(src, dest);
         chai.assert.deepEqual(dest, expectedMap);
     });

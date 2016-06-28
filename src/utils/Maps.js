@@ -1,3 +1,4 @@
+import Assertions from "./Assertions";
 /**
  * Maps { Object } Utility
  */
@@ -32,16 +33,21 @@ class Maps {
     }
 
     /**
-     *
+     * mixin src to the destination and return
      * @param src
      * @param dest
      */
     merge(src : Object, dest : Object) {
         for (const key in src) {
             if (src.hasOwnProperty(key)) {
-                dest[key] = src[key];
+                if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
+                    dest[key] = this.merge(src[key], dest[key]);
+                } else {
+                    dest[key] = src[key];
+                }
             }
         }
+        return dest;
     }
 
     /**

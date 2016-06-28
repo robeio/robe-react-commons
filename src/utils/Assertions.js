@@ -5,6 +5,7 @@ import IsJS from "is-js";
 
 class Assertions {
 
+    __checkerObject = {};
     /**
      * url pattern explaining
      * "^(https?:\/\/)?"+ // protocol
@@ -73,6 +74,60 @@ class Assertions {
         return true;
     }
 
+    /**
+     * Checks the func is Function
+     * @param func
+     * @param error
+     * @returns {boolean}
+     */
+    isFunction = (func: Function, error: boolean) => {
+        if (this.isNotUndefined(func, error)) {
+            let isFunc = this.__checkerObject.toString.call(func) === "[object Function]";
+            if (!isFunc) {
+                if (error) {
+                    throw new Error("Given func is not a function !");
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks func is not Anonymous function ( if function has no name then it is anonymous)
+     * @param func
+     * @param error
+     * @returns {boolean}
+     */
+    isNotAnonymous(func: Function, error: boolean) {
+        if (this.isFunction(func, error)) {
+            if (! this.isNotUndefined(func.name)) {
+                if (error) {
+                    throw new Error("Given argument is a anonymous function !");
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks obj is Object
+     * @param obj
+     * @param error
+     * @returns {boolean}
+     */
+    isObject(obj: Object, error: boolean) {
+        if (! IsJS.object(obj)) {
+            if (error) {
+                throw new Error("Given argument is undefined !");
+            }
+            return false;
+        }
+        return true;
+    }
 }
 
 export default new Assertions();

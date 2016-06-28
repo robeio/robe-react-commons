@@ -7,8 +7,16 @@ import shallowCompare from "react-addons-shallow-compare";
  */
 export default class ShallowComponent extends React.Component {
 
-    constructor(props: any) {
+    static componentCount = 0;
+    __objectId;
+
+    constructor(props) {
         super(props);
+        this.__objectId = ShallowComponent.componentCount++;
+    }
+
+    getObjectId = () => {
+        return this.__objectId;
     }
 
     render(): string {
@@ -16,5 +24,9 @@ export default class ShallowComponent extends React.Component {
     }
     shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
         return shallowCompare(this, nextProps, nextState);
+    }
+
+    getName = () => {
+        return this.constructor.name;
     }
 }
