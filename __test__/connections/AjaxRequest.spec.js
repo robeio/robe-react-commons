@@ -19,6 +19,7 @@ describe("AjaxRequest.js", () => {
         }
         let request = new AjaxRequest(props);
         request.call(undefined, undefined, success, error);
+        request.call();
     });
     it("callError", (done: Function) => {
         let props = {
