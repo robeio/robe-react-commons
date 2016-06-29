@@ -9,7 +9,6 @@ class Application {
 
     constructor(props) {
         this.props = (props !== null && props !== undefined) ? props : new Properties();
-        console.log(this.props);
     }
 
     getProps = (): Properties => {
@@ -26,7 +25,6 @@ class Application {
     }
 
     getBaseUrlPath = () : any => {
-        console.log(this.getProps());
         return this.getProps().get(this._baseUrlPathKey);
     }
 }
