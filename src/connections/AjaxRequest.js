@@ -2,13 +2,13 @@ import jajax from "jajax";
 import Maps from "../utils/Maps";
 
 export default class AjaxRequest {
-    __url;
+    url;
 
-    __props: Object = {
+    props: Object = {
         type: "POST",
         dataType: "json",
-        error: this.__onError,
-        complete: this.__onComplete,
+        error: this.onError,
+        complete: this.onComplete,
         contentType: "application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true
@@ -18,65 +18,65 @@ export default class AjaxRequest {
     };
 
     constructor(props: Object) {
-        Maps.merge(props, this.__props);
-        this.__url = this.__props.url;
+        Maps.merge(props, this.props);
+        this.url = this.props.url;
     }
 
     call = (data: Object, queryParams: Object, complete: Function, error: Function) => {
-        this.__props.complete = complete !== undefined ? complete : this.__onComplete;
-        this.__props.error = error !== undefined ? error : this.__onError;
+        this.props.complete = complete !== undefined ? complete : this.onComplete;
+        this.props.error = error !== undefined ? error : this.onError;
         if (data !== undefined) {
-            this.__props.data = JSON.stringify(data);
+            this.props.data = JSON.stringify(data);
         } else {
-            delete this.__props.data;
+            delete this.props.data;
         }
 
         if (queryParams !== undefined) {
-            this.__props.url = this.__parseQueryParams(queryParams);
+            this.props.url = this.parseQueryParams(queryParams);
         }
 
-        jajax.ajax(this.__props);
+        jajax.ajax(this.props);
     };
 
-    __onError = (xhr: Object, errorThrown: Object) => {
-        console.error(xhr, errorThrown);
+    onError = (xhr: Object, errorThrown: Object) => {
+
     };
-    __onComplete = (xhr: Object) => {
-        console.error(xhr);
+    onComplete = (xhr: Object) => {
+
     };
 
-    __parseQueryParams = (queryParams: Object) => {
-        let { _offset, _limit, _query, _filter, _fields } = queryParams;
+    parseQueryParams = (queryParams: Object): string => {
+        let { offset, limit, query, filter, fields } = queryParams;
 
-        let url = this.__url;
-        let hasOffset = _offset !== undefined;
-        let hasLimit = _limit !== undefined;
-        let hasQuery = _query !== undefined;
-        let hasFilter = _filter !== undefined;
-        let hasFields = _fields !== undefined;
+        let url = this.url;
+        let hasOffset = offset !== undefined;
+        let hasLimit = limit !== undefined;
+        let hasQuery = query !== undefined;
+        let hasFilter = filter !== undefined;
+        let hasFields = fields !== undefined;
 
 
         if (hasOffset) {
-            url += (`${this.__getQParamPrefix(url)}_offset=${_offset}`);
+            url += (`${this.getQParamPrefix(url)}_offset=${offset}`);
         }
 
         if (hasLimit) {
-            url += (`${this.__getQParamPrefix(url)}_limit=${_limit}`);
+            url += (`${this.getQParamPrefix(url)}_limit=${limit}`);
         }
 
         if (hasQuery) {
-            url += (`${this.__getQParamPrefix(url)}_q=${_query}`);
+            url += (`${this.getQParamPrefix(url)}_q=${query}`);
         }
         if (hasFilter) {
-            url += (`${this.__getQParamPrefix(url)}_filter=${_filter}`);
+            url += (`${this.getQParamPrefix(url)}_filter=${filter}`);
         }
         if (hasFields) {
-            url += (`${this.__getQParamPrefix(url)}_fields=${_fields}`);
+            url += (`${this.getQParamPrefix(url)}_fields=${fields}`);
         }
 
         return url;
     };
-    __getQParamPrefix = (url: string) => {
+    getQParamPrefix = (url: string) => {
         let firstElement = url.indexOf("?") === -1;
         return firstElement ? "?" : "&";
     };
