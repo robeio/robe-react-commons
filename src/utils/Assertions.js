@@ -30,7 +30,6 @@ class Assertions {
      * @throws exception if error is true and url provided is not valid.
      */
     isUrl(url: String, error: boolean): boolean {
-        console.log(url, this.urlPattern.test(url));
         if (!this.urlPattern.test(url)) {
             if (error) {
                 throw new Error(`Given url is not valid ! URL :${url}`);
