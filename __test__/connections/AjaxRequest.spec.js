@@ -9,7 +9,7 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
 
-        function complete() {
+        function success() {
             chai.assert.isOk(true);
             done();
         }
@@ -18,7 +18,7 @@ describe("AjaxRequest.js", () => {
             done(xhr);
         }
         let request = new AjaxRequest(props);
-        request.call(undefined, undefined, complete, error);
+        request.call(undefined, undefined, success, error);
     });
     it("callError", (done: Function) => {
         let props = {
@@ -27,7 +27,7 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
 
-        function complete(xhr: Object) {
+        function success(xhr: Object) {
             chai.assert.isOk(false);
             done(xhr);
         }
@@ -36,7 +36,7 @@ describe("AjaxRequest.js", () => {
             done();
         }
         let request = new AjaxRequest(props);
-        request.call(undefined, undefined, complete, error);
+        request.call(undefined, undefined, success, error);
     });
     it("callVariations", (done: Function) => {
         let props = {
@@ -45,7 +45,7 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
         let request = new AjaxRequest(props);
-        function complete(xhr: Object) {
+        function success(xhr: Object) {
             chai.assert.isOk(false);
             done(xhr);
         }
@@ -53,9 +53,8 @@ describe("AjaxRequest.js", () => {
             chai.assert.isOk(true);
             done();
         }
-        request.call({}, undefined, complete, error);
-        request.call({}, {}, complete, error);
-        request.call({}, {});
+        request.call({}, undefined, success, error);
+        request.call({}, {}, success, error);
     });
     it("callQueryParams", (done: Function) => {
         let props = {
@@ -64,7 +63,7 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
         let request = new AjaxRequest(props);
-        function complete(xhr: Object) {
+        function success(xhr: Object) {
             chai.assert.isOk(false);
             done(xhr);
         }
@@ -79,7 +78,7 @@ describe("AjaxRequest.js", () => {
             filter: "a=b",
             fields: "id,name"
         };
-        request.call({}, queryParams, complete, error);
-        request.call({}, {});
+        request.call({}, queryParams, success, error);
+        request.call({}, {}, success, error);
     });
 });

@@ -7,7 +7,7 @@ class Application {
 
     _baseUrlPathKey = "BASE_URL_PROPERTY";
 
-    constructor(props) {
+    constructor(props: Object) {
         this.props = (props !== null && props !== undefined) ? props : new Properties();
     }
 
@@ -15,19 +15,19 @@ class Application {
         return this.props;
     }
 
-    setBaseUrlPath = (value): boolean => {
+    setBaseUrlPath = (value: string): boolean => {
         Assertions.isUrl(value, true);
         value = value.trim();
         this.props.set(this._baseUrlPathKey, value);
     }
 
-    getBaseUrlPath = () : any => {
+    getBaseUrlPath = (): any => {
         return this.getProps().get(this._baseUrlPathKey);
     }
 
     getUrl = (url: string): string => {
         Assertions.isNotEmpty(url, true);
-        if (!Assertions.isUrl(url) && Assertions.isNotEmpty(this.getBaseUrlPath())){
+        if (!Assertions.isUrl(url) && Assertions.isNotEmpty(this.getBaseUrlPath())) {
             if (!url.startsWith("/")) {
                 url = `/${url}`;
             }

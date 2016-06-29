@@ -1,14 +1,27 @@
 import jajax from "jajax";
 import Maps from "../utils/Maps";
 
-export default class AjaxRequest {
-    url;
 
+/**
+ * An ajax request class. Helps organising multiple calls with the same properties.
+ * @export
+ * @class AjaxRequest
+ */
+export default class AjaxRequest {
+    /**
+     * Original URL of the request.
+     */
+    __url;
+
+    /**
+     * Default properties for a jquary ajax call.
+     * @type {Object}
+     */
     props: Object = {
         type: "POST",
         dataType: "json",
         error: this.onError,
-        complete: this.onComplete,
+        success: this.onSuccess,
         contentType: "application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true
@@ -17,14 +30,26 @@ export default class AjaxRequest {
         crossDomain: true
     };
 
+    /**
+     * Creates an instance of AjaxRequest.
+     *
+     * @param {Object} props
+     */
     constructor(props: Object) {
         Maps.merge(props, this.props);
-        this.url = this.props.url;
+        this.__url = this.props.url;
     }
 
-    call = (data: Object, queryParams: Object, complete: Function, error: Function) => {
-        this.props.complete = complete !== undefined ? complete : this.onComplete;
-        this.props.error = error !== undefined ? error : this.onError;
+    /**
+     * Makes an ajax call with the given data,query parameters and callback functions
+     * @param {Object} data to serialize and send.
+     * @param {Object} queryParams parameter map for the rest api.
+     * @param {Function} success callback for the ajax request.
+     * @param {Function} error callback for the ajax request.
+     */
+    call = (data: Object, queryParams: Object, success: Function, error: Function) => {
+        this.props.complete = success !== undefined ? success : undefined;
+        this.props.error = error !== undefined ? error : undefined;
         if (data !== undefined) {
             this.props.data = JSON.stringify(data);
         } else {
@@ -32,23 +57,22 @@ export default class AjaxRequest {
         }
 
         if (queryParams !== undefined) {
-            this.props.url = this.parseQueryParams(queryParams);
+            this.props.url = this.serializeQueryParams(queryParams);
         }
 
         jajax.ajax(this.props);
     };
 
-    onError = (xhr: Object, errorThrown: Object) => {
 
-    };
-    onComplete = (xhr: Object) => {
-
-    };
-
-    parseQueryParams = (queryParams: Object): string => {
+    /**
+     * Serializes  query parameter map and merges with the url.
+     * @param {Object} queryParams parameter map.
+     * @return {string} url with the query parameters.
+     */
+    serializeQueryParams = (queryParams: Object): string => {
         let { offset, limit, query, filter, fields } = queryParams;
 
-        let url = this.url;
+        let url = this.__url;
         let hasOffset = offset !== undefined;
         let hasLimit = limit !== undefined;
         let hasQuery = query !== undefined;
@@ -57,26 +81,32 @@ export default class AjaxRequest {
 
 
         if (hasOffset) {
-            url += (`${this.getQParamPrefix(url)}_offset=${offset}`);
+            url += (`${this.__getQParamPrefix(url)}_offset=${offset}`);
         }
 
         if (hasLimit) {
-            url += (`${this.getQParamPrefix(url)}_limit=${limit}`);
+            url += (`${this.__getQParamPrefix(url)}_limit=${limit}`);
         }
 
         if (hasQuery) {
-            url += (`${this.getQParamPrefix(url)}_q=${query}`);
+            url += (`${this.__getQParamPrefix(url)}_q=${query}`);
         }
         if (hasFilter) {
-            url += (`${this.getQParamPrefix(url)}_filter=${filter}`);
+            url += (`${this.__getQParamPrefix(url)}_filter=${filter}`);
         }
         if (hasFields) {
-            url += (`${this.getQParamPrefix(url)}_fields=${fields}`);
+            url += (`${this.__getQParamPrefix(url)}_fields=${fields}`);
         }
 
         return url;
     };
-    getQParamPrefix = (url: string) => {
+    /**
+     * Returns query parameter prefix.
+     * @param {string} url to check.
+     * @return "?" if it is the first parameter of the url , else "&"
+     * @private
+     */
+    __getQParamPrefix = (url: string) => {
         let firstElement = url.indexOf("?") === -1;
         return firstElement ? "?" : "&";
     };
