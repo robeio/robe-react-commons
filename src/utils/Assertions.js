@@ -19,7 +19,7 @@ class Assertions {
      * @type {RegExp}
      */
     constructor() {
-        this.urlPattern = /([a-z]+:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ #]*)#?([^ #]*)/g;
+        this.urlPattern = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
     }
 
     /**
@@ -30,6 +30,7 @@ class Assertions {
      * @throws exception if error is true and url provided is not valid.
      */
     isUrl(url: String, error: boolean): boolean {
+        console.log(url, this.urlPattern.test(url));
         if (!this.urlPattern.test(url)) {
             if (error) {
                 throw new Error(`Given url is not valid ! URL :${url}`);
@@ -102,7 +103,7 @@ class Assertions {
      */
     isNotAnonymous(func: Function, error: boolean): boolean {
         if (this.isFunction(func, error)) {
-            if (! this.isNotUndefined(func.name)) {
+            if (!this.isNotUndefined(func.name)) {
                 if (error) {
                     throw new Error("Given argument is a anonymous function !");
                 }
@@ -120,7 +121,7 @@ class Assertions {
      * @returns {boolean}
      */
     isObject(obj: Object, error: boolean): boolean {
-        if (! IsJS.object(obj)) {
+        if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given argument is undefined !");
             }
