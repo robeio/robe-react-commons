@@ -16,7 +16,14 @@ describe("utils/Assertions", () => {
         } catch (e) {
             result = true;
         }
+
         chai.assert.isOk(result, "Exception expected.");
+
+        url = "http://localhost:8080";
+        chai.assert.equal(Assertions.isUrl(url), true);
+
+        url = "178.233.217.157";
+        chai.assert.equal(Assertions.isUrl(url), true);
     });
 
     it("isNotEmpty", () => {
