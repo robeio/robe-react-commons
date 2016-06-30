@@ -10,11 +10,6 @@ import TestUtils from "react-addons-test-utils";
 /** @test {SuperStore} */
 class StoreShallowComponentTest extends StoreShallowComponent {
     render(): string {
-        if (this.state) {
-            console.log(this.state.newStore);
-        } else {
-            console.log("state is null ! ");
-        }
         return (
             <div>
             </div>
@@ -32,11 +27,11 @@ describe("Store.js", () => {
     });
 
     /** @test {SuperStore#getProps} */
-    it("getProps = (): Object", () => {
+    it("getProps", () => {
         chai.assert.equal(store.getProps().autoLoad, true);
     });
     /** @test {SuperStore#getObjectId} */
-    it("getObjectId = (): number", () => {
+    it("getObjectId", () => {
         chai.assert.equal(store.getObjectId(), 0);
         const store2 = new Store({
             endPoint: new RemoteEndPoint({
@@ -48,73 +43,86 @@ describe("Store.js", () => {
         chai.assert.equal(store2.getObjectId(), 1);
     });
     /** @test {SuperStore#getName} */
-    it("getName = (): string", () => {
+    it("getName", () => {
         let expectedName = "Store";
         chai.assert.equal(store.getName(), expectedName);
     });
     /** @test {SuperStore#getId} */
-    it("getId = (): string", () => {
+    it("getId", () => {
         let expectedId = "newStore";
         chai.assert.equal(store.getId(), expectedId);
     });
     /** @test {SuperStore#getResult} */
-    it("getResult = ()", () => {
+    it("getResult", () => {
         // result is empty check
-        chai.assert.deepEqual(store.getResult().data, []);
-        chai.assert.deepEqual(store.getResult().totalCount, 0);
+
+
+        const store3 = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "menus"
+            }),
+            id: "newStore",
+            autoLoad: true,
+            onSuccess: () => {
+                // done();
+            },
+            onError: () => {
+                // done();
+            }
+        });
+        TestUtils.renderIntoDocument(
+            <StoreShallowComponentTest stores={[store]} />
+        );
+        chai.assert.deepEqual(store3.getResult().data, []);
+        chai.assert.deepEqual(store3.getResult().totalCount, 0);
         // TODO async calling must to test.
     });
     /** @test {SuperStore#register} */
-    it("register = (component: StoreShallowComponent)", () => {
+    it("register", () => {
          // Render a checkbox with label in the document
-          
-        const storeShallowComponentTest = TestUtils.renderIntoDocument(
-            <StoreShallowComponentTest stores={[store]} />
-        );
-        console.log(storeShallowComponentTest);
     });
     /** @test {SuperStore#unRegister} */
-    it("unRegister = (component: StoreShallowComponent): number", () => {
+    it("unRegister", () => {
 
     });
     /** @test {SuperStore#triggerChanges} */
-    it("triggerChanges = (): void", () => {
+    it("triggerChanges", () => {
 
     });
     /** @test {SuperStore#triggerChange} */
-    it("triggerChange = (component: StoreShallowComponent): void", () => {
+    it("triggerChange", () => {
 
     });
     /** @test {SuperStore#_onSuccess} */
-    it("_onSuccess(operator: string, result: Map): boolean", () => {
+    it("_onSuccess", () => {
 
     });
     /** @test {SuperStore#_onError} */
-    it("_onError(operator: string, errorCode: number, error: string): boolean", () => {
+    it("_onError", () => {
 
     });
     /** @test {SuperStore#__successCallback} */
-    it("__successCallback(operator: string, successCallback: Function): Function", () => {
+    it("__successCallback", () => {
 
     });
     /** @test {SuperStore#__errorCallBack} */
-    it(" __errorCallBack(operator: string, errorCallback: Function): Function", () => {
+    it(" __errorCallBack", () => {
 
     });
     /** @test {SuperStore#read} */
-    it("read(_offset, _limit, _query, code, value, fields, successCallback, errorCallback)", () => {
+    it("read", () => {
 
     });
     /** @test {SuperStore#create} */
-    it("create(item:Map, successCallback, errorCallback)", () => {
+    it("create", () => {
 
     });
     /** @test {SuperStore#update} */
-    it("update(oldItem:Map, newItem:Map, successCallback, errorCallback)", () => {
+    it("update", () => {
 
     });
     /** @test {SuperStore#delete} */
-    it("delete(item:Map, successCallback, errorCallback)", () => {
+    it("delete", () => {
 
     });
 });

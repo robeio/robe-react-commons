@@ -82,7 +82,7 @@ export default class Store {
 
         StoreManager.registerStore(this);
         if (props.autoLoad) {
-            this.read();
+            this.read(props.onSuccess, props.onError);
         }
     }
 
@@ -229,7 +229,7 @@ export default class Store {
     }
 
 
-    read(_offset: string, _limit: string, _query: string, code: string, value: string, fields: string, successCallback: Function, errorCallback: Function): boolean {
+    read(successCallback: Function, errorCallback: Function, _offset: string, _limit: string, _query: string, code: string, value: string, fields: string): boolean {
         return (
             this.__props.endPoint.read(
                 _offset,
