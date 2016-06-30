@@ -1,10 +1,10 @@
 import Arrays from "utils/Arrays";
 import chai from "chai";
 
-/** @test {MyClass} */
+/** @test {Arrays} */
 
 describe("Arrays.js", () => {
-    /** @test {MyClass#sayMyName} */
+    /** @test {Arrays#remove} */
     it("remove", () => {
         let array = ["a", "b", "c"];
         let removeExpected = ["b", "c"];
@@ -12,7 +12,7 @@ describe("Arrays.js", () => {
         chai.assert.deepEqual(array, removeExpected);
         chai.assert.equal(Arrays.remove(array, "a"), false);
     });
-
+    /** @test {Arrays#removeByKey} */
     it("removeByKey", () => {
         let array = [{ id: 1, name: "a" }, { id: 2, name: "b" }];
         let removeExpected = [{ id: 2, name: "b" }];
@@ -22,6 +22,7 @@ describe("Arrays.js", () => {
     });
 
     it("indexOf", () => {
+        /** @test {Arrays#indexOf} */
         let array = ["a", "b", "c"];
         chai.assert.equal(Arrays.indexOf(array, "a"), 0);
         chai.assert.equal(Arrays.indexOf(array, "b"), 1);
@@ -30,6 +31,7 @@ describe("Arrays.js", () => {
 
 
     it("indexOfByKey", () => {
+        /** @test {Arrays#indexOf} */
         let array = [
             { key: "a", value: "a1" },
             { key: "b", value: "b1" },

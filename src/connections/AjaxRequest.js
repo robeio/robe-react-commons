@@ -110,5 +110,4 @@ export default class AjaxRequest {
         let firstElement = url.indexOf("?") === -1;
         return firstElement ? "?" : "&";
     };
-
 }
