@@ -80,7 +80,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isFunction = (func: Function, error: boolean): boolean => {
+    isFunction(func: Function, error: boolean): boolean {
         if (this.isNotUndefined(func, error)) {
             let isFunc = this.__checkerObject.toString.call(func) === "[object Function]";
             if (!isFunc) {
@@ -102,7 +102,7 @@ class Assertions {
      */
     isNotAnonymous(func: Function, error: boolean): boolean {
         if (this.isFunction(func, error)) {
-            if (!this.isNotUndefined(func.name)) {
+            if (!this.isNotEmpty(func.name)) {
                 if (error) {
                     throw new Error("Given argument is a anonymous function !");
                 }
