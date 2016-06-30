@@ -2,11 +2,21 @@ import AjaxRequest from "connections/AjaxRequest";
 import chai from "chai";
 
 describe("AjaxRequest.js", () => {
-    it("callComplete", (done: Function) => {
+    it("callEmpty", (done: Function) => {
         let props = {
-            url: "http://jsonplaceholder.typicode.com/posts/1",
+            url: "http://httpbin.org/get",
             async: false,
             type: "GET"
+        };
+        let request = new AjaxRequest(props);
+        request.call();
+        done();
+    });
+    it("callComplete", (done: Function) => {
+        let props = {
+            url: "http://httpbin.org/get",
+            type: "GET",
+            async: false,
         };
 
         function success() {
@@ -19,13 +29,13 @@ describe("AjaxRequest.js", () => {
         }
         let request = new AjaxRequest(props);
         request.call(undefined, undefined, success, error);
-        request.call();
     });
     it("callError", (done: Function) => {
         let props = {
-            url: "http://jsonplaceholder.typicode/",
+            url: "http://jsonplaceholder.typi",
+            type: "GET",
             async: false,
-            type: "GET"
+
         };
 
         function success(xhr: Object) {
@@ -41,8 +51,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callVariations", (done: Function) => {
         let props = {
-            url: "http://jsonplaceholder.typicode.com/posts/1",
-            async: false,
+            url: "http://httpbin.org/get",
             type: "GET"
         };
         let request = new AjaxRequest(props);
@@ -59,8 +68,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callQueryParams", (done: Function) => {
         let props = {
-            url: "http://jsonplaceholder.typicode.com/posts/1",
-            async: false,
+            url: "http://httpbin.org/get",
             type: "GET"
         };
         let request = new AjaxRequest(props);
@@ -80,6 +88,5 @@ describe("AjaxRequest.js", () => {
             fields: "id,name"
         };
         request.call({}, queryParams, success, error);
-        request.call({}, {}, success, error);
     });
 });
