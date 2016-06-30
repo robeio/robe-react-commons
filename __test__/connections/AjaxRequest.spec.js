@@ -14,7 +14,7 @@ describe("AjaxRequest.js", () => {
             done();
         }
         function error(xhr: Object) {
-            chai.assert.isOk(false);
+            chai.assert.isOk(false, xhr);
             done(xhr);
         }
         let request = new AjaxRequest(props);
@@ -29,7 +29,7 @@ describe("AjaxRequest.js", () => {
         };
 
         function success(xhr: Object) {
-            chai.assert.isOk(false);
+            chai.assert.isOk(false, xhr);
             done(xhr);
         }
         function error() {
@@ -46,13 +46,13 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
         let request = new AjaxRequest(props);
-        function success(xhr: Object) {
-            chai.assert.isOk(false);
-            done(xhr);
-        }
-        function error() {
+        function success() {
             chai.assert.isOk(true);
             done();
+        }
+        function error(xhr: Object) {
+            chai.assert.isOk(false);
+            done(xhr);
         }
         request.call({}, undefined, success, error);
         request.call({}, {}, success, error);
@@ -64,13 +64,13 @@ describe("AjaxRequest.js", () => {
             type: "GET"
         };
         let request = new AjaxRequest(props);
-        function success(xhr: Object) {
-            chai.assert.isOk(false);
-            done(xhr);
-        }
-        function error() {
+        function success() {
             chai.assert.isOk(true);
             done();
+        }
+        function error(xhr: Object) {
+            chai.assert.isOk(false, xhr);
+            done(xhr);
         }
         let queryParams = {
             offset: 0,
