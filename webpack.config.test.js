@@ -56,11 +56,11 @@ module.exports = function configure(config) {
         browserDisconnectTimeout: 3000,
         browserDisconnectTolerance: 1,
         browserNoActivityTimeout: 60000,
-        browsers: ["Chrome", "Chrome_travis_ci"],
+        browsers: ["Chrome_travis_ci"],
         customLaunchers: {
             Chrome_travis_ci: {
                 base: "Chrome",
-                flags: ["--no-sandbox", "--disable-web-security"]
+                flags: ["--no-sandbox"]
             }
         },
         singleRun: true,
