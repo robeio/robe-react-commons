@@ -1,7 +1,7 @@
 import Assertions from "utils/Assertions";
 import chai from "chai";
 
-describe("utils/Assertions", () => {
+describe("Assertions.js", () => {
     it("isUrl", () => {
         let url = "https://github.com/robeio/robe";
         chai.assert.equal(Assertions.isUrl(url), true);
