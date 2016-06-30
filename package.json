@@ -10,14 +10,17 @@
     "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib "
   },
   "keywords": [
+    "webpack",
     "react",
     "es6",
     "eslint",
-    "flowcheck",
+    "flowtype",
     "karma",
-    "dev",
-    "test",
-    "prod"
+    "chai",
+    "mocha",
+    "isparta",
+    "istanbul",
+    "esdocs"
   ],
   "license": "MIT",
   "devDependencies": {
