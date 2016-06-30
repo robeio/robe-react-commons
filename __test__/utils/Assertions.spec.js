@@ -53,6 +53,42 @@ describe("utils/Assertions", () => {
         chai.assert.isOk(result, "Exception expected.");
     });
 
+    it("isFunction", () => {
+        let value = function getOne(): number { return 1; };
+        chai.assert.equal(Assertions.isFunction(value), true);
+
+        value = undefined;
+        chai.assert.equal(Assertions.isFunction(value), false);
+        value = {};
+        chai.assert.equal(Assertions.isFunction(value), false);
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isFunction(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
+    it("isNotAnonymous", () => {
+        let value = function getOne(): number { return 1; };
+        chai.assert.equal(Assertions.isNotAnonymous(value), true);
+
+        value = undefined;
+        chai.assert.equal(Assertions.isNotAnonymous(value), false);
+
+        chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }), false);
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
     it("isObject", () => {
         let value = { a: "1" };
         chai.assert.equal(Assertions.isObject(value), true);
