@@ -52,11 +52,21 @@ commonSettings.isparta = {
 
 module.exports = function configure(config) {
     config.set({
-        browsers: ["PhantomJS"],
+        captureTimeout: 3000,
+        browserDisconnectTimeout: 3000,
+        browserDisconnectTolerance: 1,
+        browserNoActivityTimeout: 60000,
+        browsers: ["Chrome", "Chrome_travis_ci"],
+        customLaunchers: {
+            Chrome_travis_ci: {
+                base: "Chrome",
+                flags: ["--no-sandbox", "--disable-web-security"]
+            }
+        },
         singleRun: true,
         frameworks: ["mocha"],
         plugins: [
-            "karma-phantomjs-launcher",
+            "karma-chrome-launcher",
             "karma-chai",
             "karma-mocha",
             "karma-sourcemap-loader",
@@ -77,9 +87,9 @@ module.exports = function configure(config) {
         reporters: ["mocha", "coverage"],
         coverageReporter: {
             // specify a common output directory
-            dir: 'coverage',
+            dir: "coverage",
             reporters: [
-                { type: 'lcov', subdir: 'report-lcov' }
+                { type: "lcov", subdir: "report-lcov" }
             ]
         },
         client: {
