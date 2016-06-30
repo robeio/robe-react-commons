@@ -1,9 +1,11 @@
 import React from "react";
 import Store from "stores/Store";
-import EndPoint from "endpoint/RemoteEndPoint";
+import StoreShallowComponent from "components/StoreShallowComponent";
+import { RemoteEndPoint } from "index";
+
 import chai from "chai";
 import TestUtils from "react-addons-test-utils";
-import StoreShallowComponent from "components/StoreShallowComponent";
+
 
 /** @test {SuperStore} */
 class StoreShallowComponentTest extends StoreShallowComponent {
@@ -13,7 +15,6 @@ class StoreShallowComponentTest extends StoreShallowComponent {
         } else {
             console.log("state is null ! ");
         }
-     
         return (
             <div>
             </div>
@@ -23,7 +24,7 @@ class StoreShallowComponentTest extends StoreShallowComponent {
 }
 describe("Store.js", () => {
     const store = new Store({
-        endPoint: new EndPoint({
+        endPoint: new RemoteEndPoint({
             url: "menus"
         }),
         id: "newStore",
@@ -38,7 +39,7 @@ describe("Store.js", () => {
     it("getObjectId = (): number", () => {
         chai.assert.equal(store.getObjectId(), 0);
         const store2 = new Store({
-            endPoint: new EndPoint({
+            endPoint: new RemoteEndPoint({
                 url: "menus"
             }),
             id: "newStore2"
