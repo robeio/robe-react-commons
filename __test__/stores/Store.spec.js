@@ -32,7 +32,7 @@ describe("Store.js", () => {
     });
     /** @test {Store#getObjectId} */
     it("getObjectId", () => {
-        chai.assert.equal(store.getObjectId(), 0);
+        let count = Store.storeCount;
         const store2 = new Store({
             endPoint: new RemoteEndPoint({
                 url: "menus"
@@ -40,7 +40,7 @@ describe("Store.js", () => {
             id: "newStore2"
         });
 
-        chai.assert.equal(store2.getObjectId(), 1);
+        chai.assert.operator(store2.getObjectId(), ">=", count);
     });
     /** @test {Store#getName} */
     it("getName", () => {
@@ -79,7 +79,7 @@ describe("Store.js", () => {
     });
     /** @test {Store#register} */
     it("register", () => {
-         // Render a checkbox with label in the document
+        // Render a checkbox with label in the document
     });
     /** @test {Store#unRegister} */
     it("unRegister", () => {
