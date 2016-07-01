@@ -106,7 +106,7 @@ export default class AjaxRequest {
      * @return "?" if it is the first parameter of the url , else "&"
      * @private
      */
-    __getQParamPrefix = (url: string) => {
+    __getQParamPrefix = (url: string): string => {
         let firstElement = url.indexOf("?") === -1;
         return firstElement ? "?" : "&";
     };

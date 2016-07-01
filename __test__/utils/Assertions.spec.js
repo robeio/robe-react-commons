@@ -61,7 +61,7 @@ describe("Assertions.js", () => {
     });
 
     it("isFunction", () => {
-        let value = function getOne(): number { return 1; };
+        let value = function getOne(): number { return 1; };// eslint-disable-line 
         chai.assert.equal(Assertions.isFunction(value), true);
 
         value = undefined;
@@ -79,16 +79,16 @@ describe("Assertions.js", () => {
     });
 
     it("isNotAnonymous", () => {
-        let value = function getOne(): number { return 1; };
+        let value = function getOne(): number { return 1; };// eslint-disable-line 
         chai.assert.equal(Assertions.isNotAnonymous(value), true);
 
         value = undefined;
         chai.assert.equal(Assertions.isNotAnonymous(value), false);
 
-        chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }), false);
+        chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }), false);// eslint-disable-line 
         let result = false;
         try {
-            chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }, true), false);
+            chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }, true), false);// eslint-disable-line 
             result = false;
         } catch (e) {
             result = true;
