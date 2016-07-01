@@ -1,6 +1,9 @@
 import React from "react";
 import chai from "chai";
 import StoreShallowComponent from "components/StoreShallowComponent";
+import Store from "stores/Store";
+import TestUtils from "react-addons-test-utils";
+
 class TestComponent extends StoreShallowComponent {
     constructor(props: Object) {
         super(props);
@@ -49,4 +52,15 @@ describe("StoreShallowComponent.js", () => {
         let test2 = new TestComponent(props);
         chai.assert.operator(test1.getObjectId(), "<", test2.getObjectId());
     });
+    it("getStore", () => {
+        let props = { stores: [new Store({})] };
+        let test = new TestComponent(props);
+        chai.assert.isDefined(test.getStore(), "Store should not be undefined.");
+    });
+    // it("register", () => {
+    //     let props = { stores: [new Store({ key: "sample" })] };
+    //     let test = new TestComponent(props);
+    //     TestUtils.renderIntoDocument(test);
+    //     TestUtils.renderIntoDocument(new TestComponent(props));
+    // });
 });
