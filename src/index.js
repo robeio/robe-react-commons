@@ -14,7 +14,7 @@ export { default as IndexedWrapper } from "./collections/IndexedWrapper";
 
 export { default as AjaxRequest } from "./connections/AjaxRequest";
 
-export { default as StoreManager } from "./managers/StoreManager";
+export { default as Store } from "./stores/Store";
 
 export { default as LocalEndPoint } from "./endpoint/LocalEndPoint";
 export { default as RemoteEndPoint } from "./endpoint/RemoteEndPoint";

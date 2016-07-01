@@ -1,6 +1,7 @@
 import React from "react";
 import Store from "stores/Store";
 import StoreShallowComponent from "components/StoreShallowComponent";
+
 import { RemoteEndPoint } from "index";
 
 import chai from "chai";

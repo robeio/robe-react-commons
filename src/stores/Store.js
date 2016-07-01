@@ -1,6 +1,6 @@
 import StoreShallowComponent from "../components/StoreShallowComponent";
 import Maps from "../utils/Maps";
-import StoreManager from "../managers/StoreManager";
+import Assertions from "../utils/Assertions";
 import MapArray from "../collections/MapArray";
 
 /**
@@ -46,7 +46,7 @@ export default class Store {
      * @type {{Object}}
      * @protected
      */
-    _registeredComponents: Object = {};
+    ___components: Object = {};
 
     /**
      * Example props parameter
@@ -63,7 +63,7 @@ export default class Store {
      * @param {Object} props
      */
     constructor(props: Object) {
-        this.__props = props;
+        this.__props = props === undefined ? {} : props;
         this.__props.objectId = Store.storeCount++;
 
         if (!props.key) {
@@ -80,7 +80,6 @@ export default class Store {
             this.__props.idField = "oid";
         }
 
-        StoreManager.registerStore(this);
         if (props.autoLoad) {
             this.read(props.onSuccess, props.onError);
         }
@@ -139,7 +138,8 @@ export default class Store {
      * @param key
      */
     register = (component: StoreShallowComponent) => {
-        this._registeredComponents[component.getObjectId()] = component;
+        Assertions.isNotUndefined(component, true);
+        this.___components[component.getObjectId()] = component;
         if (this.__data) {
             this.triggerChange(component);
         }
@@ -152,17 +152,20 @@ export default class Store {
      * @returns {*}
      */
     unRegister = (component: StoreShallowComponent): number => {
-        delete this._registeredComponents[component.getObjectId()];
-        // TODO Map length olmayabilir kontrol edilmeli.
-        return this._registeredComponents.length;
+        Assertions.isNotUndefined(component, true);
+        delete this.___components[component.getObjectId()];
+        if (Object.keys(this.___components).length === 0) {
+            setTimeout(this.__disposeContent, 1500);
+        }
+        return Object.keys(this.___components).length;
     }
 
-    triggerChanges = (): void => {
-        Maps.forEach(this._registeredComponents, (component) => {
+    triggerChanges = () => {
+        Maps.forEach(this.___components, (component: StoreShallowComponent) => {
             this.triggerChange(component);
         });
     }
-    triggerChange = (component: StoreShallowComponent): void => {
+    triggerChange = (component: StoreShallowComponent) => {
         component.triggerChange(this);
     }
 
@@ -240,7 +243,7 @@ export default class Store {
                 fields,
                 this.__readSuccessCallback(successCallback),
                 this.__errorCallBack("read", errorCallback)
-        ));
+            ));
     }
     /**
      *
@@ -263,10 +266,10 @@ export default class Store {
      */
     create(item: Map, successCallback: Function, errorCallback: Function): boolean {
         return (
-           this.__props.endPoint.create(
-               item,
-               this.__createSuccessCallback(successCallback),
-               this.__errorCallBack("create", errorCallback)
+            this.__props.endPoint.create(
+                item,
+                this.__createSuccessCallback(successCallback),
+                this.__errorCallBack("create", errorCallback)
             )
         );
     }
@@ -331,4 +334,11 @@ export default class Store {
             )
         );
     }
+
+
+    __disposeContent = () => {
+        if (Object.keys(this.___components).length === 0) {
+            // TODO: Do all stuff
+        }
+    };
 }

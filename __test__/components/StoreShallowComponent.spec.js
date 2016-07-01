@@ -2,7 +2,6 @@ import React from "react";
 import chai from "chai";
 import StoreShallowComponent from "components/StoreShallowComponent";
 import Store from "stores/Store";
-import TestUtils from "react-addons-test-utils";
 
 class TestComponent extends StoreShallowComponent {
     constructor(props: Object) {
