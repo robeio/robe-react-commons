@@ -64,7 +64,7 @@ export default class StoreShallowComponent extends ShallowComponent {
      */
     triggerChange = (store: Store) => {
         let state = {};
-        state[store.getId()] = store.getResult();
+        state[store.getKey()] = store.getResult();
         this.setState(state);
     }
 

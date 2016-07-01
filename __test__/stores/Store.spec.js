@@ -7,7 +7,7 @@ import chai from "chai";
 import TestUtils from "react-addons-test-utils";
 
 
-/** @test {SuperStore} */
+/** @test {Store} */
 class StoreShallowComponentTest extends StoreShallowComponent {
     render(): string {
         return (
@@ -22,15 +22,15 @@ describe("Store.js", () => {
         endPoint: new RemoteEndPoint({
             url: "menus"
         }),
-        id: "newStore",
+        key: "newStore",
         autoLoad: true
     });
 
-    /** @test {SuperStore#getProps} */
+    /** @test {Store#getProps} */
     it("getProps", () => {
         chai.assert.equal(store.getProps().autoLoad, true);
     });
-    /** @test {SuperStore#getObjectId} */
+    /** @test {Store#getObjectId} */
     it("getObjectId", () => {
         chai.assert.equal(store.getObjectId(), 0);
         const store2 = new Store({
@@ -42,17 +42,17 @@ describe("Store.js", () => {
 
         chai.assert.equal(store2.getObjectId(), 1);
     });
-    /** @test {SuperStore#getName} */
+    /** @test {Store#getName} */
     it("getName", () => {
         let expectedName = "Store";
         chai.assert.equal(store.getName(), expectedName);
     });
-    /** @test {SuperStore#getId} */
-    it("getId", () => {
+    /** @test {Store#getKey} */
+    it("getKey", () => {
         let expectedId = "newStore";
-        chai.assert.equal(store.getId(), expectedId);
+        chai.assert.equal(store.getKey(), expectedId);
     });
-    /** @test {SuperStore#getResult} */
+    /** @test {Store#getResult} */
     it("getResult", () => {
         // result is empty check
 
@@ -61,7 +61,7 @@ describe("Store.js", () => {
             endPoint: new RemoteEndPoint({
                 url: "menus"
             }),
-            id: "newStore",
+            key: "newStore",
             autoLoad: true,
             onSuccess: () => {
                 // done();
@@ -77,51 +77,51 @@ describe("Store.js", () => {
         chai.assert.deepEqual(store3.getResult().totalCount, 0);
         // TODO async calling must to test.
     });
-    /** @test {SuperStore#register} */
+    /** @test {Store#register} */
     it("register", () => {
          // Render a checkbox with label in the document
     });
-    /** @test {SuperStore#unRegister} */
+    /** @test {Store#unRegister} */
     it("unRegister", () => {
 
     });
-    /** @test {SuperStore#triggerChanges} */
+    /** @test {Store#triggerChanges} */
     it("triggerChanges", () => {
 
     });
-    /** @test {SuperStore#triggerChange} */
+    /** @test {Store#triggerChange} */
     it("triggerChange", () => {
 
     });
-    /** @test {SuperStore#_onSuccess} */
+    /** @test {Store#_onSuccess} */
     it("_onSuccess", () => {
 
     });
-    /** @test {SuperStore#_onError} */
+    /** @test {Store#_onError} */
     it("_onError", () => {
 
     });
-    /** @test {SuperStore#__successCallback} */
+    /** @test {Store#__successCallback} */
     it("__successCallback", () => {
 
     });
-    /** @test {SuperStore#__errorCallBack} */
+    /** @test {Store#__errorCallBack} */
     it(" __errorCallBack", () => {
 
     });
-    /** @test {SuperStore#read} */
+    /** @test {Store#read} */
     it("read", () => {
 
     });
-    /** @test {SuperStore#create} */
+    /** @test {Store#create} */
     it("create", () => {
 
     });
-    /** @test {SuperStore#update} */
+    /** @test {Store#update} */
     it("update", () => {
 
     });
-    /** @test {SuperStore#delete} */
+    /** @test {Store#delete} */
     it("delete", () => {
 
     });
