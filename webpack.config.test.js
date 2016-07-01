@@ -50,10 +50,10 @@ commonSettings.isparta = {
     }
 };
 
-let jsonServer = require("json-server");
-let server = jsonServer.create();
-let router = jsonServer.router(commonSettings.paths.test + "/testdb.json");
-let middlewares = jsonServer.defaults();
+var jsonServer = require("json-server");
+var server = jsonServer.create();
+var router = jsonServer.router(commonSettings.paths.test + "/testdb.json");
+var middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
 server.listen(3000);
