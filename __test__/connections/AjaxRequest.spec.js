@@ -4,7 +4,7 @@ import chai from "chai";
 describe("AjaxRequest.js", () => {
     it("callEmpty", (done: Function) => {
         let props = {
-            url: "http://httpbin.org/get",
+            url: "http://localhost:3000/posts/1",
             async: false,
             type: "GET"
         };
@@ -14,7 +14,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callComplete", (done: Function) => {
         let props = {
-            url: "http://httpbin.org/get",
+            url: "http://localhost:3000/posts/1",
             type: "GET",
             async: false,
         };
@@ -23,8 +23,8 @@ describe("AjaxRequest.js", () => {
             chai.assert.isOk(true);
             done();
         }
-        function error(xhr: Object) {
-            chai.assert.isOk(false, xhr);
+        function error(xhr: Object, errorMessage: string) {
+            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
         let request = new AjaxRequest(props);
@@ -32,7 +32,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callError", (done: Function) => {
         let props = {
-            url: "http://jsonplaceholder.typi",
+            url: "http://wrong.web.site",
             type: "GET",
             async: false,
 
@@ -51,7 +51,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callVariations", (done: Function) => {
         let props = {
-            url: "http://httpbin.org/get",
+            url: "http://localhost:3000/posts/1",
             type: "GET"
         };
         let request = new AjaxRequest(props);
@@ -59,8 +59,8 @@ describe("AjaxRequest.js", () => {
             chai.assert.isOk(true);
             done();
         }
-        function error(xhr: Object) {
-            chai.assert.isOk(false);
+        function error(xhr: Object, errorMessage: string) {
+            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
         request.call({}, undefined, success, error);
@@ -68,7 +68,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callQueryParams", (done: Function) => {
         let props = {
-            url: "http://httpbin.org/get",
+            url: "http://localhost:3000/posts/1",
             type: "GET"
         };
         let request = new AjaxRequest(props);
@@ -76,8 +76,8 @@ describe("AjaxRequest.js", () => {
             chai.assert.isOk(true);
             done();
         }
-        function error(xhr: Object) {
-            chai.assert.isOk(false, xhr);
+        function error(xhr: Object, errorMessage: string) {
+            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
         let queryParams = {

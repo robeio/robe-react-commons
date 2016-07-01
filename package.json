@@ -47,6 +47,7 @@
     "file-loader": "0.8.5",
     "isparta-loader": "2.0.0",
     "jajax": "git+https://github.com/kbukum/jajax.git",
+    "json-server": "^0.8.14",
     "karma": "0.13.22",
     "karma-bamboo-reporter": "0.1.2",
     "karma-chai": "0.1.0",

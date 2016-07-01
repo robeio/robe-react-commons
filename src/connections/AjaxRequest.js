@@ -20,8 +20,6 @@ export default class AjaxRequest {
     props: Object = {
         type: "POST",
         dataType: "json",
-        error: this.onError,
-        success: this.onSuccess,
         contentType: "application/json; charset=utf-8",
         xhrFields: {
             withCredentials: true
@@ -48,7 +46,7 @@ export default class AjaxRequest {
      * @param {Function} error callback for the ajax request.
      */
     call = (data: Object, queryParams: Object, success: Function, error: Function) => {
-        this.props.complete = success !== undefined ? success : undefined;
+        this.props.success = success !== undefined ? success : undefined;
         this.props.error = error !== undefined ? error : undefined;
         if (data !== undefined) {
             this.props.data = JSON.stringify(data);
