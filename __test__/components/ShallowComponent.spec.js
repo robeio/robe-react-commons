@@ -1,18 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import TestUtils from "react-addons-test-utils";
 import chai from "chai";
 import ShallowComponent from "components/ShallowComponent";
-import Maps from "utils/Maps";
 
 describe("ShallowComponent.js", () => {
-
     class TestComponent extends ShallowComponent {
-        constructor(props) {
+        constructor(props: Object) {
             super(props);
             this.state = { test: 0 };
         }
-        render() {
+        render(): Object {
             return (
                 <div>{this.state.test}</div>
             );

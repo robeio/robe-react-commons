@@ -1,4 +1,4 @@
-describe("Application.js", () => {
+describe("StoreManager.js", () => {
     it("constructors", () => {
 
     });

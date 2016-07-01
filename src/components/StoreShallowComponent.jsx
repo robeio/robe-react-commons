@@ -3,42 +3,60 @@ import ShallowComponent from "./ShallowComponent";
 import StoreManager from "../managers/StoreManager";
 import Store from "../stores/Store";
 /**
- * A component which extends React.Component and implements shouldComponentUpdate with using shallowCompare.
+ * A component which extends ShallowComponent and manages store operations.
+ * Usually used for components with store operations.
+ * Has support for auto objectId increment and store management.
+ * @export
+ * @class StoreShallowComponent
+ * @extends {ShallowComponent}
  */
 export default class StoreShallowComponent extends ShallowComponent {
 
 
+    /**
+     * Components is a static variable which holds the count of successfull instances
+     * extends StoreShallowComponent
+     * @static
+     */
     static componentCount = 0;
-    __objectId;
 
     /**
-     * stores kep stores
-     * @type {{stores: array }}
+     * Object id of the component given automaticly by
+     * the StoreShallowComponent at construction.
+     */
+    __objectId;
+
+
+    /**
+     * Type definition of properties
+     * @static
      */
     static propTypes = {
         stores: React.PropTypes.array.isRequired
     };
-    /**
-     *
-     * @type {{}}
-     */
-    stores = {};
 
     /**
+     * Store array of the component.
+     */
+    stores = [];
+
+    /**
+     * Creates an instance of StoreShallowComponent.
      *
-     * @param props
+     * @param {Object} props
      */
     constructor(props: Object) {
         super(props);
-        this.__objectId = ShallowComponent.componentCount++;
-        if (!this.props.stores || !this.props.stores.length === 0) {
+        if (!this.props || !this.props.stores || this.props.stores.length === 0) {
             throw new Error(`Must defined at least one store in a ${this.constructor.name}`);
         }
+        this.__objectId = StoreShallowComponent.componentCount++;
         this.stores = this.props.stores;
     }
 
     /**
-     * return uniqueId for the StoreShallowComponent
+     * Returns objectId of component.
+     * @return {number} id
      */
     getObjectId = (): number => {
         return this.__objectId;
@@ -47,20 +65,25 @@ export default class StoreShallowComponent extends ShallowComponent {
      * return the stores array
      * @returns {Array<Store>}
      */
+    /**
+     * Returns store array of the component
+     * @returns {Array<Store>}
+     */
     getStores(): Array<Store> {
         return this.stores;
     }
 
     /**
-     * return first element of the stores array
-     * @returns {Store}
+     * Return first item of the stores array
+     * @returns {Store} first item of stores
      */
     getStore(): Store {
         return this.stores[0];
     }
 
     /**
-     * @param {Store} store
+     * Triggers components state change.
+     * @param {Store} that updates component.
      */
     triggerChange = (store: Store) => {
         let state = {};
@@ -69,11 +92,14 @@ export default class StoreShallowComponent extends ShallowComponent {
     }
 
     /**
-     *
+     * Triggered after component mounted to the DOM. Registers itself to the all its stores.
      */
     componentDidMount() {
         StoreManager.registerComponent(this);
     }
+    /**
+     * Triggered before component unmount from the DOM. Unregisters itself to the all its stores.
+     */
     componentWillUnMount() {
         StoreManager.unRegisterComponent(this);
     }

@@ -1,4 +1,4 @@
-describe("Application.js", () => {
+describe("LocalEndPoint.js", () => {
     it("constructors", () => {
 
     });
