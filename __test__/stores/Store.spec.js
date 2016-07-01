@@ -23,7 +23,6 @@ describe("Store.js", () => {
         endPoint: new RemoteEndPoint({
             url: "menus"
         }),
-        key: "newStore",
         autoLoad: true
     });
 
@@ -37,8 +36,7 @@ describe("Store.js", () => {
         const store2 = new Store({
             endPoint: new RemoteEndPoint({
                 url: "menus"
-            }),
-            id: "newStore2"
+            })
         });
 
         chai.assert.operator(store2.getObjectId(), ">=", count);
@@ -48,15 +46,10 @@ describe("Store.js", () => {
         let expectedName = "Store";
         chai.assert.equal(store.getName(), expectedName);
     });
-    /** @test {Store#getKey} */
-    it("getKey", () => {
-        let expectedId = "newStore";
-        chai.assert.equal(store.getKey(), expectedId);
-    });
+
     /** @test {Store#getResult} */
     it("getResult", () => {
         // result is empty check
-
 
         const store3 = new Store({
             endPoint: new RemoteEndPoint({

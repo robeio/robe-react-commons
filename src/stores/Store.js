@@ -66,10 +66,6 @@ export default class Store {
         this.__props = props === undefined ? {} : props;
         this.__props.objectId = Store.storeCount++;
 
-        if (!props.key) {
-            this.__props.key = this.constructor.name;
-        }
-
         if (!props.importer) {
             this.__props.importer = (response: any): any => {
                 return response;
@@ -107,14 +103,6 @@ export default class Store {
      */
     getName = (): string => {
         return this.constructor.name;
-    }
-
-    /**
-     * given id or StoreClassName to set data to the depend components state as key
-     * @returns {string|string|*}
-     */
-    getKey = (): string => {
-        return this.__props.key;
     }
 
     /**

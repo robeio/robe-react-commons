@@ -57,7 +57,7 @@ export default class StoreShallowComponent extends ShallowComponent {
      * Returns objectId of component.
      * @return {number} id
      */
-    getObjectId = (): number => {
+    getObjectId(): number {
         return this.__objectId;
     }
     /**
@@ -84,10 +84,8 @@ export default class StoreShallowComponent extends ShallowComponent {
      * Triggers components state change.
      * @param {Store} that updates component.
      */
-    triggerChange = (store: Store) => {
-        let state = {};
-        state[store.getKey()] = store.getResult();
-        this.setState(state);
+    triggerChange(store: Store) {
+        throw new Error(`${store.getName()} store couldn't set to the ${this.getName()} component. Trigger change must be implemented by ${this.getName()} component`);
     }
 
     /**
