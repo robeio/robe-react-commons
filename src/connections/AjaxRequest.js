@@ -57,7 +57,6 @@ export default class AjaxRequest {
         if (queryParams !== undefined) {
             this.props.url = this.serializeQueryParams(queryParams);
         }
-
         jajax.ajax(this.props);
     };
 

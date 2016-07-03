@@ -47,65 +47,64 @@ export default class RemoteEndPoint {
             filter: filter,
             fields: fields
         };
-        let onSuccess = (xhr: Object) => {
+        let onSuccess = (data: Object, textStatus: string, xhr: Object) => {
             let result = {
-                data: xhr.responseJSON,
+                data: data,
                 totalCount: parseInt(xhr.getResponseHeader("X-Total-Count"), 10) || 0
             };
             successCallBack(result);
         };
 
-        let onError = (jqXHR: Object) => {
-            errorCallback(jqXHR.status, jqXHR.statusText);
+        let onError = (xhr: Object) => {
+            errorCallback(xhr.status, xhr.statusText);
         };
 
         return this._readRequest.call(undefined, queryParams, onSuccess, onError);
     }
 
     create(item: Map, successCallback: Function, errorCallback: Function): boolean {
-        // let onSuccess = (xhr: Object, errorThrown: Object) => {
-        let onSuccess = (xhr: Object) => {
+        let onSuccess = (data: Object) => {
             let result = {
-                data: xhr.responseJson,
+                data: data,
                 totalCount: 1
             };
             successCallback(result);
         };
 
-        let onError = (jqXHR: Object) => {
-            errorCallback(jqXHR.status, jqXHR.responseJSON.details);
+        let onError = (xhr: Object) => {
+            errorCallback(xhr.status, xhr.responseJSON.details);
         };
         return this._createRequest.call(item, undefined, onSuccess, onError);
     }
 
     update(newItem: Map, successCallback: Function, errorCallback: Function) {
-        let onSuccess = (xhr: Object) => {
+        let onSuccess = (data: Object) => {
             let result = {
-                data: xhr.responseJson,
+                data: data,
                 totalCount: 1
             };
             successCallback(result);
         };
-        let onError = (jqXHR: Object) => {
-            errorCallback(jqXHR.status, jqXHR.responseJSON.details);
+        let onError = (xhr: Object) => {
+            errorCallback(xhr.status, xhr.responseJSON.details);
         };
-        this._updateRequest.call(newItem, null, onSuccess, onError);
+        this._updateRequest.call(newItem, undefined, onSuccess, onError);
     }
 
     delete(item: Map, successCallback: Function, errorCallback: Function) {
-        let onSuccess = (xhr: Object) => {
+        let onSuccess = (data: Object) => {
             let result = {
-                data: xhr.responseJson,
+                data: data,
                 totalCount: 1
             };
             successCallback(result);
         };
 
-        let onError = (jqXHR: Object) => {
-            errorCallback(jqXHR.status, jqXHR.responseJSON.details);
+        let onError = (xhr: Object) => {
+            errorCallback(xhr.status, xhr.responseJSON.details);
         };
 
-        this._deleteRequest.call(item, null, onSuccess, onError);
+        this._deleteRequest.call(item, undefined, onSuccess, onError);
     }
 
     getUrl(): string {
