@@ -30,7 +30,7 @@ commonSettings.debug = true;
  * source-map - A SourceMap is emitted. See also output.sourceMapFilename.
  * @type {string}
  */
-commonSettings.devtool = "source-map";
+commonSettings.devtool = "eval-source-map";
 
 commonSettings.module.preLoaders.push({ test: /.jsx?$/, loader: "eslint", exclude: /node_modules/ });
 commonSettings.module.loaders.push({
@@ -52,7 +52,7 @@ commonSettings.isparta = {
 
 var jsonServer = require("json-server");
 var server = jsonServer.create();
-var router = jsonServer.router(commonSettings.paths.test + "/testdb.json");
+var router = jsonServer.router(commonSettings.paths.root + "/testdb.json");
 var middlewares = jsonServer.defaults();
 server.use(middlewares);
 server.use(router);
