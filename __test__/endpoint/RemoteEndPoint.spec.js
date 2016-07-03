@@ -14,7 +14,11 @@ describe("RemoteEndPoint.js", () => {
         chai.assert.isNotNaN(result.totalCount, "Response totalCount should not be NaN.");
     }
 
+    it("getUrl", () => {
+        let endpoint = new RemoteEndPoint({ url: url });
 
+        chai.assert.equal(endpoint.getUrl(), url);
+    });
     it("read", (done) => {
         let endpoint = new RemoteEndPoint({ url: url });
 

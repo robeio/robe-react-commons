@@ -55,11 +55,7 @@ export default class RemoteEndPoint {
             successCallBack(result);
         };
 
-        let onError = (xhr: Object) => {
-            errorCallback(xhr.status, xhr.statusText);
-        };
-
-        return this._readRequest.call(undefined, queryParams, onSuccess, onError);
+        return this._readRequest.call(undefined, queryParams, onSuccess, this.__createOnError(errorCallback));
     }
 
     create(item: Map, successCallback: Function, errorCallback: Function): boolean {
@@ -71,10 +67,7 @@ export default class RemoteEndPoint {
             successCallback(result);
         };
 
-        let onError = (xhr: Object) => {
-            errorCallback(xhr.status, xhr.responseJSON.details);
-        };
-        return this._createRequest.call(item, undefined, onSuccess, onError);
+        return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
     update(newItem: Map, successCallback: Function, errorCallback: Function) {
@@ -85,10 +78,8 @@ export default class RemoteEndPoint {
             };
             successCallback(result);
         };
-        let onError = (xhr: Object) => {
-            errorCallback(xhr.status, xhr.responseJSON.details);
-        };
-        this._updateRequest.call(newItem, undefined, onSuccess, onError);
+
+        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
     delete(item: Map, successCallback: Function, errorCallback: Function) {
@@ -99,39 +90,16 @@ export default class RemoteEndPoint {
             };
             successCallback(result);
         };
-
-        let onError = (xhr: Object) => {
-            errorCallback(xhr.status, xhr.responseJSON.details);
-        };
-
-        this._deleteRequest.call(item, undefined, onSuccess, onError);
+        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
     getUrl(): string {
-        return this.url;
+        return this.__url;
     }
-    getError = (xhr: Object): Object => {
-        let message: string;
-        if (xhr.status) {
-            message = RemoteEndPoint.errorStatusMap[xhr.status];
-            if (!message) {
-                message = xhr.responseText;
-            }
-        }
-        /*
-         else if (exception === "parsererror") {
-                message = "Error.\nParsing JSON Request failed.";
-        } else if (exception === "timeout") {
-                message = "Request Time out.";
-        } else if (exception === "abort") {
-                message = "Request was aborted by the server";
-        } else {
-            message = "Unknown Error \n.";
-        }
-        */
-        return {
-            filter: xhr.status,
-            message: message
+
+    __createOnError(errorCallback: Function): Function {
+        return (xhr: Object) => {
+            errorCallback(xhr.status, xhr.responseJSON.details);
         };
     }
 }
