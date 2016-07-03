@@ -4,6 +4,12 @@
 const commonSettings = require("./webpack.config.common.js");
 
 /**
+ * Json Server
+ * @type {config|exports|module.exports}
+ */
+const ConfigUtils = require("./ConfigUtil");
+
+/**
  * @link https://webpack.github.io/docs/configuration.html#cache
  * Cache generated modules and chunks to improve performance for multiple incremental builds.
  This is enabled by default in watch mode.
@@ -50,13 +56,7 @@ commonSettings.isparta = {
     }
 };
 
-var jsonServer = require("json-server");
-var server = jsonServer.create();
-var router = jsonServer.router(commonSettings.paths.root + "/testdb.json");
-var middlewares = jsonServer.defaults();
-server.use(middlewares);
-server.use(router);
-server.listen(3000);
+ConfigUtils.createJsonServer(3000, commonSettings.paths.root + "/testdb.json");
 
 module.exports = function configure(config) {
     config.set({
