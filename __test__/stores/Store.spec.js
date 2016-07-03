@@ -4,7 +4,6 @@ import Store from "stores/Store";
 import StoreShallowComponent from "components/StoreShallowComponent";
 import Assertions from "utils/Assertions";
 import { RemoteEndPoint } from "index";
-
 import chai from "chai";
 import TestUtils from "react-addons-test-utils";
 
@@ -53,10 +52,12 @@ describe("Store.js", () => {
             }),
             autoLoad: true,
             idField: "id",
-            importer: {}
+            importer: (response: any): any => {
+                return response;
+            }
         });
         chai.assert.operator(store.getObjectId(), ">=", 0);
-        chai.assert.isFalse(Assertions.isFunction(store.getProps().importer), true);
+        chai.assert.isTrue(Assertions.isFunction(store.getProps().importer), true);
         chai.assert.equal(store.getProps().idField, "id");
         chai.assert.equal(store.getProps().autoLoad, true);
     });
@@ -108,9 +109,47 @@ describe("Store.js", () => {
         // default check code.
         chai.assert.deepEqual(store.getResult(), expectedDefaultResult);
     });
+
     /** @test {Store#register} */
-    it("register", () => {
+    it("register", (done) => {
         // Render a checkbox with label in the document
+        class TestComponent extends StoreShallowComponent {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    size:  props.stores[0].getResult().data.length
+                };
+            }
+            render(): string {
+                return (<div>{this.state.size}</div>);
+            }
+            triggerChange(store: Store) {
+                this.setState({
+                    size: store.getResult().data.length
+                });
+            }
+        }
+
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            autoLoad: true,
+            onSuccess: (result: Map) => {
+                let test2 = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
+                let domNode = TestUtils.findRenderedDOMComponentWithTag(test2, "div");
+                chai.assert.operator(domNode.innerText, ">", 0);
+                done();
+            },
+            onError: (errorCode, errorMessage) => {
+                done();
+            }
+        });
+        let test = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
+
+        let domNode = TestUtils.findRenderedDOMComponentWithTag(test, "div");
+        chai.assert.equal(domNode.innerText, 0);
+
     });
     /** @test {Store#unRegister} */
     it("unRegister", () => {

@@ -51,6 +51,9 @@ export default class StoreShallowComponent extends ShallowComponent {
         }
         this.__objectId = StoreShallowComponent.componentCount++;
         this.stores = this.props.stores;
+        for (let i = 0; i < this.stores.length; i++) {
+            this.stores[i].register(this);
+        }
     }
 
     /**

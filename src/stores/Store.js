@@ -71,6 +71,8 @@ export default class Store {
             this.__props.importer = (response: any): any => {
                 return response;
             };
+        } else {
+            Assertions.isFunction(this.__props.importer,true);
         }
 
         if (!this.__props.idField) {
@@ -225,6 +227,17 @@ export default class Store {
     }
 
 
+    /**
+     *
+     * @param successCallBack
+     * @param errorCallback
+     * @param offset
+     * @param limit
+     * @param query
+     * @param filter
+     * @param fields
+     * @returns {boolean|*}
+     */
     read(successCallBack: Function, errorCallback: Function, offset: string, limit: string, query: string, filter: string, fields: string): boolean {
         return (
             this.__props.endPoint.read(

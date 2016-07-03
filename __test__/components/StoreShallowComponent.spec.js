@@ -7,15 +7,21 @@ import { RemoteEndPoint } from "index";
 class TestComponent extends StoreShallowComponent {
     constructor(props: Object) {
         super(props);
-        this.state = { test: 0 };
+        this.state = { count: 0 };
     }
     render(): Object {
         return (
-            <div>{this.state.test}</div>
+            <div>{this.state.count}</div>
         );
+    }
+    triggerChange(store: Store) {
+        this.setState({
+            count: store.getResult().data.length
+        });
     }
 }
 describe("StoreShallowComponent.js", () => {
+    const url = "http://localhost:3000/posts";
     it("constructors", () => {
         let result = false;
         let compCount = StoreShallowComponent.componentCount;
@@ -47,17 +53,28 @@ describe("StoreShallowComponent.js", () => {
     });
 
     it("getObjectId", () => {
-        let props = { stores: [{}] };
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            autoLoad: true,
+            idField: "id"
+        });
+        let props = { stores: [store] };
         let test1 = new TestComponent(props);
         let test2 = new TestComponent(props);
         chai.assert.operator(test1.getObjectId(), "<", test2.getObjectId());
     });
     it("getStore", () => {
-        let props = { stores: [new Store({
-                endPoint: new RemoteEndPoint({
-                    url: "posts"
+        let props = {
+            stores: [
+                new Store({
+                    endPoint: new RemoteEndPoint({
+                        url: url
+                    })
                 })
-        })] };
+            ]
+        };
         let test = new TestComponent(props);
         chai.assert.isDefined(test.getStore(), "Store should not be undefined.");
     });
