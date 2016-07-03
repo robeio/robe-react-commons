@@ -1,7 +1,8 @@
+import Application from "application/Application";
 import React from "react";
 import Store from "stores/Store";
 import StoreShallowComponent from "components/StoreShallowComponent";
-
+import Assertions from "utils/Assertions";
 import { RemoteEndPoint } from "index";
 
 import chai from "chai";
@@ -19,57 +20,93 @@ class StoreShallowComponentTest extends StoreShallowComponent {
 
 }
 describe("Store.js", () => {
-    const store = new Store({
-        endPoint: new RemoteEndPoint({
-            url: "menus"
-        }),
-        autoLoad: true
-    });
+    const url = "http://localhost:3000/posts";
+    /** @test {Store#constructor} */
+    it("constructors", () => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            })
+        });
+        chai.assert.operator(store.getObjectId(), ">=", 0);
+        chai.assert.isTrue(Assertions.isFunction(store.getProps().importer), true);
+        chai.assert.equal(store.getProps().idField, "oid");
+        chai.assert.equal(store.getProps().autoLoad, false);
 
+        store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            autoLoad: true,
+            idField: "id"
+        });
+        chai.assert.operator(store.getObjectId(), ">=", 0);
+        chai.assert.isTrue(Assertions.isFunction(store.getProps().importer), true);
+        chai.assert.equal(store.getProps().idField, "id");
+        chai.assert.equal(store.getProps().autoLoad, true);
+    });
     /** @test {Store#getProps} */
     it("getProps", () => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            autoLoad: true,
+            idField: "id",
+            importer: {}
+        });
+        chai.assert.operator(store.getObjectId(), ">=", 0);
+        chai.assert.isFalse(Assertions.isFunction(store.getProps().importer), true);
+        chai.assert.equal(store.getProps().idField, "id");
         chai.assert.equal(store.getProps().autoLoad, true);
     });
     /** @test {Store#getObjectId} */
     it("getObjectId", () => {
-        let count = Store.storeCount;
-        const store2 = new Store({
+        let store = new Store({
             endPoint: new RemoteEndPoint({
-                url: "menus"
+                url: url
             })
         });
-
-        chai.assert.operator(store2.getObjectId(), ">=", count);
+        let store2 = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            })
+        });
+        chai.assert.operator(store.getObjectId(), ">=", 0);
+        chai.assert.operator(store2.getObjectId(), ">", store.getObjectId());
     });
     /** @test {Store#getName} */
     it("getName", () => {
-        let expectedName = "Store";
-        chai.assert.equal(store.getName(), expectedName);
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            })
+        });
+        chai.assert.equal(store.getName(), "Store");
     });
 
     /** @test {Store#getResult} */
-    it("getResult", () => {
-        // result is empty check
-
-        const store3 = new Store({
+    it("getResult", (done) => {
+        let store = new Store({
             endPoint: new RemoteEndPoint({
-                url: "menus"
+                url: url
             }),
-            key: "newStore",
             autoLoad: true,
-            onSuccess: () => {
-                // done();
+            onSuccess: (result: Map) => {
+                chai.assert.isArray(result.data);
+                chai.assert.isNumber(result.totalCount);
+                done();
             },
-            onError: () => {
-                // done();
+            onError: (errorCode, errorMessage) => {
+                done();
             }
         });
-        TestUtils.renderIntoDocument(
-            <StoreShallowComponentTest stores={[store]} />
-        );
-        chai.assert.deepEqual(store3.getResult().data, []);
-        chai.assert.deepEqual(store3.getResult().totalCount, 0);
-        // TODO async calling must to test.
+        let expectedDefaultResult = {
+            data: [],
+            totalCount: 0
+        };
+        // default check code.
+        chai.assert.deepEqual(store.getResult(), expectedDefaultResult);
     });
     /** @test {Store#register} */
     it("register", () => {

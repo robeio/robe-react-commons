@@ -63,7 +63,6 @@ export default class AjaxRequest {
             this.props.url = this.serializeQueryParams(this.props.url, queryParams);
         }
 
-        console.log(JSON.stringify(this.props));
         jajax.ajax(this.props);
     };
 

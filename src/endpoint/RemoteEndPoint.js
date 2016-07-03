@@ -69,7 +69,7 @@ export default class RemoteEndPoint {
         return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
-    update(newItem: Map, successCallback: Function, errorCallback: Function) {
+    update(newItem: Map, idField, successCallback: Function, errorCallback: Function) {
         let onSuccess = (data: Object) => {
             let result = {
                 data: data,
@@ -78,10 +78,10 @@ export default class RemoteEndPoint {
             successCallback(result);
         };
 
-        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem.id]);
+        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem[idField]]);
     }
 
-    delete(item: Map, successCallback: Function, errorCallback: Function) {
+    delete(item: Map, idField, successCallback: Function, errorCallback: Function) {
         let onSuccess = (data: Object) => {
             let result = {
                 data: data,
@@ -89,7 +89,7 @@ export default class RemoteEndPoint {
             };
             successCallback(result);
         };
-        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback), [item.id]);
+        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback), [item[idField]]);
     }
 
     getUrl(): string {

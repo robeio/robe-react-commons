@@ -2,6 +2,7 @@ import React from "react";
 import chai from "chai";
 import StoreShallowComponent from "components/StoreShallowComponent";
 import Store from "stores/Store";
+import { RemoteEndPoint } from "index";
 
 class TestComponent extends StoreShallowComponent {
     constructor(props: Object) {
@@ -52,7 +53,11 @@ describe("StoreShallowComponent.js", () => {
         chai.assert.operator(test1.getObjectId(), "<", test2.getObjectId());
     });
     it("getStore", () => {
-        let props = { stores: [new Store({})] };
+        let props = { stores: [new Store({
+                endPoint: new RemoteEndPoint({
+                    url: "posts"
+                })
+        })] };
         let test = new TestComponent(props);
         chai.assert.isDefined(test.getStore(), "Store should not be undefined.");
     });

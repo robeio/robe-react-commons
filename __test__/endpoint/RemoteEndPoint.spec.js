@@ -64,7 +64,7 @@ describe("RemoteEndPoint.js", () => {
             chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
-        endpoint.update(item, success, error);
+        endpoint.update(item, "id", success, error);
     });
     it("delete", (done) => {
         let endpoint = new RemoteEndPoint({ url: url });
@@ -78,6 +78,6 @@ describe("RemoteEndPoint.js", () => {
             done(xhr);
         }
 
-        endpoint.delete(item, success, error);
+        endpoint.delete(item, "id", success, error);
     });
 });

@@ -63,10 +63,11 @@ export default class Store {
      * @param {Object} props
      */
     constructor(props: Object) {
-        this.__props = props === undefined ? {} : props;
+        Assertions.isNotUndefined(props.endPoint, true);
+        this.__props = props;
         this.__props.objectId = Store.storeCount++;
 
-        if (!props.importer) {
+        if (!this.__props.importer) {
             this.__props.importer = (response: any): any => {
                 return response;
             };
@@ -76,8 +77,12 @@ export default class Store {
             this.__props.idField = "oid";
         }
 
-        if (props.autoLoad) {
-            this.read(props.onSuccess, props.onError);
+        if (!this.__props.autoLoad) {
+            this.__props.autoLoad = false;
+        }
+
+        if (this.__props.autoLoad === true) {
+            this.read(this.__props.onSuccess, this.__props.onError);
         }
     }
 
@@ -166,7 +171,7 @@ export default class Store {
      */
     _onSuccess(operator: string, result: Map, successCallback: Function): boolean {
         if (successCallback) {
-            successCallback.apply(this, result);
+            successCallback(result);
         }
         this.__error = null;
         this.__errorCode = null;
@@ -198,7 +203,7 @@ export default class Store {
     __errorCallBack(operator: string, errorCallback: Function): Function {
         return (errorCode: number, error: string) => {
             if (errorCallback) {
-                errorCallback.apply(this, errorCode, error);
+                errorCallback(errorCode, error);
             }
         };
     }
@@ -220,16 +225,15 @@ export default class Store {
     }
 
 
-    read(successCallback: Function, errorCallback: Function, _offset: string, _limit: string, _query: string, code: string, value: string, fields: string): boolean {
+    read(successCallBack: Function, errorCallback: Function, offset: string, limit: string, query: string, filter: string, fields: string): boolean {
         return (
             this.__props.endPoint.read(
-                _offset,
-                _limit,
-                _query,
-                code,
-                value,
+                offset,
+                limit,
+                query,
+                filter,
                 fields,
-                this.__readSuccessCallback(successCallback),
+                this.__readSuccessCallback(successCallBack),
                 this.__errorCallBack("read", errorCallback)
             ));
     }
@@ -242,7 +246,7 @@ export default class Store {
      */
     __createSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataWrapper.add(result.data);
+            this.__result.dataMap.add(result.data);
             this._onSuccess("create", result, successCallback);
         };
     }
@@ -271,7 +275,7 @@ export default class Store {
      */
     __updateSuccessCallback(oldItem: Map, successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataWrapper.replace(oldItem, result.data);
+            this.__result.dataMap.replace(oldItem, result.data);
             this._onSuccess("update", result, successCallback);
         };
     }
@@ -285,9 +289,9 @@ export default class Store {
     update(oldItem: Map, newItem: Map, successCallback: Function, errorCallback: Function): boolean {
         return (
             this.__props.endPoint.update(
-                oldItem,
                 newItem,
-                this.__updateSuccessCallback(successCallback),
+                this.__props.idField,
+                this.__updateSuccessCallback(oldItem, successCallback),
                 this.__errorCallBack("update", errorCallback)
             )
         );
@@ -302,7 +306,7 @@ export default class Store {
      */
     __deleteSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataWrapper.remove(result.data);
+            this.__result.dataMap.remove(result.data);
             this.__result.totalCount -= this.result.totalCount;
             this._onSuccess("delete", result, successCallback);
         };
@@ -317,6 +321,7 @@ export default class Store {
         return (
             this.__props.endPoint.delete(
                 item,
+                this.__props.idField,
                 this.__deleteSuccessCallback(successCallback),
                 this.__errorCallBack("delete", errorCallback)
             )
