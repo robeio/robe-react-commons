@@ -45,7 +45,7 @@ export default class AjaxRequest {
      * @param {Function} success callback for the ajax request.
      * @param {Function} error callback for the ajax request.
      */
-    call = (data: Object, queryParams: Object, success: Function, error: Function) => {
+    call = (data: Object, queryParams: Object, success: Function, error: Function, pathParams: Array<string>) => {
         this.props.success = success !== undefined ? success : undefined;
         this.props.error = error !== undefined ? error : undefined;
         if (data !== undefined) {
@@ -53,10 +53,17 @@ export default class AjaxRequest {
         } else {
             delete this.props.data;
         }
+        this.props.url = this.__url;
+
+        if (pathParams !== undefined) {
+            this.props.url = `${this.__url}/${pathParams.join("/")}`;
+        }
 
         if (queryParams !== undefined) {
-            this.props.url = this.serializeQueryParams(queryParams);
+            this.props.url = this.serializeQueryParams(this.props.url, queryParams);
         }
+
+        console.log(JSON.stringify(this.props));
         jajax.ajax(this.props);
     };
 
@@ -66,10 +73,8 @@ export default class AjaxRequest {
      * @param {Object} queryParams parameter map.
      * @return {string} url with the query parameters.
      */
-    serializeQueryParams = (queryParams: Object): string => {
+    serializeQueryParams = (url: string, queryParams: Object): string => {
         let { offset, limit, query, filter, fields } = queryParams;
-
-        let url = this.__url;
         let hasOffset = offset !== undefined;
         let hasLimit = limit !== undefined;
         let hasQuery = query !== undefined;

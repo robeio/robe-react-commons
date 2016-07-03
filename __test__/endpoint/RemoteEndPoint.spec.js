@@ -51,7 +51,9 @@ describe("RemoteEndPoint.js", () => {
         endpoint.create(item, success, error);
     });
     it("update", (done) => {
-        let endpoint = new RemoteEndPoint({ url: `${url}/${item.id}` });
+        let endpoint = new RemoteEndPoint({ url: url });
+
+        item.title = "NewPost";
 
         function success(result: Object) {
             checkResponseProps(result);
@@ -62,13 +64,10 @@ describe("RemoteEndPoint.js", () => {
             chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
-
-        item.title = "NewPost";
-
         endpoint.update(item, success, error);
     });
     it("delete", (done) => {
-        let endpoint = new RemoteEndPoint({ url: `${url}/${item.id}` });
+        let endpoint = new RemoteEndPoint({ url: url });
 
         function success(result: Object) {
             checkResponseProps(result);

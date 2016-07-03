@@ -68,7 +68,7 @@ describe("AjaxRequest.js", () => {
     });
     it("callQueryParams", (done: Function) => {
         let props = {
-            url: "http://localhost:3000/posts/1",
+            url: "http://localhost:3000/posts",
             type: "GET"
         };
         let request = new AjaxRequest(props);
@@ -87,6 +87,6 @@ describe("AjaxRequest.js", () => {
             filter: "a=b",
             fields: "id,name"
         };
-        request.call({}, queryParams, success, error);
+        request.call({}, queryParams, success, error, ["1"]);
     });
 });

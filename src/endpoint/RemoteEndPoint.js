@@ -66,7 +66,6 @@ export default class RemoteEndPoint {
             };
             successCallback(result);
         };
-
         return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
@@ -79,7 +78,7 @@ export default class RemoteEndPoint {
             successCallback(result);
         };
 
-        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback));
+        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem.id]);
     }
 
     delete(item: Map, successCallback: Function, errorCallback: Function) {
@@ -90,7 +89,7 @@ export default class RemoteEndPoint {
             };
             successCallback(result);
         };
-        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
+        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback), [item.id]);
     }
 
     getUrl(): string {
