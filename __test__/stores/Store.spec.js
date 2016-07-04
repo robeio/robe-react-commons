@@ -229,11 +229,68 @@ describe("Store.js", () => {
         });
     });
     /** @test {Store#update} */
-    it("update", () => {
-
+    it("update", (done) => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            idField: "id",
+            autoLoad: true,
+            onSuccess: () => {
+                let count = store.getResult().data.length;
+                if (count > 0) {
+                    let oldItem = store.getResult().data[0];
+                    let updatedItem = store.getResult().data[0];
+                    updatedItem.title = "updated title";
+                    store.update(
+                        oldItem,
+                        updatedItem,
+                        () => {
+                            chai.assert.equal(store.getResult().data.length, count);
+                            done();
+                        },
+                        (error: Map) => {
+                            done();
+                        }
+                    );
+                } else {
+                    done();
+                }
+            },
+            onError: (error: Map) => {
+                done();
+            }
+        });
     });
     /** @test {Store#delete} */
     it("delete", () => {
-
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            idField: "id",
+            autoLoad: true,
+            onSuccess: () => {
+                let count = store.getResult().data.length;
+                if (count > 0) {
+                    let willDeleteItem = store.getResult().data[0];
+                    store.delete(
+                        willDeleteItem,
+                        () => {
+                            chai.assert.equal(store.getResult().data.length, count-1);
+                            done();
+                        },
+                        (error: Map) => {
+                            done();
+                        }
+                    );
+                } else {
+                    done();
+                }
+            },
+            onError: (error: Map) => {
+                done();
+            }
+        });
     });
 });
