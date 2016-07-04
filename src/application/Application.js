@@ -1,5 +1,7 @@
 import Properties from "./Properties";
 import Assertions from "../utils/Assertions";
+import Messages from "./Messages";
+import Maps from "../utils/Maps";
 /**
  * A singleton class which hold all application general informations.
  * @class Application
@@ -17,6 +19,8 @@ class Application {
      */
     constructor() {
         this.props = new Properties();
+        this.error = {};
+        this.loadError(Messages.error);
     }
     /**
      * Returns properties instance of the application.
@@ -61,6 +65,18 @@ class Application {
             return this.getBaseUrlPath() + url;
         }
         return url;
+    }
+
+    loadError = (errorMap) => {
+        Maps.forEach(errorMap, (value, code) => {
+            this.setError(code, value);
+        });
+    }
+    setError = (code: string, value: string) => {
+        this.error[code] = value;
+    }
+    getError = (code: string) => {
+        return this.error[code];
     }
 }
 

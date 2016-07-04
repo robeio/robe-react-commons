@@ -1,4 +1,4 @@
-import IsJS from "is-js";
+import IsJS from "is_js";
 /**
  * A singleton class which implements mostly used validation operations.
  */
@@ -123,6 +123,39 @@ class Assertions {
         if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given argument is undefined !");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks is json or not
+     * @param obj
+     * @param error
+     * @returns {boolean}
+     */
+    isJson(obj: Map, error: boolean): boolean {
+        if (!IsJS.json(obj)) {
+            if (error) {
+                throw new Error("Given format is not valid json format !");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks is integer or not
+     * @param n
+     * @param error
+     * @returns {boolean}
+     */
+    isInteger(n: number, error: boolean): boolean {
+        /* eslint-disable eqeqeq */
+        if (!(Number(n) == n && n % 1 === 0)) {
+            if (error) {
+                throw new Error("Given argument is not a number !");
             }
             return false;
         }

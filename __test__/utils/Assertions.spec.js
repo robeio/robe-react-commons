@@ -121,4 +121,55 @@ describe("Assertions.js", () => {
         }
         chai.assert.isOk(result, "Exception expected.");
     });
+
+    it("isJson", () => {
+        /* eslint-disable quote-props */
+        let value = { "a": "1" };
+        chai.assert.equal(Assertions.isJson(value), true);
+
+        value = undefined;
+        chai.assert.equal(Assertions.isJson(value), false);
+
+        value = "blabla";
+        chai.assert.equal(Assertions.isJson(value), false);
+
+        value = 3;
+        chai.assert.equal(Assertions.isJson(value), false);
+
+        value = 3;
+        chai.assert.equal(Assertions.isJson(value), false);
+
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isJson(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
+    it("isInteger", () => {
+        let value = 3;
+        chai.assert.equal(Assertions.isInteger(value), true);
+
+        value = "5";
+        chai.assert.equal(Assertions.isInteger(value), true);
+
+        value = "blabla";
+        chai.assert.equal(Assertions.isInteger(value), false);
+
+        value = {};
+        chai.assert.equal(Assertions.isInteger(value), false);
+
+        value = [];
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isInteger(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
 });

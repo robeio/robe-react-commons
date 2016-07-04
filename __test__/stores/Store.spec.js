@@ -1,4 +1,3 @@
-import Application from "application/Application";
 import React from "react";
 import Store from "stores/Store";
 import StoreShallowComponent from "components/StoreShallowComponent";
@@ -9,15 +8,6 @@ import TestUtils from "react-addons-test-utils";
 
 
 /** @test {Store} */
-class StoreShallowComponentTest extends StoreShallowComponent {
-    render(): string {
-        return (
-            <div>
-            </div>
-        );
-    }
-
-}
 describe("Store.js", () => {
     const url = "http://localhost:3000/posts";
     /** @test {Store#constructor} */
@@ -98,7 +88,7 @@ describe("Store.js", () => {
                 chai.assert.isNumber(result.totalCount);
                 done();
             },
-            onError: (errorCode, errorMessage) => {
+            onError: (error: Map) => {
                 done();
             }
         });
@@ -141,7 +131,7 @@ describe("Store.js", () => {
                 chai.assert.operator(domNode.innerText, ">", 0);
                 done();
             },
-            onError: (errorCode, errorMessage) => {
+            onError: (error: Map) => {
                 done();
             }
         });
@@ -180,12 +170,65 @@ describe("Store.js", () => {
 
     });
     /** @test {Store#read} */
-    it("read", () => {
+    it("read", (done) => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "page not found"
+            })
+        });
 
+        store.read(() => {
+            chai.assert(false, "Request should give error ! URL is not correct ! ");
+            done();
+        }, (error: Map) => {
+            chai.assert.equal(error.code, 508);
+            done();
+        });
+
+        store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "posts"
+            }),
+            idField: "id"
+        });
+
+        store.read(
+            (result: Map) => {
+                chai.assert.isArray(result.data);
+                chai.assert.isNumber(result.totalCount);
+                done();
+            },
+            () => {
+                chai.assert(false, "Request should be success ! ");
+                done();
+            });
     });
     /** @test {Store#create} */
-    it("create", () => {
-
+    it("create", (done) => {
+        let item = { id: new Date().getTime(), title: "Post" };
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: url
+            }),
+            idField: "id",
+            autoLoad: true,
+            onSuccess: () => {
+                let count = store.getResult().data.length;
+                store.create(
+                    item,
+                    () => {
+                        chai.assert.equal(store.getResult().data.length, count + 1);
+                        done();
+                    },
+                    (error: Map) => {
+                        done();
+                    }
+                );
+            },
+            onError: (error: Map) => {
+                done();
+            }
+        });
     });
     /** @test {Store#update} */
     it("update", () => {

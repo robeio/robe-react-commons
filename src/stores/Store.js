@@ -28,14 +28,9 @@ export default class Store {
     __result: Object;
     /**
      * An number which holds error code of the last operation.
-     * @type {number}
+     * @type {Map { code, message}}
      */
-    __errorCode: number;
-    /**
-     * A number which holds error message of the last operation.
-     * @type {string}
-     */
-    __error: string;
+    __error ;
     /**
      * A Map which holds properties of the store.
      * @type {Object}
@@ -72,7 +67,7 @@ export default class Store {
                 return response;
             };
         } else {
-            Assertions.isFunction(this.__props.importer,true);
+            Assertions.isFunction(this.__props.importer, true);
         }
 
         if (!this.__props.idField) {
@@ -176,7 +171,6 @@ export default class Store {
             successCallback(result);
         }
         this.__error = null;
-        this.__errorCode = null;
         this.triggerChanges();
         return true;
     }
@@ -189,8 +183,7 @@ export default class Store {
      * @returns {boolean}
      * @protected
      */
-    _onError(operator: string, errorCode: number, error: string): boolean {
-        this.__errorCode = errorCode;
+    _onError(operator: string, error): boolean {
         this.__error = error;
         return true;
     }
@@ -203,9 +196,9 @@ export default class Store {
      * @private
      */
     __errorCallBack(operator: string, errorCallback: Function): Function {
-        return (errorCode: number, error: string) => {
+        return (error: string) => {
             if (errorCallback) {
-                errorCallback(errorCode, error);
+                errorCallback(error);
             }
         };
     }
@@ -260,6 +253,7 @@ export default class Store {
     __createSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
             this.__result.dataMap.add(result.data);
+            this.__result.totalCount = this.__result.totalCount + 1;
             this._onSuccess("create", result, successCallback);
         };
     }

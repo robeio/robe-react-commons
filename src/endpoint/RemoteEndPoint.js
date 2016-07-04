@@ -1,16 +1,8 @@
 import Application from "../application/Application";
 import AjaxRequest from "../connections/AjaxRequest";
+import ErrorUtility from "../utils/ErrorUtility";
 
 export default class RemoteEndPoint {
-    static errorStatusMap = {
-        400: "Server understood the request, but request content was invalid.",
-        401: "Unauthorized access.",
-        403: "Forbidden resource can't be accessed.",
-        404: "The requested page not found.",
-        500: "Internal server error.",
-        503: "Service unavailable.",
-        422: "The request was well-formed but was unable to be followed due to semantic errors"
-    };
 
     __url;
     _readRequest;
@@ -97,8 +89,9 @@ export default class RemoteEndPoint {
     }
 
     __createOnError(errorCallback: Function): Function {
-        return (xhr: Object) => {
-            errorCallback(xhr.status, xhr.responseJSON.details);
+        return (xhr: Object, exception: string) => {
+            let error = ErrorUtility.parseHttpError(xhr, exception);
+            errorCallback(error);
         };
     }
 }
