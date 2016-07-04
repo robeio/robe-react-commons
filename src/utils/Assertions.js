@@ -1,4 +1,4 @@
-import IsJS from "is_js";
+import IsJS from "is-js";
 /**
  * A singleton class which implements mostly used validation operations.
  */
@@ -136,7 +136,7 @@ class Assertions {
      * @returns {boolean}
      */
     isJson(obj: Map, error: boolean): boolean {
-        if (!IsJS.json(obj)) {
+        if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given format is not valid json format !");
             }

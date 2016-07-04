@@ -63,7 +63,7 @@
     "webpack": "1.13.0"
   },
   "dependencies": {
-    "is_js": "^0.8.0",
+    "is-js": "^0.1.1",
     "jajax": "git+https://github.com/kbukum/jajax.git",
     "react": "15.0.2",
     "react-addons-shallow-compare": "15.0.2",
