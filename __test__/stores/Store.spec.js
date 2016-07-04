@@ -179,16 +179,13 @@ describe("Store.js", () => {
 
         store.read(() => {
             chai.assert(false, "Request should give error ! URL is not correct ! ");
-            done();
         }, (error: Map) => {
             chai.assert.equal(error.code, 508);
-            done();
         });
 
-        /*
         store = new Store({
             endPoint: new RemoteEndPoint({
-                url: "posts"
+                url: url
             }),
             idField: "id"
         });
@@ -196,14 +193,13 @@ describe("Store.js", () => {
         store.read(
             (result: Map) => {
                 chai.assert.isArray(result.data);
-                chai.assert.isNumeric(result.totalCount);
+                chai.assert.isNumber(result.totalCount);
                 done();
             },
             () => {
                 chai.assert(false, "Request should be success ! ");
                 done();
             });
-            */
     });
     /** @test {Store#create} */
     it("create", (done) => {
