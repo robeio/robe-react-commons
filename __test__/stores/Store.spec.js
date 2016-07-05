@@ -33,6 +33,7 @@ describe("Store.js", () => {
         chai.assert.isTrue(Assertions.isFunction(store.getProps().importer), true);
         chai.assert.equal(store.getProps().idField, "id");
         chai.assert.equal(store.getProps().autoLoad, true);
+        chai.assert.deepEqual(store.getProps().importer({}), {});
     });
     /** @test {Store#getProps} */
     it("getProps", () => {
@@ -127,6 +128,7 @@ describe("Store.js", () => {
             autoLoad: true,
             onSuccess: (result: Map) => {
                 let test2 = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
+
                 let domNode = TestUtils.findRenderedDOMComponentWithTag(test2, "div");
                 chai.assert.operator(domNode.innerText, ">", 0);
                 done();
@@ -135,11 +137,11 @@ describe("Store.js", () => {
                 done();
             }
         });
+
         let test = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
 
         let domNode = TestUtils.findRenderedDOMComponentWithTag(test, "div");
         chai.assert.equal(domNode.innerText, 0);
-
     });
     /** @test {Store#unRegister} */
     it("unRegister", () => {
@@ -238,9 +240,9 @@ describe("Store.js", () => {
             autoLoad: true,
             onSuccess: () => {
                 let count = store.getResult().data.length;
-                if (count > 0) {
-                    let oldItem = store.getResult().data[0];
-                    let updatedItem = store.getResult().data[0];
+                if (count > 1) {
+                    let oldItem = store.getResult().data[1];
+                    let updatedItem = store.getResult().data[1];
                     updatedItem.title = "updated title";
                     store.update(
                         oldItem,
@@ -272,12 +274,12 @@ describe("Store.js", () => {
             autoLoad: true,
             onSuccess: () => {
                 let count = store.getResult().data.length;
-                if (count > 0) {
-                    let willDeleteItem = store.getResult().data[0];
+                if (count > 1) {
+                    let willDeleteItem = store.getResult().data[1];
                     store.delete(
                         willDeleteItem,
                         () => {
-                            chai.assert.equal(store.getResult().data.length, count-1);
+                            chai.assert.equal(store.getResult().data.length, count - 1);
                             done();
                         },
                         (error: Map) => {
