@@ -19,7 +19,7 @@ describe("RemoteEndPoint.js", () => {
 
         chai.assert.equal(endpoint.getUrl(), url);
     });
-    it("read", (done) => {
+    it("read", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
 
         function success(result: Object) {
@@ -35,7 +35,7 @@ describe("RemoteEndPoint.js", () => {
 
         endpoint.read(undefined, undefined, undefined, undefined, undefined, success, error);
     });
-    it("create", (done) => {
+    it("create", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
 
         function success(result: Object) {
@@ -50,7 +50,7 @@ describe("RemoteEndPoint.js", () => {
 
         endpoint.create(item, success, error);
     });
-    it("update", (done) => {
+    it("update", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
 
         item.title = "NewPost";
@@ -66,7 +66,7 @@ describe("RemoteEndPoint.js", () => {
         }
         endpoint.update(item, "id", success, error);
     });
-    it("delete", (done) => {
+    it("delete", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
 
         function success(result: Object) {

@@ -35,7 +35,7 @@ const error = {
     508: "Wrong URL ",
     520: "Requested JSON parse failed.",
     521: "Time out error.",
-    523: "Ajax request aborted.",
+    523: "Ajax request aborted."
 };
 
 const info = {
@@ -53,7 +53,7 @@ const info = {
     303: "See Other	Diğerlerine Bak",
     304: "Not Modified	Güncellenmedi",
     307: "Temporary Redirect	Geçici olarak yeniden gönder"
-}
+};
 
 const Messages = {
     error: error,

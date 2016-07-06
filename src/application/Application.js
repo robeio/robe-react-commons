@@ -67,15 +67,15 @@ class Application {
         return url;
     }
 
-    loadError = (errorMap) => {
-        Maps.forEach(errorMap, (value, code) => {
+    loadError = (errorMap: Map) => {
+        Maps.forEach(errorMap, (value: any, code: string) => {
             this.setError(code, value);
         });
     }
     setError = (code: string, value: string) => {
         this.error[code] = value;
     }
-    getError = (code: string) => {
+    getError = (code: string): any => {
         return this.error[code];
     }
 }

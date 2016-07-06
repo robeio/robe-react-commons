@@ -78,7 +78,7 @@ describe("Store.js", () => {
     });
 
     /** @test {Store#getResult} */
-    it("getResult", (done) => {
+    it("getResult", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -89,7 +89,8 @@ describe("Store.js", () => {
                 chai.assert.isNumber(result.totalCount);
                 done();
             },
-            onError: (error: Map) => {
+            // onError: (error: Map) => {
+            onError: () => {
                 done();
             }
         });
@@ -102,13 +103,13 @@ describe("Store.js", () => {
     });
 
     /** @test {Store#register} */
-    it("register", (done) => {
+    it("register", (done: Function) => {
         // Render a checkbox with label in the document
         class TestComponent extends StoreShallowComponent {
-            constructor(props) {
+            constructor(props: Object) {
                 super(props);
                 this.state = {
-                    size:  props.stores[0].getResult().data.length
+                    size: props.stores[0].getResult().data.length
                 };
             }
             render(): string {
@@ -126,14 +127,16 @@ describe("Store.js", () => {
                 url: url
             }),
             autoLoad: true,
-            onSuccess: (result: Map) => {
+            // onSuccess: (result: Map) => {
+            onSuccess: () => {
                 let test2 = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
 
                 let domNode = TestUtils.findRenderedDOMComponentWithTag(test2, "div");
                 chai.assert.operator(domNode.innerText, ">", 0);
                 done();
             },
-            onError: (error: Map) => {
+            // onError: (error: Map) => {
+            onError: () => {
                 done();
             }
         });
@@ -172,7 +175,7 @@ describe("Store.js", () => {
 
     });
     /** @test {Store#read} */
-    it("read", (done) => {
+    it("read", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: "page not found"
@@ -204,7 +207,7 @@ describe("Store.js", () => {
             });
     });
     /** @test {Store#create} */
-    it("create", (done) => {
+    it("create", (done: Function) => {
         let item = { id: new Date().getTime(), title: "Post" };
         let store = new Store({
             endPoint: new RemoteEndPoint({
@@ -220,18 +223,20 @@ describe("Store.js", () => {
                         chai.assert.equal(store.getResult().data.length, count + 1);
                         done();
                     },
-                    (error: Map) => {
+                    // (error: Map) => {
+                    () => {
                         done();
                     }
                 );
             },
-            onError: (error: Map) => {
+            //  onError: (error: Map) => {
+            onError: () => {
                 done();
             }
         });
     });
     /** @test {Store#update} */
-    it("update", (done) => {
+    it("update", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -251,7 +256,8 @@ describe("Store.js", () => {
                             chai.assert.equal(store.getResult().data.length, count);
                             done();
                         },
-                        (error: Map) => {
+                        // (error: Map) => {
+                        () => {
                             done();
                         }
                     );
@@ -259,13 +265,14 @@ describe("Store.js", () => {
                     done();
                 }
             },
-            onError: (error: Map) => {
+            // onError: (error: Map) => {
+            onError: () => {
                 done();
             }
         });
     });
     /** @test {Store#delete} */
-    it("delete", () => {
+    it("delete", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -282,7 +289,8 @@ describe("Store.js", () => {
                             chai.assert.equal(store.getResult().data.length, count - 1);
                             done();
                         },
-                        (error: Map) => {
+                        // (error: Map) => {
+                        () => {
                             done();
                         }
                     );
@@ -290,7 +298,8 @@ describe("Store.js", () => {
                     done();
                 }
             },
-            onError: (error: Map) => {
+            //  onError: (error: Map) => {
+            onError: () => {
                 done();
             }
         });

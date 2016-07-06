@@ -183,7 +183,7 @@ export default class Store {
      * @returns {boolean}
      * @protected
      */
-    _onError(operator: string, error): boolean {
+    _onError(operator: string, error: Map): boolean {
         this.__error = error;
         return true;
     }
@@ -314,7 +314,7 @@ export default class Store {
     __deleteSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
             this.__result.dataMap.remove(result.data);
-            this.__result.totalCount -= this.result.totalCount;
+            this.__result.totalCount = this.__result.totalCount - 1;
             this._onSuccess("delete", result, successCallback);
         };
     }

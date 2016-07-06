@@ -61,7 +61,7 @@ export default class RemoteEndPoint {
         return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
-    update(newItem: Map, idField, successCallback: Function, errorCallback: Function) {
+    update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
         let onSuccess = (data: Object) => {
             let result = {
                 data: data,
@@ -73,10 +73,10 @@ export default class RemoteEndPoint {
         this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem[idField]]);
     }
 
-    delete(item: Map, idField, successCallback: Function, errorCallback: Function) {
-        let onSuccess = (data: Object) => {
+    delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
+        let onSuccess = () => {
             let result = {
-                data: data,
+                data: item,
                 totalCount: 1
             };
             successCallback(result);

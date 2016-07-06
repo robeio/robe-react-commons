@@ -1,12 +1,11 @@
 import Application from "../application/Application";
 import Assertions from "../utils/Assertions";
-import Maps from "../utils/Maps";
 /**
  * A singleton class which implements mostly used cookie operations.
  */
 class ErrorUtility {
       // (jqXHR, exception, errorThrown, callback)
-    parseHttpError = (jqXHR, exception) => {
+    parseHttpError = (jqXHR: any, exception: any): Map => {
         let response;
         /**
          * {
@@ -31,6 +30,7 @@ class ErrorUtility {
         // response is not json then
         response = {};
 
+        /* eslint-disable eqeqeq */
         if (Assertions.isInteger(jqXHR.status) && jqXHR.status != 0) {
             response.code = jqXHR.status;
             if (!exception || exception.trim() === "" || exception === "error") {

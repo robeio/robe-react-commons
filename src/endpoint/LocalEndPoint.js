@@ -8,7 +8,7 @@ export default class LocalEndPoint {
         this.__data = props.data;
     }
 
-    _query = (query) => {
+    _query = (query: Object): Array<Function> => {
         let restrictions = [];
         for (let i = 0; i < query.length; i++) {
             let filter = query[i];
@@ -54,12 +54,15 @@ export default class LocalEndPoint {
         if (limit) {
             criteria.setMaxResults(limit);
         }
+        /*
         if (query) {
+
             for (let i = 0; i < query.length; i++) {
                 let filter = query[i];
 
             }
         }
+        */
 
 
         let queryParams = {
@@ -92,7 +95,7 @@ export default class LocalEndPoint {
         return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
-    update(newItem: Map, idField, successCallback: Function, errorCallback: Function) {
+    update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
         let onSuccess = (data: Object) => {
             let result = {
                 data: data,
@@ -104,7 +107,7 @@ export default class LocalEndPoint {
         this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem[idField]]);
     }
 
-    delete(item: Map, idField, successCallback: Function, errorCallback: Function) {
+    delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
         let onSuccess = (data: Object) => {
             let result = {
                 data: data,
