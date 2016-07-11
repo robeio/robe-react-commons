@@ -1,4 +1,4 @@
-import ErrorUtility from "../utils/ErrorUtility";
+import HttpError from "../connections/HttpError";
 import { Criteria, Restrictions } from "js-criteria/lib";
 
 export default class LocalEndPoint {

@@ -1,6 +1,6 @@
 import Application from "../application/Application";
 import AjaxRequest from "../connections/AjaxRequest";
-import ErrorUtility from "../utils/ErrorUtility";
+import HttpError from "../connections/HttpError";
 
 export default class RemoteEndPoint {
 
@@ -90,7 +90,7 @@ export default class RemoteEndPoint {
 
     __createOnError(errorCallback: Function): Function {
         return (xhr: Object, exception: string) => {
-            let error = ErrorUtility.parseHttpError(xhr, exception);
+            let error = HttpError.parse(xhr, exception);
             errorCallback(error);
         };
     }

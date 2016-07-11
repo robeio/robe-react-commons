@@ -3,9 +3,9 @@ import Assertions from "../utils/Assertions";
 /**
  * A singleton class which implements mostly used cookie operations.
  */
-class ErrorUtility {
-      // (jqXHR, exception, errorThrown, callback)
-    parseHttpError = (jqXHR: any, exception: any): Map => {
+class HttpError {
+    // (jqXHR, exception, errorThrown, callback)
+    parse = (jqXHR: any, exception: any): Map => {
         let response;
         /**
          * {
@@ -16,8 +16,12 @@ class ErrorUtility {
 
         let responseJSON = jqXHR.responseJSON;
 
-        if (!responseJSON && Assertions.isJson(jqXHR.responseText)) {
-            responseJSON = JSON.parse(jqXHR.responseText);
+        if ((!responseJSON)) {
+            try {
+                responseJSON = JSON.parse(jqXHR.responseText);
+            } catch (e) {
+                console.warn("Couldn't find json result in responseJSON or responseText");
+            }
         }
 
         if (responseJSON && responseJSON.code) {
@@ -35,6 +39,8 @@ class ErrorUtility {
             response.code = jqXHR.status;
             if (!exception || exception.trim() === "" || exception === "error") {
                 response.message = Application.getError(response.code);
+            } else {
+                response.message = exception;
             }
         } else {
             if (jqXHR.url === undefined) {
@@ -58,4 +64,4 @@ class ErrorUtility {
     };
 }
 
-export default new ErrorUtility();
+export default new HttpError();
