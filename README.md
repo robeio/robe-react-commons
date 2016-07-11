@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/robeio/robe-react-commons.svg?branch=master)](https://travis-ci.org/robeio/robe-react-commons)
 [![Docs Coverage](https://doc.esdoc.org/github.com/robeio/robe-react-commons/badge.svg)](https://doc.esdoc.org/github.com/robeio/robe-react-commons)
 [![codecov](https://codecov.io/gh/robeio/robe-react-commons/branch/master/graph/badge.svg)](https://codecov.io/gh/robeio/robe-react-commons)
+[![dependencies](https://www.versioneye.com/user/projects/57839ae176ef40003fba80f6/badge.svg)](https://www.versioneye.com/user/projects/57839ae176ef40003fba80f6?child=summary)
 
 
 RRC = Robe-React-Commons
