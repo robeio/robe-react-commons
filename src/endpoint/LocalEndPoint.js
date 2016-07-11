@@ -45,14 +45,14 @@ export default class LocalEndPoint {
         }
         return restrictions;
     }
-    read(offset: string, limit: string, query: string, filter: string, fields: string, successCallBack: Function, errorCallback: Function): boolean {
+    read(filters, successCallBack: Function, errorCallback: Function): boolean {
         let criteria = new Criteria(this.__data);
 
-        if (offset) {
-            criteria.setFirstResult(offset);
+        if (filters.offset) {
+            criteria.setFirstResult(filters.offset);
         }
-        if (limit) {
-            criteria.setMaxResults(limit);
+        if (filters.limit) {
+            criteria.setMaxResults(filters.limit);
         }
         /*
         if (query) {
@@ -63,69 +63,17 @@ export default class LocalEndPoint {
             }
         }
         */
-
-
-        let queryParams = {
-            offset: offset,
-            limit: limit,
-            query: query,
-            filter: filter,
-            fields: fields
-        };
-
-        let onSuccess = (data: Object, textStatus: string, xhr: Object) => {
-            let result = {
-                data: data,
-                totalCount: parseInt(xhr.getResponseHeader("X-Total-Count"), 10) || 0
-            };
-            successCallBack(result);
-        };
-
-        return this._readRequest.call(undefined, queryParams, onSuccess, this.__createOnError(errorCallback));
     }
 
     create(item: Map, successCallback: Function, errorCallback: Function): boolean {
-        let onSuccess = (data: Object) => {
-            let result = {
-                data: data,
-                totalCount: 1
-            };
-            successCallback(result);
-        };
-        return this._createRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback));
+
     }
 
     update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
-        let onSuccess = (data: Object) => {
-            let result = {
-                data: data,
-                totalCount: 1
-            };
-            successCallback(result);
-        };
 
-        this._updateRequest.call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem[idField]]);
     }
 
     delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
-        let onSuccess = (data: Object) => {
-            let result = {
-                data: data,
-                totalCount: 1
-            };
-            successCallback(result);
-        };
-        this._deleteRequest.call(item, undefined, onSuccess, this.__createOnError(errorCallback), [item[idField]]);
-    }
 
-    getUrl(): string {
-        return this.__url;
-    }
-
-    __createOnError(errorCallback: Function): Function {
-        return (xhr: Object, exception: string) => {
-            let error = ErrorUtility.parseHttpError(xhr, exception);
-            errorCallback(error);
-        };
     }
 }
