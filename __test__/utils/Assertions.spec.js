@@ -60,6 +60,34 @@ describe("Assertions.js", () => {
         chai.assert.isOk(result, "Exception expected.");
     });
 
+    it("isNotUndefinedAndNull", () => {
+        let value = { a: "1" };
+        chai.assert.equal(Assertions.isNotUndefinedAndNull(value), true);
+
+        value = undefined;
+        chai.assert.equal(Assertions.isNotUndefinedAndNull(value), false);
+
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isNotUndefined(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+
+        value = null;
+        chai.assert.equal(Assertions.isNotUndefinedAndNull(value), false);
+        result = false;
+        try {
+            chai.assert.equal(Assertions.isNotUndefined(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
     it("isFunction", () => {
         let value = function getOne(): number { return 1; };// eslint-disable-line 
         chai.assert.equal(Assertions.isFunction(value), true);
@@ -166,6 +194,53 @@ describe("Assertions.js", () => {
         let result = false;
         try {
             chai.assert.equal(Assertions.isInteger(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+    it("isString", () => {
+        let value = "Hello";
+        chai.assert.equal(Assertions.isString(value), true);
+
+        value = "5";
+        chai.assert.equal(Assertions.isString(value), true);
+
+        value = 5;
+        chai.assert.equal(Assertions.isString(value), false);
+
+        value = {};
+        chai.assert.equal(Assertions.isString(value), false);
+
+        value = [];
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isString(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
+    it("isArray", () => {
+        let value = "Hello";
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = "5";
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = 5;
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = [];
+        chai.assert.equal(Assertions.isArray(value), true);
+
+        value = {};
+        let result = false;
+        try {
+            chai.assert.equal(Assertions.isArray(value, true), false);
             result = false;
         } catch (e) {
             result = true;

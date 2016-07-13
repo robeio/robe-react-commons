@@ -75,6 +75,29 @@ class Assertions {
     }
 
     /**
+     * Checks is not undefined or null
+     * @param {any} object to check
+     * @param {boolean} error defines the return type of method. If it is true it will throw in case of error , else it will return false.
+     * @returns {boolean} "true": is not undefined and null , "false": is undefined or null.
+     * @throws exception if error is true and object provided is  undefined or null.
+     */
+    isNotUndefinedAndNull(arg: any, error: boolean): boolean {
+        if (arg === undefined) {
+            if (error) {
+                throw new Error("Given argument is undefined or undefined !");
+            }
+            return false;
+        }
+        if (arg === null) {
+            if (error) {
+                throw new Error("Given argument is undefined or null !");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Checks the func is Function
      * @param func
      * @param error
@@ -156,6 +179,39 @@ class Assertions {
         if (!(Number(n) == n && n % 1 === 0)) {
             if (error) {
                 throw new Error("Given argument is not a number !");
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+    * Checks is string or not
+    * @param obj
+    * @param error
+    * @returns {boolean}
+    */
+    isString(obj: string, error: boolean): boolean {
+        if (!IsJS.string(obj)) {
+            if (error) {
+                throw new Error("Given format is not valid string !");
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+    * Checks is array or not
+    * @param obj
+    * @param error
+    * @returns {boolean}
+    */
+    isArray(obj: string, error: boolean): boolean {
+        if (!IsJS.array(obj)) {
+            if (error) {
+                throw new Error("Given format is not valid array !");
             }
             return false;
         }
