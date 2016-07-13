@@ -1,7 +1,7 @@
 /**
  * import common webpack settings
  */
-const commonSettings = require("./webpack.config.common.js");
+const commonSettings = require("./webpack.config.common.js")("src", "dist", "__test__");
 
 /**
  * Json Server
@@ -36,7 +36,7 @@ commonSettings.debug = true;
  * source-map - A SourceMap is emitted. See also output.sourceMapFilename.
  * @type {string}
  */
-commonSettings.devtool = "eval-source-map";
+commonSettings.devtool = "source-map";
 
 commonSettings.module.preLoaders.push({ test: /.jsx?$/, loader: "eslint", exclude: /node_modules/ });
 commonSettings.module.loaders.push({
@@ -57,7 +57,6 @@ commonSettings.isparta = {
 };
 
 ConfigUtils.createJsonServer(3000, commonSettings.paths.root + "/testdb.json");
-
 module.exports = function configure(config) {
     config.set({
         captureTimeout: 3000,
@@ -71,7 +70,7 @@ module.exports = function configure(config) {
                 flags: ["--no-sandbox"]
             }
         },
-        singleRun: true,
+        singleRun: false,
         frameworks: ["mocha"],
         plugins: [
             "karma-chrome-launcher",
