@@ -70,7 +70,7 @@ module.exports = function configure(config) {
                 flags: ["--no-sandbox"]
             }
         },
-        singleRun: false,
+        singleRun: true,
         frameworks: ["mocha"],
         plugins: [
             "karma-chrome-launcher",
