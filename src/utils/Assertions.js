@@ -161,6 +161,22 @@ class Assertions {
         }
         return true;
     }
+    /**
+     * Checks is integer or not
+     * @param n
+     * @param error
+     * @returns {boolean}
+     */
+    isArray(n: Array, error: boolean): boolean {
+        /* eslint-disable eqeqeq */
+        if (!IsJS.array(n)) {
+            if (error) {
+                throw new Error("Given argument is not a array ! data: ", n);
+            }
+            return false;
+        }
+        return true;
+    }
 }
 
 export default new Assertions();

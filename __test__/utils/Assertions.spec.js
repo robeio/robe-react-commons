@@ -172,4 +172,35 @@ describe("Assertions.js", () => {
         }
         chai.assert.isOk(result, "Exception expected.");
     });
+    it("isArray", () => {
+        let value = 3;
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = {};
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = "example";
+        chai.assert.equal(Assertions.isArray(value), false);
+
+        value = [];
+        chai.assert.equal(Assertions.isArray(value), true);
+
+        value = ["seray", "kamil"];
+        chai.assert.equal(Assertions.isArray(value), true);
+
+        value = "";
+        try {
+            Assertions.isArray(value, true);
+            chai.assert.isOk(false, "if the data is not array then the method must throw error.");
+        } catch (e) {
+            chai.assert.isOk(true);
+        }
+        value = ["seray", "kamil"];
+        try {
+            Assertions.isArray(value, true);
+            chai.assert.isOk(true);
+        } catch (e) {
+            chai.assert.isOk(false, "if the data is not array then the method must throw error.");
+        }
+    });
 });
