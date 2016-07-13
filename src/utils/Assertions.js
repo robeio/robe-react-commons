@@ -185,7 +185,6 @@ class Assertions {
         return true;
     }
 
-
     /**
     * Checks is string or not
     * @param obj
