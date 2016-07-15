@@ -4,7 +4,7 @@ import Messages from "application/Messages";
 /* eslint-disable no-unused-vars */
 import Application from "application/Application";
 /* eslint-disable quote-props */
-describe("AjaxRequest.js", () => {
+describe("HttpError.js", () => {
     // parse = (jqXHR: any, exception: any): Map => {
     it("parse().responseJSON", () => {
         let errorCode = 403;
@@ -24,9 +24,9 @@ describe("AjaxRequest.js", () => {
 
         chai.assert.deepEqual(HttpError.parse(errorXHR), expectedError);
 
-        delete errorXHR.responseJSON["message"];
+        delete errorXHR.responseJSON.message;
 
-        expectedError.message = Messages.error[errorCode];
+        expectedError.message = Messages.http[errorCode];
 
         chai.assert.deepEqual(HttpError.parse(errorXHR), expectedError);
     });
@@ -45,7 +45,7 @@ describe("AjaxRequest.js", () => {
 
         chai.assert.deepEqual(HttpError.parse(errorXHR), expectedError);
 
-        expectedError.message = Messages.error[errorCode];
+        expectedError.message = Messages.http[errorCode];
 
         errorXHR = {
             "url": "http://localhost:8080/example",
@@ -70,7 +70,7 @@ describe("AjaxRequest.js", () => {
 
         chai.assert.deepEqual(HttpError.parse(errorXHR, errorMessage), expectedError);
 
-        expectedError.message = Messages.error[errorCode];
+        expectedError.message = Messages.http[errorCode];
 
         chai.assert.deepEqual(HttpError.parse(errorXHR), expectedError);
         chai.assert.deepEqual(HttpError.parse(errorXHR, "  "), expectedError);
@@ -86,7 +86,7 @@ describe("AjaxRequest.js", () => {
 
         let expectedError = {
             code: errorCode,
-            message: Messages.error[errorCode]
+            message: Messages.http[errorCode]
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR), expectedError);
     });
@@ -99,7 +99,7 @@ describe("AjaxRequest.js", () => {
 
         let expectedError = {
             code: errorCode,
-            message: Messages.error[errorCode]
+            message: Messages.http[errorCode]
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR, "parsererror"), expectedError);
     });
@@ -112,7 +112,7 @@ describe("AjaxRequest.js", () => {
 
         let expectedError = {
             code: errorCode,
-            message: Messages.error[errorCode]
+            message: Messages.http[errorCode]
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR, "timeout"), expectedError);
     });
@@ -125,7 +125,7 @@ describe("AjaxRequest.js", () => {
 
         let expectedError = {
             code: errorCode,
-            message: Messages.error[errorCode]
+            message: Messages.http[errorCode]
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR, "abort"), expectedError);
     });
@@ -138,7 +138,7 @@ describe("AjaxRequest.js", () => {
 
         let expectedError = {
             code: errorCode,
-            message: Messages.error[errorCode]
+            message: Messages.http[errorCode]
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR, "unknown"), expectedError);
     });

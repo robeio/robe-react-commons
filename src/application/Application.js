@@ -19,8 +19,8 @@ class Application {
      */
     constructor() {
         this.props = new Properties();
-        this.error = {};
-        this.loadError(Messages.error);
+        this.messages = {};
+        this.loadI18n(Messages);
     }
     /**
      * Returns properties instance of the application.
@@ -67,16 +67,16 @@ class Application {
         return url;
     }
 
-    loadError = (errorMap: Map) => {
-        Maps.forEach(errorMap, (value: any, code: string) => {
-            this.setError(code, value);
+    loadI18n = (messagesMap: Map) => {
+        Maps.forEach(messagesMap, (value: any, code: string) => {
+            this.setI18n(code, value);
         });
     }
-    setError = (code: string, value: string) => {
-        this.error[code] = value;
+    setI18n = (code: string, value: string) => {
+        this.messages[code] = value;
     }
-    getError = (code: string): any => {
-        return this.error[code];
+    i18n = (code: string): any => {
+        return this.messages[code];
     }
 }
 
