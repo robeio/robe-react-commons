@@ -34,7 +34,7 @@ export default class AjaxRequest {
      * @param {Object} props
      */
     constructor(props: Object) {
-        Maps.merge(props, this.props);
+        Maps.mergeDeep(props, this.props);
         this.__url = this.props.url;
     }
 
