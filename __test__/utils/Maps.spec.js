@@ -28,9 +28,15 @@ describe("Maps.js", () => {
         let dest = {
             a: {
                 bb: "bb"
-            }
+            },
+            c: 5
         };
-        let expectedMap = { a: { aa: "aa", bb: "bb" } };
+        let expectedMap = {
+            a: {
+                aa: "aa"
+            },
+            c: 5
+        };
         Maps.merge(src, dest);
         chai.assert.deepEqual(dest, expectedMap);
     });
@@ -45,4 +51,26 @@ describe("Maps.js", () => {
         Maps.mergeMissing(src2, dest);
         chai.assert.deepEqual(dest, expectedMap);
     });
+
+    it("mergeDeep", () => {
+        let func = function(){
+
+        };
+        let src = {
+            a: {
+                aa: "aa",
+                c: func
+            }
+        };
+        let dest = {
+            a: {
+                bb: "bb"
+            }
+        };
+        let expectedMap = { a: { aa: "aa",
+            c: func, bb: "bb" } };
+        dest = Maps.mergeDeep(src, dest);
+        chai.assert.deepEqual(dest, expectedMap);
+    });
+
 });

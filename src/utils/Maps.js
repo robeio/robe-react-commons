@@ -40,11 +40,7 @@ class Maps {
     merge(src : Object, dest : Object): Object {
         for (const key in src) {
             if (src.hasOwnProperty(key)) {
-                if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
-                    dest[key] = this.merge(src[key], dest[key]);
-                } else {
-                    dest[key] = src[key];
-                }
+                dest[key] = src[key];
             }
         }
         return dest;
@@ -61,6 +57,44 @@ class Maps {
                 dest[key] = src[key];
             }
         }
+    }
+
+
+    /**
+     * merges source object to destination object as recursive.
+     * merges all map object which is property in source or destination.
+     * holds all objects which is defined in destination if not defined
+     * @example <caption>Sample mergeDeep.</caption>
+     * // returns 2
+     * <pre>
+     * let src = {
+     *    a: {
+     *            aa: "aa"
+     *        }
+     *    };
+     * let dest = {
+     *        a: {
+     *            bb: "bb"
+     *        }
+     *    };
+     * let dest = Maps.mergeDeep(src, dest);
+
+     * // result: { a: { aa: "aa", bb: "bb" } }
+     * </pre>
+     * @param src
+     * @param dest
+     */
+    mergeDeep(src : Object, dest : Object): Object {
+        for (const key in src) {
+            if (src.hasOwnProperty(key)) {
+                if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
+                    dest[key] = this.merge(src[key], dest[key]);
+                } else {
+                    dest[key] = src[key];
+                }
+            }
+        }
+        return dest;
     }
 }
 

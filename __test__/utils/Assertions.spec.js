@@ -27,7 +27,7 @@ describe("Assertions.js", () => {
     });
 
     it("isNotEmpty", () => {
-        let value = { a: "1" };
+        let value = {a: "1"};
         chai.assert.equal(Assertions.isNotEmpty(value), true);
 
         value = {};
@@ -44,7 +44,7 @@ describe("Assertions.js", () => {
     });
 
     it("isNotUndefined", () => {
-        let value = { a: "1" };
+        let value = {a: "1"};
         chai.assert.equal(Assertions.isNotUndefined(value), true);
 
         value = undefined;
@@ -61,7 +61,7 @@ describe("Assertions.js", () => {
     });
 
     it("isNotUndefinedAndNull", () => {
-        let value = { a: "1" };
+        let value = {a: "1"};
         chai.assert.equal(Assertions.isNotUndefinedAndNull(value), true);
 
         value = undefined;
@@ -89,7 +89,9 @@ describe("Assertions.js", () => {
     });
 
     it("isFunction", () => {
-        let value = function getOne(): number { return 1; };// eslint-disable-line 
+        let value = function getOne():number {
+            return 1;
+        };// eslint-disable-line
         chai.assert.equal(Assertions.isFunction(value), true);
 
         value = undefined;
@@ -107,16 +109,22 @@ describe("Assertions.js", () => {
     });
 
     it("isNotAnonymous", () => {
-        let value = function getOne(): number { return 1; };// eslint-disable-line 
+        let value = function getOne():number {
+            return 1;
+        };// eslint-disable-line
         chai.assert.equal(Assertions.isNotAnonymous(value), true);
 
         value = undefined;
         chai.assert.equal(Assertions.isNotAnonymous(value), false);
 
-        chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }), false);// eslint-disable-line 
+        chai.assert.equal(Assertions.isNotAnonymous(function () {
+            return 1;
+        }), false);// eslint-disable-line
         let result = false;
         try {
-            chai.assert.equal(Assertions.isNotAnonymous(function () { return 1; }, true), false);// eslint-disable-line 
+            chai.assert.equal(Assertions.isNotAnonymous(function () {
+                return 1;
+            }, true), false);// eslint-disable-line
             result = false;
         } catch (e) {
             result = true;
@@ -125,24 +133,31 @@ describe("Assertions.js", () => {
     });
 
     it("isObject", () => {
-        let value = { a: "1" };
-        chai.assert.equal(Assertions.isObject(value), true);
+        let value = {a: "1"};
+        chai.assert.isTrue(Assertions.isObject(value));
+
+        value = {
+            stringElement: "Element1",
+            numberElement: 5,
+            booleanElement: true,
+            functionElement: () => {
+                console.log("Example")
+            }
+        };
+        chai.assert.isTrue(Assertions.isObject(value));
 
         value = undefined;
-        chai.assert.equal(Assertions.isObject(value), false);
+        chai.assert.isFalse(Assertions.isObject(value));
 
         value = "blabla";
-        chai.assert.equal(Assertions.isObject(value), false);
+        chai.assert.isFalse(Assertions.isObject(value));
 
         value = 3;
-        chai.assert.equal(Assertions.isObject(value), false);
-
-        value = 3;
-        chai.assert.equal(Assertions.isObject(value), false);
+        chai.assert.isFalse(Assertions.isObject(value));
 
         let result = false;
         try {
-            chai.assert.equal(Assertions.isObject(value, true), false);
+            Assertions.isObject(value, true);
             result = false;
         } catch (e) {
             result = true;
@@ -152,7 +167,7 @@ describe("Assertions.js", () => {
 
     it("isJson", () => {
         /* eslint-disable quote-props */
-        let value = { "a": "1" };
+        let value = {"a": "1"};
         chai.assert.equal(Assertions.isJson(value), true);
 
         value = undefined;
@@ -241,6 +256,52 @@ describe("Assertions.js", () => {
         let result = false;
         try {
             chai.assert.equal(Assertions.isArray(value, true), false);
+            result = false;
+        } catch (e) {
+            result = true;
+        }
+        chai.assert.isOk(result, "Exception expected.");
+    });
+
+    it("isMap", () => {
+        let value = "Hello";
+        chai.assert.isFalse(Assertions.isMap(value), "");
+
+        value = "5";
+        chai.assert.isFalse(Assertions.isMap(value), false);
+
+        value = 5;
+        chai.assert.isFalse(Assertions.isMap(value), false);
+
+        value = [];
+        chai.assert.isFalse(Assertions.isMap(value), false);
+
+        // javascript hash object ok
+        value = {
+            stringElement: "Element1",
+            numberElement: 5,
+            booleanElement: true
+        };
+        chai.assert.isTrue(Assertions.isMap(value));
+        // json hash object ok
+        value = {
+            "stringElement": "Element1",
+            "numberElement": 5,
+            "booleanElement": true
+        };
+        chai.assert.isTrue(Assertions.isMap(value));
+        // javascript object has function is not ok
+        value = {
+            stringElement: "Element1",
+            numberElement: 5,
+            booleanElement: true
+        };
+
+        chai.assert.isTrue(Assertions.isMap(value));
+
+        let result = false;
+        try {
+            Assertions.isMap(value, true);
             result = false;
         } catch (e) {
             result = true;

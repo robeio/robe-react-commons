@@ -143,9 +143,9 @@ class Assertions {
      * @returns {boolean}
      */
     isObject(obj: Object, error: boolean): boolean {
-        if (!IsJS.object(obj)) {
+        if (!IsJS.hash(obj)) {
             if (error) {
-                throw new Error("Given argument is undefined !");
+                throw new Error("Given format is not valid object !");
             }
             return false;
         }
@@ -216,6 +216,39 @@ class Assertions {
         }
         return true;
     }
+
+    /**
+     * Checks is Map Object or not
+     * @param obj
+     * @param error
+     * @returns {boolean}
+     */
+    isMap = (obj: Map, error: boolean): boolean => {
+        let result = true;
+        if (IsJS.hash(obj)) {
+            for (const key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    if (this.isFunction(obj[key])) {
+                        result = false;
+                        break;
+                    } else if (IsJS.hash(obj[key])) {
+                        result = this.isMap(obj[key]);
+                        if (!result) {
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            result = false;
+        }
+        if (result && error) {
+            throw new Error("Given format is not valid hash map !");
+        }
+        return result;
+    }
+
+
 }
 
 export default new Assertions();

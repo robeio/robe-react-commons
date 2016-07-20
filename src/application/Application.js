@@ -67,14 +67,28 @@ class Application {
         return url;
     }
 
+    /**
+     * loads language message map
+     * @param messagesMap
+     */
     loadI18n = (messagesMap: Map) => {
         Maps.forEach(messagesMap, (value: any, code: string) => {
             this.setI18n(code, value);
         });
     }
+    /**
+     * sets language message
+     * @param {string} code language key
+     * @param {string} value language value
+     */
     setI18n = (code: string, value: string) => {
         this.messages[code] = value;
     }
+    /**
+     * gets language message
+     * @param code
+     * @returns {any}
+     */
     i18n = (code: string): any => {
         return this.messages[code];
     }
