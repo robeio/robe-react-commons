@@ -1,5 +1,6 @@
 import React from "react";
 import IsJS from "is-js";
+import Symbol from "es6-symbol";
 /**
  * A singleton class which implements mostly used validation operations.
  */
@@ -256,9 +257,7 @@ class Assertions {
      * @returns {boolean}
      */
     isReactComponent(instance: Object, error: boolean): boolean {
-        console.log(instance.$$typeof);
-        console.log(String(instance.$$typeof));
-        if (!(instance && instance.$$typeof && String(instance.$$typeof) === "Symbol(react.element)")) {
+        if (!(instance && instance.$$typeof && Symbol.for("react.element") == instance.$$typeof)) {
             if (error) {
                 throw new Error(`Given component is not a react component ! Component :${instance}`);
             }
