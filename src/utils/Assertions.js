@@ -1,6 +1,5 @@
 import React from "react";
 import IsJS from "is-js";
-import Symbol from "es6-symbol";
 /**
  * A singleton class which implements mostly used validation operations.
  */
