@@ -257,12 +257,8 @@ class Assertions {
      * @returns {boolean}
      */
     isReactComponent(instance: Object, error: boolean): boolean {
-        let sm = Symbol("react.element");
-        console.log(sm);
-        console.log(instance.$$typeof);
-        console.log(instance.$$typeof === sm);
-        console.log(instance.$$typeof == sm);
-        if (!(instance && instance.$$typeof && (Symbol.for("react.element") === instance.$$typeof || Symbol.for("60103") === instance.$$typeof))) {
+        /* disable-eslint no-underscore-dangle */
+        if (!(instance && instance.$$typeof && instance._owner && instance._owner.constructor && instance._owner.constructor.name === "ReactCompositeComponentWrapper")) {
             if (error) {
                 throw new Error(`Given component is not a react component ! Component :${instance}`);
             }
