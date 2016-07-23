@@ -1,4 +1,6 @@
+import React from "react";
 import Assertions from "utils/Assertions";
+import ShallowComponent from "components/ShallowComponent";
 import chai from "chai";
 
 describe("Assertions.js", () => {
@@ -307,5 +309,19 @@ describe("Assertions.js", () => {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
+    });
+    it("isReactComponent", () => {
+        let component = (<div></div>);
+        chai.assert.isTrue(Assertions.isReactComponent(component), "Component is not a react component ! ");
+
+        component = {};
+        chai.assert.isFalse(Assertions.isReactComponent(component), "Component is a react component ! ");
+    })
+    it("isReactComponentClass", () => {
+        let component = ShallowComponent;
+        chai.assert.isTrue(Assertions.isReactComponentClass(component), "Component Class is not a react component ! ");
+
+        component = Assertions;
+        chai.assert.isFalse(Assertions.isReactComponentClass(component), "Component Class is a react component ! ");
     });
 });

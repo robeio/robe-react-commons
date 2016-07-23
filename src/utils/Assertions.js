@@ -1,3 +1,4 @@
+import React from "react";
 import IsJS from "is-js";
 /**
  * A singleton class which implements mostly used validation operations.
@@ -248,7 +249,36 @@ class Assertions {
         return result;
     }
 
-
+    /**
+     * Checks instance is React Component or not.
+     * @param {Object} instance
+     * @param {boolean} error
+     * @returns {boolean}
+     */
+    isReactComponent(instance: Object, error: boolean): boolean {
+        if (!(instance && instance.$$typeof && String(instance.$$typeof) ==="Symbol(react.element)")) {
+            if (error) {
+                throw new Error(`Given component is not a react component ! Component :${instance}`);
+            }
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Checks Class is extended from React.Component or not.
+     * @param {Object} instance
+     * @param {boolean} error
+     * @returns {boolean}
+     */
+    isReactComponentClass(clazz: Function, error: boolean): boolean {
+        if (!(React.Component.isPrototypeOf(clazz))) {
+            if (error) {
+                throw new Error(`Given component class is not a React.Component ! Class :${clazz}`);
+            }
+            return false;
+        }
+        return true;
+    }
 }
 
 export default new Assertions();
