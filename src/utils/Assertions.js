@@ -257,7 +257,7 @@ class Assertions {
      */
     isReactComponent(instance: Object, error: boolean): boolean {
         /* disable-eslint no-underscore-dangle */
-        if (!(instance && instance.$$typeof && instance._owner && instance._owner.constructor && instance._owner.constructor.name === "ReactCompositeComponentWrapper")) {
+        if (!(instance && instance.$$typeof)) {
             if (error) {
                 throw new Error(`Given component is not a react component ! Component :${instance}`);
             }
