@@ -257,6 +257,7 @@ class Assertions {
      * @returns {boolean}
      */
     isReactComponent(instance: Object, error: boolean): boolean {
+        console.log(instance.$$typeof);
         if (!(instance && instance.$$typeof && Symbol.for("react.element") == instance.$$typeof)) {
             if (error) {
                 throw new Error(`Given component is not a react component ! Component :${instance}`);
