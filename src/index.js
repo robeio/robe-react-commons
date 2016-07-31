@@ -19,3 +19,4 @@ export { default as Store } from "./stores/Store";
 export { default as LocalEndPoint } from "./endpoint/LocalEndPoint";
 export { default as RemoteEndPoint } from "./endpoint/RemoteEndPoint";
 
+export { default as Generator } from "./utils/Generator";

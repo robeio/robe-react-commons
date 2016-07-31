@@ -1,10 +1,11 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
     "test": "karma start webpack.config.test.js",
+    "testd": "karma start webpack.config.test.dev.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
     "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib "

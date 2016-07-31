@@ -96,6 +96,26 @@ class Maps {
         }
         return dest;
     }
+    /**
+     *
+     * @description finds objects in map which has given key with type(type is optional).
+     *
+     * @param {Object} object
+     * @param {string} name
+     * @returns {Array}
+     */
+    getObjectsWhichHasKeyInMap(map: Object, key: string, type: string) {
+        let values = [];
+        for (let name in map) {
+            if (map.hasOwnProperty(name)) {
+                let child = map[name];
+                if (child[key] && (!type || typeof child[key] === type)) {
+                    values.push(map[name]);
+                }
+            }
+        }
+        return values;
+    }
 }
 
 export default new Maps();

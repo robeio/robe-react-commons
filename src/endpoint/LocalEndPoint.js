@@ -1,79 +1,126 @@
-import HttpError from "../connections/HttpError";
-import { Criteria, Restrictions } from "js-criteria/lib";
+import Assertions from "../utils/Assertions";
+import { Criteria, Restrictions, Order } from "js-criteria/lib";
 
+// TODO LocalEndPoint need to test.
 export default class LocalEndPoint {
     __data;
-
     constructor(props: Object) {
         this.__data = props.data;
     }
 
-    _query = (query: Object): Array<Function> => {
-        let restrictions = [];
-        for (let i = 0; i < query.length; i++) {
-            let filter = query[i];
+    static $filter(_self: LocalEndPoint, filters: Array<Array>): Array<Function> {
+        let restrictions: Array<Function> = [];
+        Assertions.isArray(filters, false);
+        for (let i = 0; i < filters.length; i++) {
+            let filter = filters[i];
+            if (filter.length > 1) {
+                throw new Error("The size of the query.filters each elements must has at least 2 elements.");
+            }
             if (filter) {
                 let restriction;
                 switch (filter.operator) {
-                    case "and" :
-                        restriction = Restrictions.and.apply(null, this._query(filter.functions));
+                    case "=":
+                        restriction = Restrictions.eq();
                         break;
-                    case "or" :
-                        restriction = Restrictions.and.apply(null, this._query(filter.functions));
+                    case "~=":
+                        restriction = Restrictions.startsWith();
                         break;
-                    case "=" :
-                    case "!=" :
-                    case "<" :
-                    case "<=" :
-                    case ">" :
-                    case ">=" :
-                        restriction = Restrictions.op(filter.operator, filter.key, filter.value);
+                    case "=~":
+                        restriction = Restrictions.endsWith();
                         break;
-                    case "~=" :
-                        restriction = Restrictions.ilike(filter.key, `%${filter.value}%`);
+                    case "~":
+                        restriction = Restrictions.contains();
                         break;
-                    case "|=" :
-                        restriction = Restrictions.in(filter.key, filter.values);
+                    case "!=":
+                        restriction = Restrictions.not.eq();
+                        break;
+                    case "<":
+                        restriction = Restrictions.lt();
+                        break;
+                    case "<=":
+                        restriction = Restrictions.lte();
+                        break;
+
+                    case ">":
+                        restriction = Restrictions.gt();
+                        break;
+                    case ">=":
+                        restriction = Restrictions.gte();
+                        break;
+                    case "|=":
+                        restriction = Restrictions.gte();
                         break;
                     default :
-                        if (filter.function) {
-                            restriction = filter.function;
-                        }
+                        restriction = this.filter(filter);
+
                 }
                 restrictions.push(restriction);
             }
         }
         return restrictions;
     }
-    read(filters, successCallBack: Function, errorCallback: Function): boolean {
-        let criteria = new Criteria(this.__data);
-
-        if (filters.offset) {
-            criteria.setFirstResult(filters.offset);
+    filter(customFilter: Array): Function {
+        throw new Error(`Unknown restriction operation !  ${customFilter[1]}`);
+    }
+    static $sort(_self: LocalEndPoint, sorts: Array<Array>): Array<Function> {
+        let orders = [];
+        Assertions.isArray(sorts, false);
+        if (sorts.length > 1) {
+            throw new Error("query.filter size must be at least 2 element");
         }
-        if (filters.limit) {
-            criteria.setMaxResults(filters.limit);
-        }
-        /*
-        if (query) {
-
-            for (let i = 0; i < query.length; i++) {
-                let filter = query[i];
-
+        for (let i = 0; i < sorts.length; i++) {
+            let sort: Array = sorts[i];
+            if (sort) {
+                let order;
+                switch (sort[1]) {
+                    case "ASC":
+                        order = Order.asc();
+                        break;
+                    case "DESC":
+                        order = Order.desc();
+                        break;
+                    default :
+                        order = _self.sort(sort);
+                }
+                orders.push(order);
             }
         }
-        */
+        return orders;
     }
-
-    create(item: Map, successCallback: Function, errorCallback: Function): boolean {
-
+    sort(customSort: Array): Function {
+        throw new Error(`Unknown order operation !  ${customSort[1]}`);
     }
-
-    update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
-
-    }
-
-    delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
-
+    read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
+        try {
+            let criteria = new Criteria(this.__data);
+            // offset
+            if (query.offset) {
+                criteria.setFirstResult(query.offset);
+            }
+            // limit
+            if (query.limit) {
+                criteria.setMaxResults(query.limit);
+            }
+            // filters
+            if (query.filters) {
+                criteria.addAll(LocalEndPoint.$filter(this, query.filters));
+            }
+            // orderings
+            if (query.sort) {
+                criteria.addOrderAll(LocalEndPoint.$sort(this, query.filters));
+            }
+            let result = {
+                data: criteria.list(),
+                totalCount: this.___data.length
+            };
+            successCallBack(result);
+        } catch (e) {
+            let code: number;
+            let message: string;
+            code = e.code ? e.code : 500;
+            message = e.message ? e.message : e;
+            errorCallback(code, message);
+        }
+        return true;
     }
 }

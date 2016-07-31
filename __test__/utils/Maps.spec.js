@@ -1,7 +1,7 @@
 import Maps from "utils/Maps";
 import chai from "chai";
 
-describe("Maps.js", () => {
+describe("utils/Maps.js", () => {
     it("forEach", () => {
         let map = { key: "a", value: "a1" };
         let expectedKeyArray = ["key", "value"];
@@ -53,7 +53,7 @@ describe("Maps.js", () => {
     });
 
     it("mergeDeep", () => {
-        let func = function(){
+        let func = () => {
 
         };
         let src = {
@@ -73,4 +73,68 @@ describe("Maps.js", () => {
         chai.assert.deepEqual(dest, expectedMap);
     });
 
+    it("mergeDeep", () => {
+        let func = () => {
+
+        };
+        let src = {
+            a: {
+                aa: "aa",
+                c: func
+            }
+        };
+        let dest = {
+            a: {
+                bb: "bb"
+            }
+        };
+        let expectedMap = { a: { aa: "aa",
+            c: func, bb: "bb" } };
+        dest = Maps.mergeDeep(src, dest);
+        chai.assert.deepEqual(dest, expectedMap);
+    });
+    it("getObjectsWhichHasKeyInMap", () => {
+        let func1 = () => {
+
+        };
+        let func2 = () => {
+
+        };
+        let map = {
+            obj1: {
+                isValid: func1
+            },
+            obj3: {
+                isValid: func2
+            }
+        };
+
+        let exptectedArray = [
+            {
+                isValid: func1
+            },
+            {
+                isValid: func2
+            }
+        ]
+        chai.assert.deepEqual(exptectedArray, Maps.getObjectsWhichHasKeyInMap(map, "isValid"));
+
+
+        map = {
+            obj1: {
+                isValid: func1
+            },
+            obj3: {
+                isValid: "string"
+            }
+        };
+
+        exptectedArray = [
+            {
+                isValid: func1
+            }
+        ]
+        chai.assert.deepEqual(exptectedArray, Maps.getObjectsWhichHasKeyInMap(map, "isValid", "function"));
+    });
 });
+

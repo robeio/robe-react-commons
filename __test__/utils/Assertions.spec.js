@@ -3,7 +3,7 @@ import Assertions from "utils/Assertions";
 import ShallowComponent from "components/ShallowComponent";
 import chai from "chai";
 
-describe("Assertions.js", () => {
+describe("utils/Assertions.js", () => {
     it("isUrl", () => {
         let url = "https://github.com/robeio/robe";
         chai.assert.equal(Assertions.isUrl(url), true);
@@ -29,7 +29,9 @@ describe("Assertions.js", () => {
     });
 
     it("isNotEmpty", () => {
-        let value = {a: "1"};
+        let value = {
+            a: "1"
+        };
         chai.assert.equal(Assertions.isNotEmpty(value), true);
 
         value = {};
@@ -46,7 +48,9 @@ describe("Assertions.js", () => {
     });
 
     it("isNotUndefined", () => {
-        let value = {a: "1"};
+        let value = {
+            a: "1"
+        };
         chai.assert.equal(Assertions.isNotUndefined(value), true);
 
         value = undefined;
@@ -63,7 +67,9 @@ describe("Assertions.js", () => {
     });
 
     it("isNotUndefinedAndNull", () => {
-        let value = {a: "1"};
+        let value = {
+            a: "1"
+        };
         chai.assert.equal(Assertions.isNotUndefinedAndNull(value), true);
 
         value = undefined;
@@ -91,7 +97,7 @@ describe("Assertions.js", () => {
     });
 
     it("isFunction", () => {
-        let value = function getOne():number {
+        let value = function getOne(): number {
             return 1;
         };// eslint-disable-line
         chai.assert.equal(Assertions.isFunction(value), true);
@@ -111,7 +117,7 @@ describe("Assertions.js", () => {
     });
 
     it("isNotAnonymous", () => {
-        let value = function getOne():number {
+        let value = function getOne(): number {
             return 1;
         };// eslint-disable-line
         chai.assert.equal(Assertions.isNotAnonymous(value), true);
@@ -119,12 +125,12 @@ describe("Assertions.js", () => {
         value = undefined;
         chai.assert.equal(Assertions.isNotAnonymous(value), false);
 
-        chai.assert.equal(Assertions.isNotAnonymous(function () {
+        chai.assert.equal(Assertions.isNotAnonymous((): number => {
             return 1;
         }), false);// eslint-disable-line
         let result = false;
         try {
-            chai.assert.equal(Assertions.isNotAnonymous(function () {
+            chai.assert.equal(Assertions.isNotAnonymous((): number => {
                 return 1;
             }, true), false);// eslint-disable-line
             result = false;
@@ -135,7 +141,9 @@ describe("Assertions.js", () => {
     });
 
     it("isObject", () => {
-        let value = {a: "1"};
+        let value = {
+            a: "1"
+        };
         chai.assert.isTrue(Assertions.isObject(value));
 
         value = {
@@ -143,7 +151,7 @@ describe("Assertions.js", () => {
             numberElement: 5,
             booleanElement: true,
             functionElement: () => {
-                console.log("Example")
+
             }
         };
         chai.assert.isTrue(Assertions.isObject(value));
@@ -169,7 +177,9 @@ describe("Assertions.js", () => {
 
     it("isJson", () => {
         /* eslint-disable quote-props */
-        let value = {"a": "1"};
+        let value = {
+            a: "1"
+        };
         chai.assert.equal(Assertions.isJson(value), true);
 
         value = undefined;
@@ -310,13 +320,15 @@ describe("Assertions.js", () => {
         }
         chai.assert.isOk(result, "Exception expected.");
     });
+
     it("isReactComponent", () => {
         let component = (<div></div>);
         chai.assert.isTrue(Assertions.isReactComponent(component), "Component is not a react component ! ");
 
         component = {};
         chai.assert.isFalse(Assertions.isReactComponent(component), "Component is a react component ! ");
-    })
+    });
+
     it("isReactComponentClass", () => {
         let component = ShallowComponent;
         chai.assert.isTrue(Assertions.isReactComponentClass(component), "Component Class is not a react component ! ");

@@ -1,4 +1,4 @@
-const jsonServer = require("json-server")
+const jsonServer = require("json-server");
 
 const  config = {};
 

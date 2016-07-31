@@ -2,7 +2,7 @@ import RemoteEndPoint from "endpoint/RemoteEndPoint";
 import chai from "chai";
 import Arrays from "utils/Arrays";
 
-describe("RemoteEndPoint.js", () => {
+describe("endpoint/RemoteEndPoint.js", () => {
     const url = "http://localhost:3000/posts";
     // The order of the tests are important. It will be one item that will me
     // created,updated,deleted and readed after every operation.
@@ -47,7 +47,6 @@ describe("RemoteEndPoint.js", () => {
             chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
             done(xhr);
         }
-
         endpoint.create(item, success, error);
     });
     it("update", (done: Function) => {
