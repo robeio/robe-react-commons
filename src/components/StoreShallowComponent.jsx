@@ -92,7 +92,7 @@ export default class StoreShallowComponent extends ShallowComponent {
      * Triggered after component mounted to the DOM. Registers itself to the all its stores.
      */
     componentDidMount() {
-        for (let i = 0; i < this.stores; i++) {
+        for (let i = 0; i < this.stores.length; i++) {
             this.stores[i].register(this);
         }
     }
@@ -100,7 +100,7 @@ export default class StoreShallowComponent extends ShallowComponent {
      * Triggered before component unmount from the DOM. Unregisters itself to the all its stores.
      */
     componentWillUnMount() {
-        for (let i = 0; i < this.stores; i++) {
+        for (let i = 0; i < this.stores.length; i++) {
             this.stores[i].unRegister(this);
         }
     }
