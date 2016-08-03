@@ -28,7 +28,7 @@ export default class BinderShallowComponent extends ShallowComponent {
             }
         }
         if (instance.constructor.name !== "BinderShallowComponent") {
-            this.__doBind(Object.getPrototypeOf(instance));
+            this.__bindAll(Object.getPrototypeOf(instance));
         }
     }
 }
