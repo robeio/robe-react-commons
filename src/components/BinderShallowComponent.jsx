@@ -21,14 +21,11 @@ export default class BinderShallowComponent extends ShallowComponent {
  * @param {Object} instance to bind
  */
     __bindAll(instance: Object) {
-        let names = Object.getOwnPropertyNames(instance);
+        let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
         for (let name of names) {
             if (name !== "constructor" && Assertions.isFunction(instance[name])) {
                 instance[name] = instance[name].bind(this);
             }
-        }
-        if (instance.constructor.name !== "BinderShallowComponent") {
-            this.__bindAll(Object.getPrototypeOf(instance));
         }
     }
 }
