@@ -1,4 +1,4 @@
-import jajax from "robe-jajax";
+import jajax from "robe-ajax";
 import Maps from "../utils/Maps";
 
 
