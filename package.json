@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -71,6 +71,6 @@
     "react-addons-shallow-compare": "15.3.0",
     "react-cookie": "0.4.7",
     "react-dom": "15.3.0",
-    "robe-jajax": "^1.0.0"
+    "robe-ajax": "^1.0.0"
   }
 }
