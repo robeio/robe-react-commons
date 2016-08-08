@@ -1,3 +1,4 @@
+const checkerObject = {};
 /**
  * A singleton class which implements mostly used array operations.
  */
@@ -106,7 +107,7 @@ class Arrays {
     extractValueArray(source: Array<any>, key: string): Array<any> {
         let array = [];
         for (let i = 0; i < source.length; i++) {
-            if (source[i].hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(source[i], key)) {
                 array.push(source[i][key]);
             }
         }

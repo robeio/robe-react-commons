@@ -1,12 +1,15 @@
 import React from "react";
 import IsJS from "is-js";
+
+const checkerObject = {};
+
 /**
  * A singleton class which implements mostly used validation operations.
  */
 
 class Assertions {
 
-    __checkerObject = {};
+    checkerObject = {};
     /**
      * url pattern explaining
      * "^(https?:\/\/)?"+ // protocol
@@ -106,7 +109,7 @@ class Assertions {
      */
     isFunction(func: Function, error: boolean): boolean {
         if (this.isNotUndefined(func, error)) {
-            let isFunc = this.__checkerObject.toString.call(func) === "[object Function]";
+            let isFunc = this.checkerObject.toString.call(func) === "[object Function]";
             if (!isFunc) {
                 if (error) {
                     throw new Error("Given func is not a function !");
@@ -228,7 +231,7 @@ class Assertions {
         let result = true;
         if (IsJS.hash(obj)) {
             for (const key in obj) {
-                if (obj.hasOwnProperty(key)) {
+                if (checkerObject.hasOwnProperty.call(obj, key)) {
                     if (this.isFunction(obj[key])) {
                         result = false;
                         break;
@@ -272,7 +275,7 @@ class Assertions {
      * @returns {boolean}
      */
     isReactComponentClass(clazz: Function, error: boolean): boolean {
-        if (!(React.Component.isPrototypeOf(clazz))) {
+        if (!(checkerObject.isPrototypeOf.call(React.Component, clazz))) {
             if (error) {
                 throw new Error(`Given component class is not a React.Component ! Class :${clazz}`);
             }

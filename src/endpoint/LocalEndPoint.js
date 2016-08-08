@@ -1,5 +1,5 @@
+import { Criteria, Restrictions, Order } from "js-criteria";
 import Assertions from "../utils/Assertions";
-import { Criteria, Restrictions, Order } from "js-criteria/lib";
 
 // TODO LocalEndPoint need to test.
 export default class LocalEndPoint {

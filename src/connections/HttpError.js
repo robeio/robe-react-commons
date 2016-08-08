@@ -42,23 +42,21 @@ class HttpError {
             } else {
                 response.message = exception;
             }
+        } else if (jqXHR.url === undefined) {
+            response.code = 508;
+            response.message = Application.i18n("http")[response.code];
+        } else if (exception === "parsererror") {
+            response.code = 520;
+            response.message = Application.i18n("http")[response.code];
+        } else if (exception === "timeout") {
+            response.code = 521;
+            response.message = Application.i18n("http")[response.code];
+        } else if (exception === "abort") {
+            response.code = 523;
+            response.message = Application.i18n("http")[response.code];
         } else {
-            if (jqXHR.url === undefined) {
-                response.code = 508;
-                response.message = Application.i18n("http")[response.code];
-            } else if (exception === "parsererror") {
-                response.code = 520;
-                response.message = Application.i18n("http")[response.code];
-            } else if (exception === "timeout") {
-                response.code = 521;
-                response.message = Application.i18n("http")[response.code];
-            } else if (exception === "abort") {
-                response.code = 523;
-                response.message = Application.i18n("http")[response.code];
-            } else {
-                response.code = 551;
-                response.message = Application.i18n("http")[response.code];
-            }
+            response.code = 551;
+            response.message = Application.i18n("http")[response.code];
         }
         return response;
     };

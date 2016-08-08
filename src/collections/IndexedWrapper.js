@@ -1,5 +1,7 @@
-import Objects from "../utils/Objects";
 import is from "is-js";
+import Objects from "../utils/Objects";
+
+const checkerObject = {};
 
 /**
  * This is a wrapper class for large data sets. It creates a fast linear index for object ids. Basic it wraps the data and generates an ID index for all sub data
@@ -29,7 +31,7 @@ class IndexedWrapper {
         }
         if (is.array(obj) || is.hash(obj)) {
             for (let key in obj) {
-                if (obj.hasOwnProperty(key)) {
+                if (checkerObject.hasOwnProperty.call(obj, key)) {
                     let childPath = path.slice();
                     childPath.push(key);
                     this.generateIdTree(childPath, obj[key], idTree);

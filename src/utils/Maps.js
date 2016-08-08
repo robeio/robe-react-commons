@@ -1,4 +1,6 @@
 import Assertions from "./Assertions";
+
+const checkerObject = {};
 /**
  * Maps { Object } Utility
  */
@@ -11,7 +13,7 @@ class Maps {
      */
     forEach(map : Object, callback : Function) {
         for (const key in map) {
-            if (map.hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(map, key)) {
                 callback(map[key], key, map);
             }
         }
@@ -25,7 +27,7 @@ class Maps {
     toArray(map : Object) : Array {
         let array = [];
         for (let key in map) {
-            if (map.hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(map, key)) {
                 array.push(map[key]);
             }
         }
@@ -39,7 +41,7 @@ class Maps {
      */
     merge(src : Object, dest : Object): Object {
         for (const key in src) {
-            if (src.hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(src, key)) {
                 dest[key] = src[key];
             }
         }
@@ -53,7 +55,7 @@ class Maps {
      */
     mergeMissing(src : Object, dest : Object) {
         for (let key in src) {
-            if (src.hasOwnProperty(key) && !dest.hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(src, key) && !checkerObject.hasOwnProperty.call(dest, key)) {
                 dest[key] = src[key];
             }
         }
@@ -86,7 +88,7 @@ class Maps {
      */
     mergeDeep(src : Object, dest : Object): Object {
         for (const key in src) {
-            if (src.hasOwnProperty(key)) {
+            if (checkerObject.hasOwnProperty.call(src, key)) {
                 if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
                     dest[key] = this.merge(src[key], dest[key]);
                 } else {
@@ -107,7 +109,7 @@ class Maps {
     getObjectsWhichHasKeyInMap(map: Object, key: string, type: string) {
         let values = [];
         for (let name in map) {
-            if (map.hasOwnProperty(name)) {
+            if (checkerObject.hasOwnProperty.call(map, name)) {
                 let child = map[name];
                 if (child[key] && (!type || typeof child[key] === type)) {
                     values.push(map[name]);

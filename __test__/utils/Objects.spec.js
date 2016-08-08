@@ -1,5 +1,5 @@
-import Objects from "utils/Objects";
 import chai from "chai";
+import Objects from "utils/Objects";
 
 describe("Objects.js", () => {
     it("equals", () => {

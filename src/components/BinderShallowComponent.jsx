@@ -1,4 +1,3 @@
-import React from "react";
 import Assertions from "../utils/Assertions";
 import ShallowComponent from "./ShallowComponent";
 
