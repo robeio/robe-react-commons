@@ -66,7 +66,7 @@
   },
   "dependencies": {
     "is-js": "^0.1.1",
-    "js-criteria": "0.0.5",
+    "js-criteria": "0.0.6",
     "react": "15.3.0",
     "react-addons-shallow-compare": "15.3.0",
     "react-cookie": "0.4.7",

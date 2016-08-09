@@ -20,35 +20,35 @@ export default class LocalEndPoint {
                 let restriction;
                 switch (filter.operator) {
                     case "=":
-                        restriction = Restrictions.eq();
+                        restriction = Restrictions.eq(filter.key, filter.value);
                         break;
                     case "~=":
-                        restriction = Restrictions.startsWith();
+                        restriction = Restrictions.startsWith(filter.key, filter.value);
                         break;
                     case "=~":
-                        restriction = Restrictions.endsWith();
+                        restriction = Restrictions.endsWith(filter.key, filter.value);
                         break;
                     case "~":
-                        restriction = Restrictions.contains();
+                        restriction = Restrictions.contains(filter.key, filter.value);
                         break;
                     case "!=":
-                        restriction = Restrictions.not.eq();
+                        restriction = Restrictions.not.eq(filter.key, filter.value);
                         break;
                     case "<":
-                        restriction = Restrictions.lt();
+                        restriction = Restrictions.lt(filter.key, filter.value);
                         break;
                     case "<=":
-                        restriction = Restrictions.lte();
+                        restriction = Restrictions.lte(filter.key, filter.value);
                         break;
 
                     case ">":
-                        restriction = Restrictions.gt();
+                        restriction = Restrictions.gt(filter.key, filter.value);
                         break;
                     case ">=":
-                        restriction = Restrictions.gte();
+                        restriction = Restrictions.gte(filter.key, filter.value);
                         break;
                     case "|=":
-                        restriction = Restrictions.gte();
+                        restriction = Restrictions.in(filter.key, filter.value);
                         break;
                     default :
                         restriction = this.filter(filter);
