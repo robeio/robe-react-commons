@@ -9,12 +9,12 @@ import BinderClass from "../utils/BinderClass";
 export default class BaseStore extends BinderClass {
     static propTypes = {
         idField: React.PropTypes.string,
-        autoLoad: React.PropTypes.autoLoad,
         importer: React.PropTypes.func,
         result: React.PropTypes.shape({
             data: React.PropTypes.array,
             totalCount: React.PropTypes.number
-        })
+        }),
+        loadProps: React.PropTypes.object
     };
 
     static defaultPropTypes = {
@@ -66,9 +66,9 @@ export default class BaseStore extends BinderClass {
      */
     constructor(props) {
         super();
-        this.__props = Maps.merge(BaseStore.defaultPropTypes,{});
+        this.__props = Maps.merge(BaseStore.defaultPropTypes, {});
+        this.__props = Maps.merge(props, this.__props);
         this.__props.objectId = BaseStore.storeCount++;
-        this.__props = Maps.mergeDeep(props, this.__props);
         Assertions.isFunction(this.__props.importer, true);
 
         if (this.__props.autoLoad === true) {
@@ -99,7 +99,7 @@ export default class BaseStore extends BinderClass {
     getName(): string {
         return this.constructor.name;
     }
-    _setResult(data: Array, totalCount: number) {
+    setResult(data: Array, totalCount: number) {
         this.__props.result = {
             data,
             totalCount
@@ -118,11 +118,11 @@ export default class BaseStore extends BinderClass {
      * @param component
      * @param key
      */
-    register = (object) => {
+    register(object) {
         Assertions.isNotUndefined(object, true);
         this.__registeredObjects[object.getName() + object.getObjectId()] = object;
-        if (this.__data) {
-            this.triggerChange(object);
+        if (this.__props.result.data.length > 0) {
+            this._dispatchChange(object);
         }
     }
     /**
@@ -136,21 +136,35 @@ export default class BaseStore extends BinderClass {
         Assertions.isNotUndefined(object, true);
         delete this.__registeredObjects[object.getName() + object.getObjectId()];
         if (Object.keys(this.__registeredObjects).length === 0) {
-            setTimeout(this.__disposeContent, 1500);
+            setTimeout(this._disposeContent, 1500);
         }
         return Object.keys(this.__registeredObjects).length;
     }
 
-    triggerChanges() {
+    /**
+     * call registered objects when data changed.
+     * @protected
+     */
+    _dispatchChanges() {
         Maps.forEach(this.__registeredObjects, (object) => {
-            this.triggerChange(object);
+            this._dispatchChange(object);
         });
     }
-    triggerChange(object) {
+
+    /**
+     * call registered object when data changed.
+     * @param {Object} object
+     * @protected
+     */
+    _dispatchChange(object: Object) {
         object.triggerChange(this);
     }
 
-    __disposeContent() {
+    /**
+     *
+     * @private
+     */
+    _disposeContent() {
         if (Object.keys(this.__registeredObjects).length === 0) {
             // TODO: Do all stuff
         }

@@ -15,69 +15,14 @@ export default class Store extends BaseStore {
         Assertions.isNotUndefined(this.__props.endPoint, true);
     }
 
+    /**
+     * load called from BaseStore
+     * @param onSuccess
+     * @param onError
+     */
     load(onSuccess: Function, onError: Function) {
         this.read(onSuccess, onError);
     }
-
-    /**
-     *
-     * @param {string} operator
-     * @param {Map} result
-     * @returns {boolean}
-     * @protected
-     */
-    _onSuccess(operator: string, result: Map, successCallback: Function): boolean {
-        if (successCallback) {
-            successCallback(result);
-        }
-        this.__error = null;
-        this.triggerChanges();
-        return true;
-    }
-
-    /**
-     *
-     * @param {string} operator
-     * @param {number} errorCode
-     * @param {string} error
-     * @returns {boolean}
-     * @protected
-     */
-    _onError(operator: string, error: Map): boolean {
-        this.__error = error;
-        return true;
-    }
-
-    /**
-     *
-     * @param {string} operator
-     * @param {Function} errorCallback
-     * @returns {Function}
-     * @private
-     */
-    __errorCallBack(operator: string, errorCallback: Function): Function {
-        return (error: string) => {
-            if (errorCallback) {
-                errorCallback(error);
-            }
-        };
-    }
-    /**
-     *
-     * @param {string} operator
-     * @param {Function} successCallback
-     * @returns {Function}
-     * @private
-     */
-    __readSuccessCallback(successCallback: Function): Function {
-        return (result: Object) => {
-            this.__dataMap = new MapArray(result.data, this.__props.idField);
-            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount);
-            this._onSuccess("read", this.__props.result, successCallback);
-        };
-    }
-
-
     /**
      *
      * @param successCallBack
@@ -108,10 +53,40 @@ export default class Store extends BaseStore {
      * @returns {Function}
      * @private
      */
+    __readSuccessCallback(successCallback: Function): Function {
+        return (result: Object) => {
+            this.__dataMap = new MapArray(result.data, this.__props.idField);
+            this.setResult(this.__dataMap.getData(), this.__props.result.totalCount);
+            this._onSuccess("read", this.__props.result, successCallback);
+        };
+    }
+
+    /**
+     *
+     * @param {string} operator
+     * @param {Function} errorCallback
+     * @returns {Function}
+     * @private
+     */
+    __errorCallBack(operator: string, errorCallback: Function): Function {
+        return (error: string) => {
+            if (errorCallback) {
+                errorCallback(error);
+            }
+        };
+    }
+
+    /**
+     *
+     * @param {string} operator
+     * @param {Function} successCallback
+     * @returns {Function}
+     * @private
+     */
     __createSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
             this.__dataMap.add(result.data);
-            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount + 1);
+            this.setResult(this.__dataMap.getData(), this.__props.result.totalCount + 1);
             this._onSuccess("create", result, successCallback);
         };
     }
@@ -141,7 +116,7 @@ export default class Store extends BaseStore {
     __updateSuccessCallback(oldItem: Map, successCallback: Function): Function {
         return (result: Object) => {
             this.__dataMap.replace(oldItem, result.data);
-            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount);
+            this.setResult(this.__dataMap.getData(), this.__props.result.totalCount);
             this._onSuccess("update", result, successCallback);
         };
     }
@@ -173,7 +148,7 @@ export default class Store extends BaseStore {
     __deleteSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
             this.__dataMap.remove(result.data);
-            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount - 1);
+            this.setResult(this.__dataMap.getData(), this.__props.result.totalCount - 1);
             this._onSuccess("delete", this.__props.result, successCallback);
         };
     }
@@ -192,5 +167,33 @@ export default class Store extends BaseStore {
                 this.__errorCallBack("delete", errorCallback)
             )
         );
+    }
+    /**
+     *
+     * @param {string} operator
+     * @param {Map} result
+     * @returns {boolean}
+     * @protected
+     */
+    _onSuccess(operator: string, result: Map, successCallback: Function): boolean {
+        if (successCallback) {
+            successCallback(result);
+        }
+        this.__error = null;
+        this._dispatchChanges();
+        return true;
+    }
+
+    /**
+     *
+     * @param {string} operator
+     * @param {number} errorCode
+     * @param {string} error
+     * @returns {boolean}
+     * @protected
+     */
+    _onError(operator: string, error: Map): boolean {
+        this.__error = error;
+        return true;
     }
 }
