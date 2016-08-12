@@ -1,162 +1,22 @@
-import StoreShallowComponent from "../components/StoreShallowComponent";
-import Maps from "../utils/Maps";
 import Assertions from "../utils/Assertions";
 import MapArray from "../collections/MapArray";
+import BaseStore from "./BaseStore";
 
 /**
  * Base of Store to keep data and to trigger dependencies component.
  */
-export default class Store {
+export default class Store extends BaseStore {
 
-    /*
-     * A result which holds default totalCount and data to return if store not initialize
-     */
-    static defaultResult = {
-        data: [],
-        totalCount: 0
-    };
+    __dataMap;
 
-    /**
-     * A number which is defines to generate unique id for store
-     * @type {number}
-     */
-    static storeCount = 0;
-    /**
-     * A Map which holds last result of operations. It includes totalCount and data
-     * @type {Object}
-     */
-    __result: Object;
-    /**
-     * An number which holds error code of the last operation.
-     * @type {Map { code, message}}
-     */
-    __error ;
-    /**
-     * A Map which holds properties of the store.
-     * @type {Object}
-     */
-    __props: Object;
-    /**
-     * A Map which holds registered components to the store.
-     * @type {{Object}}
-     * @protected
-     */
-    ___components: Object = {};
-
-    /**
-     * Example props parameter
-     * <pre><code>
-     super({
-            endPoint: new EndPoint({
-                url: "menus"
-            }),
-            id: "newStore",
-            autoLoad: true
-        });
-     ]
-     * </code></pre>
-     * @param {Object} props
-     */
+    /* eslint-disable no-useless-constructor */
     constructor(props: Object) {
-        Assertions.isNotUndefined(props.endPoint, true);
-        this.__props = props;
-        this.__props.objectId = Store.storeCount++;
-
-        if (!this.__props.importer) {
-            this.__props.importer = (response: any): any => {
-                return response;
-            };
-        } else {
-            Assertions.isFunction(this.__props.importer, true);
-        }
-
-        if (!this.__props.idField) {
-            this.__props.idField = "oid";
-        }
-
-        if (!this.__props.autoLoad) {
-            this.__props.autoLoad = false;
-        }
-
-        if (this.__props.autoLoad === true) {
-            this.read(this.__props.onSuccess, this.__props.onError);
-        }
+        super(props);
+        Assertions.isNotUndefined(this.__props.endPoint, true);
     }
 
-    /**
-     * Return A Map which holds properties for the store.
-     * @returns {Object}
-     */
-    getProps = (): Object => {
-        return this.__props;
-    }
-
-    /**
-     * Return A Map which holds properties for the store.
-     * @returns {Object}
-     */
-    getObjectId = (): number => {
-        return this.__props.objectId;
-    }
-
-    /**
-     * Store Class name
-     * @returns {string}
-     */
-    getName = (): string => {
-        return this.constructor.name;
-    }
-
-    /**
-     *
-     *
-     * @returns {object}
-     */
-    getResult = (): Object => {
-        if (this.__result) {
-            return {
-                data: this.__result.dataMap.getData(),
-                totalCount: this.__result.totalCount
-            };
-        }
-        return Store.defaultResult;
-    }
-
-    /**
-     *
-     * @param component
-     * @param key
-     */
-    register = (component: StoreShallowComponent) => {
-        Assertions.isNotUndefined(component, true);
-        this.___components[component.getObjectId()] = component;
-        if (this.__data) {
-            this.triggerChange(component);
-        }
-    }
-    /**
-     *
-     * @param id
-     * @param component
-     * @param key
-     * @returns {*}
-     */
-    unRegister = (component: StoreShallowComponent): number => {
-        Assertions.isNotUndefined(component, true);
-        delete this.___components[component.getObjectId()];
-        if (Object.keys(this.___components).length === 0) {
-            setTimeout(this.__disposeContent, 1500);
-        }
-        return Object.keys(this.___components).length;
-    }
-
-    triggerChanges = () => {
-        Maps.forEach(this.___components, (component: StoreShallowComponent) => {
-            this.triggerChange(component);
-        });
-    }
-    triggerChange = (component: StoreShallowComponent) => {
-        component.triggerChange(this);
+    load(onSuccess: Function, onError: Function) {
+        this.read(onSuccess, onError);
     }
 
     /**
@@ -211,11 +71,9 @@ export default class Store {
      */
     __readSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__result = {
-                dataMap: new MapArray(result.data, this.__props.idField),
-                totalCount: result.totalCount
-            };
-            this._onSuccess("read", result, successCallback);
+            this.__dataMap = new MapArray(result.data, this.__props.idField);
+            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount);
+            this._onSuccess("read", this.__props.result, successCallback);
         };
     }
 
@@ -252,8 +110,8 @@ export default class Store {
      */
     __createSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataMap.add(result.data);
-            this.__result.totalCount = this.__result.totalCount + 1;
+            this.__dataMap.add(result.data);
+            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount + 1);
             this._onSuccess("create", result, successCallback);
         };
     }
@@ -282,7 +140,8 @@ export default class Store {
      */
     __updateSuccessCallback(oldItem: Map, successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataMap.replace(oldItem, result.data);
+            this.__dataMap.replace(oldItem, result.data);
+            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount);
             this._onSuccess("update", result, successCallback);
         };
     }
@@ -313,9 +172,9 @@ export default class Store {
      */
     __deleteSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__result.dataMap.remove(result.data);
-            this.__result.totalCount = this.__result.totalCount - 1;
-            this._onSuccess("delete", result, successCallback);
+            this.__dataMap.remove(result.data);
+            this._setResult(this.__dataMap.getData(), this.__props.result.totalCount - 1);
+            this._onSuccess("delete", this.__props.result, successCallback);
         };
     }
     /**
@@ -334,11 +193,4 @@ export default class Store {
             )
         );
     }
-
-
-    __disposeContent = () => {
-        if (Object.keys(this.___components).length === 0) {
-            // TODO: Do all stuff
-        }
-    };
 }

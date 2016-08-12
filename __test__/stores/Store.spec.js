@@ -31,7 +31,7 @@ describe("Store.js", () => {
         });
         chai.assert.operator(store.getObjectId(), ">=", 0);
         chai.assert.isTrue(Assertions.isFunction(store.getProps().importer), true);
-        chai.assert.equal(store.getProps().idField, "id");
+        chai.assert.equal("id", store.getProps().idField);
         chai.assert.equal(store.getProps().autoLoad, true);
         chai.assert.deepEqual(store.getProps().importer({}), {});
     });
