@@ -56,8 +56,8 @@ export default class Store extends BaseStore {
     __readSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
             this.__dataMap = new MapArray(result.data, this.__props.idField);
-            this.setResult(this.__dataMap.getData(), this.__props.result.totalCount);
-            this._onSuccess("read", this.__props.result, successCallback);
+            this.setResult(this.__dataMap.getData(), result.totalCount);
+            this._onSuccess("read", result, successCallback);
         };
     }
 

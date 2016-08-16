@@ -46,7 +46,7 @@ export default class StoreShallowComponent extends ShallowComponent {
      */
     constructor(props: Object) {
         super(props);
-        if (!this.props || !this.props.stores || this.props.stores.length === 0) {
+        if (this.props === undefined || this.props.stores === undefined || this.props.stores.length === 0) {
             throw new Error(`Must defined at least one store in a ${this.constructor.name}`);
         }
         this.__objectId = StoreShallowComponent.componentCount++;
