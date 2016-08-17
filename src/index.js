@@ -16,7 +16,6 @@ export { default as Assertions } from "./utils/Assertions";
 export { default as BinderClass } from "./utils/BinderClass";
 
 export { default as MapArray } from "./collections/MapArray";
-export { default as IndexedWrapper } from "./collections/IndexedWrapper";
 
 export { default as AjaxRequest } from "./connections/AjaxRequest";
 
