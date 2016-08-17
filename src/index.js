@@ -1,6 +1,8 @@
 export { default as Application } from "./application/Application";
 export { default as Properties } from "./application/Properties";
 
+export { default as Class } from "./class/Class";
+
 export { default as ShallowComponent } from "./components/ShallowComponent";
 export { default as StoreShallowComponent } from "./components/StoreShallowComponent";
 export { default as BinderShallowComponent } from "./components/BinderShallowComponent";

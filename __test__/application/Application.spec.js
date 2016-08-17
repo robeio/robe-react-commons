@@ -14,7 +14,7 @@ describe("Application.js", () => {
 
         assert.throws(() => {
             app.setBaseUrlPath("value");
-        }, "Given url is not valid ! URL :value");
+        }, "Given url is not valid ! URL :value", "Must throw exception for invalid url");
         assert.doesNotThrow(() => {
             app.setBaseUrlPath("http://www.robe.io");
         });

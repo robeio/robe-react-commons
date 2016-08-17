@@ -1,5 +1,6 @@
 import MapArray from "collections/MapArray";
 import chai from "chai";
+const assert = chai.assert;
 
 describe("MapArray.js", () => {
     let data = [
@@ -11,61 +12,67 @@ describe("MapArray.js", () => {
         { id: 6, name: "678" }
     ];
 
-    let maparr = new MapArray(data, "id");
 
-    it("alternative constructor", () => {
+    it("constructors", () => {
         let item = { id: 2, name: "234" };
-        let result = false;
-        try {
-            let maparr2 = new MapArray(item);
-            maparr2.find(item);
-        } catch (e) {
-            result = true;
-        }
-        chai.assert.isOk(result, "Exception expected.");
-        try {
-            let maparr2 = new MapArray(data);
-            maparr2.find(item);
-        } catch (e) {
-            result = true;
-        }
-        chai.assert.isOk(result, "Exception expected.");
+        assert.throws(() => {
+            /* eslint-disable no-new */
+            new MapArray(item);
+        }, "Data must be an array of maps.", undefined, "Must throw an exception in case data is not an array");
+        assert.doesNotThrow(() => {
+            /* eslint-disable no-new */
+            new MapArray(data);
+        }, "Data must be an array of maps.");
+    });
+
+    it("getIdField", () => {
+        let maparr = new MapArray(data);
+        assert.equal(maparr.getIdField(), "oid", "Default idField must me 'oid' ");
+        let maparr2 = new MapArray(data, "id");
+        assert.equal(maparr2.getIdField(), "id", "Must return given id field");
     });
 
     it("find", () => {
+        let maparr = new MapArray(data, "id");
+
         let expected = { id: 4, name: "456" };
-        chai.assert.deepEqual(maparr.find(expected), expected);
+        chai.assert.deepEqual(maparr.find(expected), expected, "Can't find item");
 
         expected = { id: 8, name: "456" };
-        chai.assert.isUndefined(maparr.find(expected));
+        chai.assert.isUndefined(maparr.find(expected), "Must be undefined in case item is not available");
     });
 
     it("getData", () => {
+        let maparr = new MapArray(data, "id");
         chai.assert.deepEqual(maparr.getData(), data);
     });
 
     it("add", () => {
+        let maparr = new MapArray(data, "id");
+
         let item = { id: 7, name: "789" };
-        // First add
-        chai.assert.equal(maparr.add(item), true);
-        // Try to add again.
-        chai.assert.equal(maparr.add(item), false);
+        chai.assert.equal(maparr.add(item), true, "Must add if it does not exists and return 'true'");
+       
+        chai.assert.equal(maparr.add(item), false, "Don't add if it exists and return 'false'");
     });
 
     it("replace", () => {
+        let maparr = new MapArray(data, "id");
+
         let oldItem = { id: 2, name: "234" };
         let newItem = { id: 2, name: "235" };
         let wrongItem = { id: 9, name: "235" };
-        // First replace
-        chai.assert.equal(maparr.replace(oldItem, newItem), true);
 
-        chai.assert.equal(maparr.replace(wrongItem, newItem), false);
+        chai.assert.equal(maparr.replace(oldItem, newItem), true, "Must replace if exists and return 'true'");
+        chai.assert.equal(maparr.replace(wrongItem, newItem), false, "Don't replace if not exists and return 'false'");
     });
 
     it("remove", () => {
-        let item = { id: 2, name: "234" };
-        chai.assert.equal(maparr.remove(item), true);
+        let maparr = new MapArray(data, "id");
 
-        chai.assert.equal(maparr.remove(item), false);
+        let item = { id: 2, name: "234" };
+        chai.assert.equal(maparr.remove(item), true, "Must remove if exists and return 'true'");
+
+        chai.assert.equal(maparr.remove(item), false, "Don't remove if not exists and return 'false'");
     });
 });

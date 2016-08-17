@@ -1,10 +1,12 @@
 import is from "is-js";
+import Class from "../class/Class";
 
 /**
  * This is a data structure which is actually an Array which holds Maps. This is the common structure to hold grid data.
+ * Also it supports for custom idField keys.
  * @class MapArray
  */
-class MapArray {
+export default class MapArray extends Class {
 
     /**
      * Actual data
@@ -23,10 +25,11 @@ class MapArray {
      * @param {Object} idField
      */
     constructor(data: Array, idField: Object) {
+        super();
         if (is.array(data)) {
             this.__data = data;
         } else {
-            throw new Error("data must be an array of maps.");
+            throw new Error("Data must be an array of maps.");
         }
         if (idField) {
             this.__idField = idField;
@@ -35,31 +38,43 @@ class MapArray {
 
 
     /**
+     * Returns id field of the data.
+     * It is used for all unique controls and all components that uses
+     * MapArray must get this field from MapArray to work properly.
+     *
+     * @returns {Object} idField
+     */
+    getIdField(): Object {
+        return this.__idField;
+    }
+
+
+    /**
      * Finds the item by matching id.
      * @param {Object} id of the target item.
      * @return {Object} item that matches
      */
-    findById = (id: Object): Object => {
+    findById(id: Object): Object {
         return this.__findById(id, this.__returnIdCallBack);
-    };
+    }
 
     /**
      * Finds the item by matching .
      * @param {Object} the target item.
      * @return {Object} item that matches
      */
-    find = (target: Object): Object => {
+    find(target: Object): Object {
         let id = this.__getId(target);
         return this.findById(id);
-    };
+    }
 
     /**
      * Returns the actual data instance.
      * @return {Array<Object>} actual data
      */
-    getData = (): Object => {
+    getData(): Object {
         return this.__data;
-    };
+    }
 
 
     /**
@@ -68,14 +83,14 @@ class MapArray {
      * @param {Object} item to add
      * @return {boolean} "true" item added / "false" item already exists.
      */
-    add = (item: Object): boolean => {
+    add(item: Object): boolean {
         if (this.find(item) !== undefined) {
             return false;
         }
         let size = this.__data.length;
         this.__data[size] = item;
         return true;
-    };
+    }
 
     /**
     * Replaces the oldItem with the given newItem.
@@ -83,14 +98,14 @@ class MapArray {
     * @param {Object} newItem to put
     * @return {boolean} "true" item replaced / "false" oldItem does not exists.
     */
-    replace = (oldItem: Object, newItem: Object): boolean => {
+    replace(oldItem: Object, newItem: Object): boolean {
         let result = this.__findById(this.__getId(oldItem), (parent: Object, index: number): Object => {
             delete parent[index];
             parent[index] = newItem;
             return newItem;
         });
         return result !== undefined;
-    };
+    }
 
     /**
     * Removes the item  from the array.
@@ -98,23 +113,23 @@ class MapArray {
     * @param {Object} item to remove
     * @return {boolean} "true" item removes / "false" item does not exists.
     */
-    remove = (item: Object): boolean => {
+    remove(item: Object): boolean {
         let result = this.__findById(this.__getId(item), (parent: Object, index: number): Object => {
             delete parent[index];
             parent = parent.splice(index, 1);
             return true;
         });
         return result !== undefined;
-    };
+    }
 
 
     /**
      * Returns id of the given target according to the id key proviced at constructor.
      * @return id of the target
      */
-    __getId = (item: Object): Object => {
+    __getId(item: Object): Object {
         return item[this.__idField];
-    };
+    }
 
     /**
      * Finds the target by matching id.
@@ -123,7 +138,7 @@ class MapArray {
      * @param {fn} callback function to call at the match.
      * @return {any} result of the callback
      */
-    __findById = (id: Object, cb: Function): Object => {
+    __findById(id: Object, cb: Function): Object {
         let i = this.__data.length;
         while (i--) {
             if (this.__getId(this.__data[i]) === id) {
@@ -133,13 +148,16 @@ class MapArray {
         }
 
         return undefined;
-    };
+    }
 
-
-    __returnIdCallBack = (parent: Object, index: number): Object => {
+    /**
+     * A private method for returning id of the given map.
+     * Used as a callback function
+     * @param {Object} parent
+     * @param {number} index
+     * @returns {Object}
+     */
+    __returnIdCallBack(parent: Object, index: number): Object {
         return parent[index];
-    };
-
+    }
 }
-
-export default MapArray;
