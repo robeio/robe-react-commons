@@ -1,4 +1,12 @@
+
+/**
+ * A singleton class which hold all static messages.
+ * @class messages
+ */
 const messages = {
+     /**
+     * http key is for http default messages.
+     */
     http: {
         100: "Continue",
         101: "Switching Protocols",
