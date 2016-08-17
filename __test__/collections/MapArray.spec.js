@@ -1,5 +1,6 @@
 import MapArray from "collections/MapArray";
 import chai from "chai";
+
 const assert = chai.assert;
 
 describe("MapArray.js", () => {
