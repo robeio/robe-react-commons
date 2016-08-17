@@ -1,20 +1,24 @@
-import Properties from "./Properties";
 import Assertions from "../utils/Assertions";
-import Messages from "./Messages";
 import Maps from "../utils/Maps";
+import Properties from "./Properties";
+import Messages from "./Messages";
 /**
- * A singleton class which hold all application general informations.
+ * An entry point class for all applications which supports
+ * * Properties for holding custom name value pairs as long as Application object lives. {@link Properties}
+ * * i18n message support {@link Messages}
+ * * URL utils
+ * It is singleton and accessible from everywhere.
  * @class Application
  */
 class Application {
 
     /**
-     * key for base url property
+     * Key for base url property
      */
-    _baseUrlPathKey = "BASE_URL_PROPERTY";
+    __baseUrlPathKey = "BASE_URL_PROPERTY";
 
     /**
-     * Creates an instance of Application.
+     * Creates an instance of Application with loading default messages.
      *
      */
     constructor() {
@@ -24,7 +28,7 @@ class Application {
     }
     /**
      * Returns properties instance of the application.
-     * @return {Properties} properties of application.
+     * @return {Properties} properties.
      */
     getProps = (): Properties => {
         return this.props;
@@ -32,26 +36,26 @@ class Application {
 
     /**
      * Sets base url path to the application properties.
-     * @param {string} url to set.
+     * @param {string} url.
      */
-    setBaseUrlPath = (value: string) => {
-        Assertions.isUrl(value, true);
-        value = value.trim();
-        this.props.set(this._baseUrlPathKey, value);
+    setBaseUrlPath = (url: string) => {
+        Assertions.isUrl(url, true);
+        url = url.trim();
+        this.props.set(this.__baseUrlPathKey, url);
     }
 
     /**
      * Returns base url from the application properties.
-     * @return {string} base url
+     * @return {string} url
      */
     getBaseUrlPath = (): string => {
-        return this.getProps().get(this._baseUrlPathKey);
+        return this.getProps().get(this.__baseUrlPathKey);
     }
 
     /**
      * Concats the given path with the base url. Handles all slash characters.
      * @param {string} url to concat.
-     * @return {string} final url. Returns the given input if it is a url.
+     * @return {string} final url. Returns the given input if it's already a url.
      */
     getUrl = (url: string): string => {
         Assertions.isNotEmpty(url, true);
@@ -68,7 +72,8 @@ class Application {
     }
 
     /**
-     * loads language message map
+     * Loads message map. Merges with the default messages.
+     *
      * @param messagesMap
      */
     loadI18n = (messagesMap: Map) => {
@@ -77,7 +82,7 @@ class Application {
         });
     }
     /**
-     * sets language message
+     * Sets a message with the spesific key given.
      * @param {string} code language key
      * @param {string} value language value
      */
@@ -85,8 +90,8 @@ class Application {
         this.messages[code] = value;
     }
     /**
-     * gets language message
-     * @param code
+     * Returns the message with the given code
+     * @param {string} code
      * @returns {any}
      */
     i18n = (code: string): any => {
