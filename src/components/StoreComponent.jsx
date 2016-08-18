@@ -6,22 +6,22 @@ import Store from "../stores/Store";
  * Usually used for components with store operations.
  * Has support for auto objectId increment and store management.
  * @export
- * @class StoreShallowComponent
+ * @class StoreComponent
  * @extends {ShallowComponent}
  */
-export default class StoreShallowComponent extends ShallowComponent {
+export default class StoreComponent extends ShallowComponent {
 
 
     /**
      * Components is a static variable which holds the count of successfull instances
-     * extends StoreShallowComponent
+     * extends StoreComponent
      * @static
      */
     static componentCount = 0;
 
     /**
      * Object id of the component given automaticly by
-     * the StoreShallowComponent at construction.
+     * the StoreComponent at construction.
      */
     __objectId;
 
@@ -40,7 +40,7 @@ export default class StoreShallowComponent extends ShallowComponent {
     stores = [];
 
     /**
-     * Creates an instance of StoreShallowComponent.
+     * Creates an instance of StoreComponent.
      *
      * @param {Object} props
      */
@@ -49,7 +49,7 @@ export default class StoreShallowComponent extends ShallowComponent {
         if (this.props === undefined || this.props.stores === undefined || this.props.stores.length === 0) {
             throw new Error(`Must defined at least one store in a ${this.constructor.name}`);
         }
-        this.__objectId = StoreShallowComponent.componentCount++;
+        this.__objectId = StoreComponent.componentCount++;
         this.stores = this.props.stores;
     }
 

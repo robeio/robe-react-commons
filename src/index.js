@@ -4,9 +4,8 @@ export { default as Properties } from "./application/Properties";
 export { default as Class } from "./class/Class";
 
 export { default as ShallowComponent } from "./components/ShallowComponent";
-export { default as StoreShallowComponent } from "./components/StoreShallowComponent";
-export { default as BinderShallowComponent } from "./components/BinderShallowComponent";
-export { default as BinderStoreShallowComponent } from "./components/BinderStoreShallowComponent";
+export { default as StoreComponent } from "./components/StoreComponent";
+
 
 export { default as Arrays } from "./utils/Arrays";
 export { default as Objects } from "./utils/Objects";

@@ -1,10 +1,10 @@
 import React from "react";
 import chai from "chai";
-import StoreShallowComponent from "components/StoreShallowComponent";
+import StoreComponent from "components/StoreComponent";
 import Store from "stores/Store";
 import { RemoteEndPoint } from "index";
 
-class TestComponent extends StoreShallowComponent {
+class TestComponent extends StoreComponent {
     constructor(props: Object) {
         super(props);
         this.state = { count: 0 };
@@ -20,18 +20,18 @@ class TestComponent extends StoreShallowComponent {
         });
     }
 }
-describe("StoreShallowComponent.js", () => {
+describe("StoreComponent.js", () => {
     const url = "http://localhost:3000/posts";
     it("constructors", () => {
         let result = false;
-        let compCount = StoreShallowComponent.componentCount;
+        let compCount = StoreComponent.componentCount;
         try {
             let test1 = new TestComponent();// eslint-disable-line 
         } catch (e) {
             result = true;
         }
         chai.assert.isOk(result, "Sould not allow undefined props");
-        chai.assert.equal(StoreShallowComponent.componentCount, compCount, "Component count must remain same");
+        chai.assert.equal(StoreComponent.componentCount, compCount, "Component count must remain same");
 
         result = false;
         try {
@@ -40,7 +40,7 @@ describe("StoreShallowComponent.js", () => {
             result = true;
         }
         chai.assert.isOk(result, "Sould not allow undefined props.stores");
-        chai.assert.equal(StoreShallowComponent.componentCount, compCount, "Component count must remain same");
+        chai.assert.equal(StoreComponent.componentCount, compCount, "Component count must remain same");
 
         result = false;
         try {
@@ -49,7 +49,7 @@ describe("StoreShallowComponent.js", () => {
             result = true;
         }
         chai.assert.isOk(result, "Sould not allow empty props.stores");
-        chai.assert.equal(StoreShallowComponent.componentCount, compCount, "Component count must remain same");
+        chai.assert.equal(StoreComponent.componentCount, compCount, "Component count must remain same");
     });
 
     it("getObjectId", () => {

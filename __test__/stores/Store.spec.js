@@ -1,6 +1,6 @@
 import React from "react";
 import Store from "stores/Store";
-import StoreShallowComponent from "components/StoreShallowComponent";
+import StoreComponent from "components/StoreComponent";
 import Assertions from "utils/Assertions";
 import { RemoteEndPoint } from "index";
 import chai from "chai";
@@ -105,7 +105,7 @@ describe("Store.js", () => {
     /** @test {Store#register} */
     it("register", (done: Function) => {
         // Render a checkbox with label in the document
-        class TestComponent extends StoreShallowComponent {
+        class TestComponent extends StoreComponent {
             constructor(props: Object) {
                 super(props);
                 this.state = {
