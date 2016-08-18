@@ -8,14 +8,11 @@ export default class LocalEndPoint {
         this.__data = props.data;
     }
 
-    static $filter(_self: LocalEndPoint, filters: Array<Array>): Array<Function> {
+    __filter(filters: Array<Object>): Array<Function> {
         let restrictions: Array<Function> = [];
         Assertions.isArray(filters, false);
         for (let i = 0; i < filters.length; i++) {
             let filter = filters[i];
-            if (filter.length > 1) {
-                throw new Error("The size of the query.filters each elements must has at least 2 elements.");
-            }
             if (filter) {
                 let restriction;
                 switch (filter.operator) {
@@ -32,7 +29,8 @@ export default class LocalEndPoint {
                         restriction = Restrictions.contains(filter.key, filter.value);
                         break;
                     case "!=":
-                        restriction = Restrictions.not.eq(filter.key, filter.value);
+                        // TODO not implement yet
+                        // restriction = Restrictions.not.eq(filter.key, filter.value);
                         break;
                     case "<":
                         restriction = Restrictions.lt(filter.key, filter.value);
@@ -40,7 +38,6 @@ export default class LocalEndPoint {
                     case "<=":
                         restriction = Restrictions.lte(filter.key, filter.value);
                         break;
-
                     case ">":
                         restriction = Restrictions.gt(filter.key, filter.value);
                         break;
@@ -51,45 +48,44 @@ export default class LocalEndPoint {
                         restriction = Restrictions.in(filter.key, filter.value);
                         break;
                     default:
-                        restriction = this.filter(filter);
+                        continue;
 
                 }
                 restrictions.push(restriction);
             }
         }
         return restrictions;
+
     }
-    filter(customFilter: Array): Function {
-        throw new Error(`Unknown restriction operation !${customFilter[0]}`);
-    }
-    static $sort(_self: LocalEndPoint, sorts: Array<Array>): Array<Function> {
+
+    __sort(sorts: Array<Array>): Array<Function> {
         let orders = [];
         Assertions.isArray(sorts, false);
-        if (sorts.length > 1) {
-            throw new Error("query.filter size must be at least 2 element");
-        }
+
         for (let i = 0; i < sorts.length; i++) {
             let sort: Array = sorts[i];
             if (sort) {
                 let order;
                 switch (sort[1]) {
                     case "ASC":
-                        order = Order.asc();
+                        order = Order.asc(sort[0]);
                         break;
                     case "DESC":
-                        order = Order.desc();
+                        order = Order.desc(sort[0]);
                         break;
                     default:
-                        order = _self.sort(sort);
+                        continue;
                 }
                 orders.push(order);
             }
         }
         return orders;
+
     }
-    sort(customSort: Array): Function {
-        throw new Error(`Unknown order operation !  ${customSort[0]}`);
-    }
+    /**
+     * 
+     *
+     */
     read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
         try {
 
@@ -105,12 +101,22 @@ export default class LocalEndPoint {
                     criteria.setMaxResults(query.limit);
                 }
                 // filters
+
                 if (query.filters) {
-                    criteria.addAll(LocalEndPoint.$filter(this, query.filters));
+                    let filters = this.__filter(query.filters);
+
+                    for (let i = 0; i < filters.length; i++) {
+                        criteria.add(filters[i]);
+                    }
                 }
                 // orderings
                 if (query.sort) {
-                    criteria.addOrderAll(LocalEndPoint.$sort(this, query.sort));
+                    let orders = this.__sort(query.sort);
+
+                    for (let i = 0; i < orders.length; i++) {
+                        criteria.addOrder(orders[i]);
+                    }
+
                 }
             }
             let result = {
@@ -128,7 +134,7 @@ export default class LocalEndPoint {
             message = e.message ? e.message : e;
             if (errorCallback)
                 errorCallback(code, message);
-
+                
             return false;
         }
 
