@@ -39,18 +39,16 @@ class QueryParams {
             let sorts = [];
             for (let i = 0; i < params.sort.length; i++) {
                 let item = params.sort[i];
-                if (!Assertions.isString(item)) {
-                    this.__stringArrayValidation(item, `sort[${i}]`);
-                    switch (item[1]) {
-                        case "ASC":
-                            sorts.push(`+${item[0]}`);
-                            break;
-                        case "DESC":
-                            sorts.push(`-${item[0]}`);
-                            break;
-                        default:
-                            throw new Error(`Given sort item (${item}) must a ASC or DESC.`);
-                    }
+                this.__stringArrayValidation(item, `sort[${i}]`);
+                switch (item[1]) {
+                    case "ASC":
+                        sorts.push(`+${item[0]}`);
+                        break;
+                    case "DESC":
+                        sorts.push(`-${item[0]}`);
+                        break;
+                    default:
+                        throw new Error(`Given sort item (${item}) must a ASC or DESC.`);
                 }
             }
             url.push(sorts.join());
@@ -65,11 +63,11 @@ class QueryParams {
             let filters = [];
             for (let i = 0; i < params.filters.length; i++) {
                 let item = params.filters[i];
-                if (!Assertions.isString(item)) {
-                    this.__opValidation(item, `filters[${i}]`);
-                    if (item[1] === "|=") {
-                        item[2] = item[2].join("|");
-                    }
+                this.__opValidation(item, `filters[${i}]`);
+                if (item[1] === "|=") {
+                    let item2Joined = item[2].join("|");
+                    filters.push(item[0] + item[1] + item2Joined);
+                } else {
                     filters.push(item.join(""));
                 }
             }
@@ -87,9 +85,7 @@ class QueryParams {
             if (value < min) {
                 throw new Error(`Given offset value (${value}) must be > ${min}.`);
             }
-            if (cb !== undefined) {
-                cb();
-            }
+            cb();
         }
     }
     __stringValidation(value: string, cb: Function) {
@@ -97,9 +93,7 @@ class QueryParams {
             if (!Assertions.isString(value)) {
                 throw new Error(`Given offset value (${value}) is not a string !`);
             }
-            if (cb !== undefined) {
-                cb();
-            }
+            cb();
         }
     }
 
@@ -116,19 +110,20 @@ class QueryParams {
             if (cb !== undefined) {
                 cb();
             }
+        } else {
+            throw new Error(`Given ${tag} item (${value}) must an array`);
         }
     }
     __opValidation(value: Array, tag: string) {
-        if (Assertions.isNotUndefinedAndNull(value)) {
-            if (!Assertions.isArray(value)) {
-                throw new Error(`Given ${tag} value (${value}) must a valid array.`);
-            }
-            for (let i = 0; i < value.length; i++) {
-                // if (!Assertions.isString(value[i])) {
-                //     throw new Error(`Given ${tag} value at ${i} (${value[i]}) must a valid string.`);
-                // }
-            }
+        if (!Assertions.isArray(value)) {
+            throw new Error(`Given ${tag} value (${value}) must a valid array.`);
         }
+        for (let i = 0; i < value.length; i++) {
+            // if (!Assertions.isString(value[i])) {
+            //     throw new Error(`Given ${tag} value at ${i} (${value[i]}) must a valid string.`);
+            // }
+        }
+
     }
     __getQParamPrefix(isFirstParam: boolean): string {
         return isFirstParam ? "?" : "&";
