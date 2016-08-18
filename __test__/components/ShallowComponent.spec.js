@@ -15,6 +15,8 @@ describe("ShallowComponent.js", () => {
             );
         }
     }
+
+
     const shallow = (
         <ShallowComponent>
             <div>ShallowComponent</div>
@@ -28,6 +30,7 @@ describe("ShallowComponent.js", () => {
 
     it("getName", () => {
         chai.assert.equal(renderedItem.getName(), "ShallowComponent");
+        chai.assert.equal(new TestComponent().getName(), "TestComponent", "Extended classes must return its own name");
     });
 
     it("render", () => {
