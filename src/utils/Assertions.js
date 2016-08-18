@@ -147,7 +147,7 @@ class Assertions {
      * @returns {boolean}
      */
     isObject(obj: Object, error: boolean): boolean {
-        if (!IsJS.hash(obj)) {
+        if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given format is not valid object !");
             }
