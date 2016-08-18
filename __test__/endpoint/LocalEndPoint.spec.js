@@ -68,6 +68,20 @@ describe("LocalEndPoint.js", () => {
         result = localEndPoint.read(query);
         chai.assert.equal(result, true);
 
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, data.length);
+        });
+
+        query.sort = [["id", "DESC"], ["name", "ASC"], ["name", "NOPE"], undefined];
+        result = localEndPoint.read(query, function (response) {
+            let count = response.totalCount;
+            chai.assert.equal(count, 9);
+
+            let data = response.data;
+
+            chai.assert.equal(data[0].id, "9");
+        });
+
         query.offset = 5;
         result = localEndPoint.read(query);
         chai.assert.equal(result, true);
@@ -75,28 +89,88 @@ describe("LocalEndPoint.js", () => {
         query.limit = 3;
         result = localEndPoint.read(query);
         chai.assert.equal(result, true);
+    });
+
+
+    it("__filter", () => {
+
+        let result = localEndPoint.read();
+        chai.assert.equal(result, true);
+
+        let query = {};
+        let filters = [{ operator: "=", key: "id", value: "1" }, undefined, { operator: "NOPE", key: "id", value: "1" }];
+        query.filters = filters;
 
         result = localEndPoint.read(query, function (response) {
-            chai.assert.equal(response.data.length, data.length);
+            chai.assert.equal(response.data.length, 1);
         });
 
-        query.sort = ["ASC", ""];
-        result = localEndPoint.read(query, undefined, function (code, message) {
-            chai.assert.isNumber(code, "error code");
+
+        filters = [{ operator: "!=", key: "id", value: "1" }, { operator: "=", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 8);
         });
 
-        // let filters = [{ key="name", value="Chopper", operator="=" }];
-        // query.filters = filters;
-        // result = localEndPoint.read(query, function (response) {
-        //     chai.assert.equal(response.data.length, data.length);
-        // });
-    });
+        filters = [{ operator: "~=", key: "id", value: "1" }];
+        query.filters = filters;
 
-    it("sort", () => {
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 1);
+        });
 
-    });
 
-    it("filter", () => {
+        filters = [{ operator: "=~", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 1);
+        });
+
+        filters = [{ operator: "~", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 1);
+        });
+
+        filters = [{ operator: "<", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 0);
+        });
+
+        filters = [{ operator: "<=", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 1);
+        });
+
+        filters = [{ operator: ">", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 8);
+        });
+
+        filters = [{ operator: ">=", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 9);
+        });
+
+        filters = [{ operator: "|=", key: "id", value: "1" }];
+        query.filters = filters;
+
+        result = localEndPoint.read(query, function (response) {
+            chai.assert.equal(response.data.length, 8);
+        });
+
+
 
     });
 });

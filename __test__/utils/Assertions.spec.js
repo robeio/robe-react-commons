@@ -94,6 +94,14 @@ describe("utils/Assertions.js", () => {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
+
+        chai.assert.throws(() => {
+            Assertions.isNotUndefinedAndNull(undefined, true);
+        }, "Given argument is undefined or undefined !", undefined, "Must throw an exception");
+
+        chai.assert.throws(() => {
+            Assertions.isNotUndefinedAndNull(null, true);
+        }, "Given argument is undefined or null !", undefined, "Must throw an exception");
     });
 
     it("isFunction", () => {
@@ -226,6 +234,11 @@ describe("utils/Assertions.js", () => {
             result = true;
         }
         chai.assert.isOk(result, "Exception expected.");
+
+        chai.assert.throws(() => {
+            Assertions.isInteger("test", true)
+        }, "Given argument is not a number !", undefined, "Must throw an exception");
+
     });
     it("isString", () => {
         let value = "Hello";
@@ -327,6 +340,12 @@ describe("utils/Assertions.js", () => {
 
         component = {};
         chai.assert.isFalse(Assertions.isReactComponent(component), "Component is a react component ! ");
+
+
+        chai.assert.throws(() => {
+            Assertions.isReactComponent({}, true)
+        }, "Given component is not a react component ! Component :[object Object]", undefined, "Must throw an exception");
+
     });
 
     it("isReactComponentClass", () => {
@@ -335,5 +354,11 @@ describe("utils/Assertions.js", () => {
 
         component = Assertions;
         chai.assert.isFalse(Assertions.isReactComponentClass(component), "Component Class is a react component ! ");
+
+
+        chai.assert.throws(() => {
+            Assertions.isReactComponentClass(component, true)
+        }, "Given component class is not a React.Component ! Class :[object Object]", undefined, "Must throw an exception");
+
     });
 });
