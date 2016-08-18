@@ -1,7 +1,7 @@
 import { Criteria, Restrictions, Order } from "js-criteria";
 import Assertions from "../utils/Assertions";
 
-// TODO LocalEndPoint need to test.
+
 export default class LocalEndPoint {
     __data;
     constructor(props: Object) {
@@ -50,7 +50,7 @@ export default class LocalEndPoint {
                     case "|=":
                         restriction = Restrictions.in(filter.key, filter.value);
                         break;
-                    default :
+                    default:
                         restriction = this.filter(filter);
 
                 }
@@ -60,7 +60,7 @@ export default class LocalEndPoint {
         return restrictions;
     }
     filter(customFilter: Array): Function {
-        throw new Error(`Unknown restriction operation !  ${customFilter[1]}`);
+        throw new Error(`Unknown restriction operation !${customFilter[0]}`);
     }
     static $sort(_self: LocalEndPoint, sorts: Array<Array>): Array<Function> {
         let orders = [];
@@ -79,7 +79,7 @@ export default class LocalEndPoint {
                     case "DESC":
                         order = Order.desc();
                         break;
-                    default :
+                    default:
                         order = _self.sort(sort);
                 }
                 orders.push(order);
@@ -88,39 +88,49 @@ export default class LocalEndPoint {
         return orders;
     }
     sort(customSort: Array): Function {
-        throw new Error(`Unknown order operation !  ${customSort[1]}`);
+        throw new Error(`Unknown order operation !  ${customSort[0]}`);
     }
     read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
         try {
+
             let criteria = new Criteria(this.__data);
-            // offset
-            if (query.offset) {
-                criteria.setFirstResult(query.offset);
-            }
-            // limit
-            if (query.limit) {
-                criteria.setMaxResults(query.limit);
-            }
-            // filters
-            if (query.filters) {
-                criteria.addAll(LocalEndPoint.$filter(this, query.filters));
-            }
-            // orderings
-            if (query.sort) {
-                criteria.addOrderAll(LocalEndPoint.$sort(this, query.filters));
+
+            if (query) {
+                // offset
+                if (query.offset) {
+                    criteria.setFirstResult(query.offset);
+                }
+                // limit
+                if (query.limit) {
+                    criteria.setMaxResults(query.limit);
+                }
+                // filters
+                if (query.filters) {
+                    criteria.addAll(LocalEndPoint.$filter(this, query.filters));
+                }
+                // orderings
+                if (query.sort) {
+                    criteria.addOrderAll(LocalEndPoint.$sort(this, query.sort));
+                }
             }
             let result = {
                 data: criteria.list(),
-                totalCount: this.___data.length
+                totalCount: this.__data.length
             };
-            successCallBack(result);
+            if (successCallBack)
+                successCallBack(result);
+
+            return true;
         } catch (e) {
             let code: number;
             let message: string;
             code = e.code ? e.code : 500;
             message = e.message ? e.message : e;
-            errorCallback(code, message);
+            if (errorCallback)
+                errorCallback(code, message);
+
+            return false;
         }
-        return true;
+
     }
 }
