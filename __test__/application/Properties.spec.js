@@ -21,7 +21,19 @@ describe("Properties.js", () => {
         let element = prop.get("Unknown");
         should.equal(element, undefined);
     });
+
+    it("set", () => {
+        prop.set("MAX_PROPERTY_SIZE", 48);
+        assert.throws(() => {
+            prop.set("BigValue", "this is really big value");
+        }, "Object size cannot be greater than 48 bytes. The key is BigValue", undefined, `Value is bigger than ${prop.get("MAX_PROPERTY_SIZE")} bytes. It should have been throw an error.`);
+        assert.doesNotThrow(() => {
+            prop.set("NotBigValue", "not big value");
+        }, `Value is not bigger than ${prop.get("MAX_PROPERTY_SIZE")} bytes. It should not have been throw an error.`);
+    });
+
     it("remove", () => {
+        prop = new Properties();
         prop.set("FrameworkName", "value1");
 
         assert.equal(prop.get("FrameworkName"), "value1");

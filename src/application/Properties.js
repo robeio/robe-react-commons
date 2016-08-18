@@ -1,11 +1,15 @@
 import Assertions from "../utils/Assertions";
+import Objects from "../utils/Objects"
+
 /**
  * A singleton class which hold all application general informations.
  */
 export default class Properties {
 
     constructor() {
-        this.params = {};
+        this.params = {
+            "MAX_PROPERTY_SIZE": 1048576
+        };
     }
 
     /**
@@ -17,6 +21,10 @@ export default class Properties {
     set = (key: string, value: any): boolean => {
         Assertions.isNotEmpty(key, true);
         Assertions.isNotUndefined(value, true);
+        let sizeOfValue = Objects.calculateObjectSize(value);
+        if(sizeOfValue >= this.params.MAX_PROPERTY_SIZE) {
+            throw new Error(`Object size cannot be greater than ${this.params.MAX_PROPERTY_SIZE} bytes. The key is ${key}`);
+        }
         this.params[key] = value;
         return true;
     }

@@ -37,5 +37,6 @@ describe("Application.js", () => {
         let app = Application;
         app.loadI18n({ meaningOfLife: "42" });
         assert.equal(app.i18n("meaningOfLife"), "42", "Can't get a message from loaded message map");
+        assert.equal(app.i18n("http")[100], "Continue", "HTTP messages has not been merged properly into i18n");
     });
 });
