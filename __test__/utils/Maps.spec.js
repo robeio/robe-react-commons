@@ -2,11 +2,18 @@ import Maps from "utils/Maps";
 import chai from "chai";
 
 describe("utils/Maps.js", () => {
+    let func1 = () => {
+
+    };
+    let func2 = () => {
+
+    };
+
     it("forEach", () => {
         let map = { key: "a", value: "a1" };
         let expectedKeyArray = ["key", "value"];
         let keyArray = [];
-        Maps.forEach(map, (value : any, key : string) => {
+        Maps.forEach(map, (value: any, key: string) => {
             keyArray.push(key);
         });
         chai.assert.deepEqual(keyArray, expectedKeyArray);
@@ -53,13 +60,10 @@ describe("utils/Maps.js", () => {
     });
 
     it("mergeDeep", () => {
-        let func = () => {
-
-        };
         let src = {
             a: {
                 aa: "aa",
-                c: func
+                c: func1
             }
         };
         let dest = {
@@ -67,39 +71,17 @@ describe("utils/Maps.js", () => {
                 bb: "bb"
             }
         };
-        let expectedMap = { a: { aa: "aa",
-            c: func, bb: "bb" } };
-        dest = Maps.mergeDeep(src, dest);
-        chai.assert.deepEqual(dest, expectedMap);
-    });
-
-    it("mergeDeep", () => {
-        let func = () => {
-
-        };
-        let src = {
+        let expectedMap = {
             a: {
                 aa: "aa",
-                c: func
-            }
-        };
-        let dest = {
-            a: {
+                c: func1,
                 bb: "bb"
             }
         };
-        let expectedMap = { a: { aa: "aa",
-            c: func, bb: "bb" } };
         dest = Maps.mergeDeep(src, dest);
         chai.assert.deepEqual(dest, expectedMap);
     });
     it("getObjectsWhichHasKeyInMap", () => {
-        let func1 = () => {
-
-        };
-        let func2 = () => {
-
-        };
         let map = {
             obj1: {
                 isValid: func1
@@ -116,9 +98,8 @@ describe("utils/Maps.js", () => {
             {
                 isValid: func2
             }
-        ]
+        ];
         chai.assert.deepEqual(exptectedArray, Maps.getObjectsWhichHasKeyInMap(map, "isValid"));
-
 
         map = {
             obj1: {
@@ -133,7 +114,7 @@ describe("utils/Maps.js", () => {
             {
                 isValid: func1
             }
-        ]
+        ];
         chai.assert.deepEqual(exptectedArray, Maps.getObjectsWhichHasKeyInMap(map, "isValid", "function"));
     });
 });
