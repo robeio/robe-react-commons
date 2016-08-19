@@ -49,13 +49,11 @@ export default class LocalEndPoint {
                         break;
                     default:
                         continue;
-
                 }
                 restrictions.push(restriction);
             }
         }
         return restrictions;
-
     }
 
     __sort(sorts: Array<Array>): Array<Function> {
@@ -80,15 +78,14 @@ export default class LocalEndPoint {
             }
         }
         return orders;
-
     }
+
     /**
      * 
      *
      */
     read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
         try {
-
             let criteria = new Criteria(this.__data);
 
             if (query) {
@@ -116,15 +113,15 @@ export default class LocalEndPoint {
                     for (let i = 0; i < orders.length; i++) {
                         criteria.addOrder(orders[i]);
                     }
-
                 }
             }
             let result = {
                 data: criteria.list(),
                 totalCount: this.__data.length
             };
-            if (successCallBack)
+            if (successCallBack) {
                 successCallBack(result);
+            }
 
             return true;
         } catch (e) {
@@ -132,11 +129,11 @@ export default class LocalEndPoint {
             let message: string;
             code = e.code ? e.code : 500;
             message = e.message ? e.message : e;
-            if (errorCallback)
+            if (errorCallback) {
                 errorCallback(code, message);
-                
+            }
+
             return false;
         }
-
     }
 }

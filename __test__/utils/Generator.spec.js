@@ -3,11 +3,11 @@ import chai from "chai";
 
 describe("utils/Generator.js", () => {
     it("s4", () => {
-        console.log(Generator.s4());
+        chai.assert.equal(Generator.s4().length, 4, "It must be 4 characters");
     });
 
     it("guid", () => {
-        console.log(Generator.guid());
+        chai.assert.equal(Generator.guid().length, 36, "It must be 36 characters");
     });
 });
 

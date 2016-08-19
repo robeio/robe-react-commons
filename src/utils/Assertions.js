@@ -88,13 +88,13 @@ class Assertions {
     isNotUndefinedAndNull(arg: any, error: boolean): boolean {
         if (arg === undefined) {
             if (error) {
-                throw new Error("Given argument is undefined or undefined !");
+                throw new Error("Given argument is undefined !");
             }
             return false;
         }
         if (arg === null) {
             if (error) {
-                throw new Error("Given argument is undefined or null !");
+                throw new Error("Given argument is null !");
             }
             return false;
         }
@@ -112,7 +112,7 @@ class Assertions {
             let isFunc = this.checkerObject.toString.call(func) === "[object Function]";
             if (!isFunc) {
                 if (error) {
-                    throw new Error("Given func is not a function !");
+                    throw new Error("Given argument is not a function !");
                 }
                 return false;
             }
@@ -147,7 +147,7 @@ class Assertions {
      * @returns {boolean}
      */
     isObject(obj: Object, error: boolean): boolean {
-        if (!IsJS.hash(obj)) {
+        if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given format is not valid object !");
             }
@@ -182,7 +182,7 @@ class Assertions {
         /* eslint-disable eqeqeq */
         if (!(Number(n) == n && n % 1 === 0)) {
             if (error) {
-                throw new Error("Given argument is not a number !");
+                throw new Error("Given argument is not a integer !");
             }
             return false;
         }
@@ -231,15 +231,13 @@ class Assertions {
         let result = true;
         if (IsJS.hash(obj)) {
             for (const key in obj) {
-                if (checkerObject.hasOwnProperty.call(obj, key)) {
-                    if (this.isFunction(obj[key])) {
-                        result = false;
+                if (this.isFunction(obj[key])) {
+                    result = false;
+                    break;
+                } else if (IsJS.hash(obj[key])) {
+                    result = this.isMap(obj[key]);
+                    if (!result) {
                         break;
-                    } else if (IsJS.hash(obj[key])) {
-                        result = this.isMap(obj[key]);
-                        if (!result) {
-                            break;
-                        }
                     }
                 }
             }
