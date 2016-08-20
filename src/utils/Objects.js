@@ -64,7 +64,7 @@ class Objects {
      * parameter is:
      * object - the object whose size should be determined
      */
-    sizeOf(object) {
+    sizeOf(object: Object): number {
         // initialise the list of objects and size
         let objects = [object];
         let size = 0;
@@ -72,7 +72,8 @@ class Objects {
         // loop over the objects
         for (; index < objects.length; index++) {
             // determine the type of the object
-            switch (typeof objects[index]) {
+            let obj = objects[index];
+            switch (typeof obj) {
                 // the object is a boolean
                 case "boolean":
                     size += 4;
@@ -88,7 +89,6 @@ class Objects {
                 // the object is a generic object
                 case "object":
                     // if the object is not an array, add the sizes of the keys
-                    let obj = objects[index];
                     if (objectChecker.toString.call(obj) !== "[object Array]") {
                         for (let key in obj) {
                             if (objectChecker.hasOwnProperty.call(obj, key)) {
