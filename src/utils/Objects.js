@@ -1,4 +1,4 @@
-
+const objectChecker = {};
 /**
  * A singleton class which implements mostly used json object operations.
  *
@@ -58,6 +58,55 @@ class Objects {
             }
         }
         return bytes;
+    }
+
+    /* Returns the approximate memory usage, in bytes, of the specified object. The
+     * parameter is:
+     * object - the object whose size should be determined
+     */
+    sizeOf(object) {
+        // initialise the list of objects and size
+        let objects = [object];
+        let size = 0;
+        let index = 0;
+        // loop over the objects
+        for (; index < objects.length; index++) {
+            // determine the type of the object
+            switch (typeof objects[index]) {
+                // the object is a boolean
+                case "boolean":
+                    size += 4;
+                    break;
+                // the object is a number
+                case "number":
+                    size += 8;
+                    break;
+                // the object is a string
+                case "string":
+                    size += 2 * objects[index].length;
+                    break;
+                // the object is a generic object
+                case "object":
+                    // if the object is not an array, add the sizes of the keys
+                    let obj = objects[index];
+                    if (objectChecker.toString.call(obj) !== "[object Array]") {
+                        for (let key in obj) {
+                            if (objectChecker.hasOwnProperty.call(obj, key)) {
+                                size += 2 * key.length;
+                                size += this.sizeOf(obj[key]);
+                            }
+                        }
+                    } else { // array objects
+                        for (let i = 0; i < obj.length; i++) {
+                            size += this.sizeOf(obj[i]);
+                        }
+                    }
+                    break;
+                default:
+            }
+        }
+        // return the calculated size
+        return size;
     }
 }
 
