@@ -3,8 +3,8 @@ import chai from "chai";
 
 describe("utils/BinderClass.js", () => {
     it("constructors", () => {
-        class Example extends BinderClass{
-            getThis() {
+        class Example extends BinderClass {
+            getThis(): Example {
                 return this;
             }
         }

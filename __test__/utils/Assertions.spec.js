@@ -293,14 +293,14 @@ describe("utils/Assertions.js", () => {
     });
 
     it("isReactComponent", () => {
-        let component = (<div></div>);
+        let component = (<div />);
         chai.assert.isTrue(Assertions.isReactComponent(component), "Component is not a react component ! ");
 
         component = {};
         chai.assert.isFalse(Assertions.isReactComponent(component), "Component is a react component ! ");
 
         chai.assert.throws(() => {
-            Assertions.isReactComponent({}, true)
+            Assertions.isReactComponent({}, true);
         }, "Given component is not a react component ! Component :[object Object]", undefined, "Must throw an exception");
     });
 
@@ -312,7 +312,7 @@ describe("utils/Assertions.js", () => {
         chai.assert.isFalse(Assertions.isReactComponentClass(component), "Component Class is a react component ! ");
 
         chai.assert.throws(() => {
-            Assertions.isReactComponentClass(component, true)
+            Assertions.isReactComponentClass(component, true);
         }, "Given component class is not a React.Component ! Class :[object Object]", undefined, "Must throw an exception");
     });
 });

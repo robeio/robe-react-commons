@@ -5,7 +5,7 @@ import Assertions from "../utils/Assertions";
  */
 class QueryParams {
 
-    stringify(params: Object) {
+    stringify(params: Object): string {
         // TODO: Additional validations will be added later.
         Assertions.isNotUndefined(params, true);
 
@@ -123,7 +123,6 @@ class QueryParams {
             //     throw new Error(`Given ${tag} value at ${i} (${value[i]}) must a valid string.`);
             // }
         }
-
     }
     __getQParamPrefix(isFirstParam: boolean): string {
         return isFirstParam ? "?" : "&";

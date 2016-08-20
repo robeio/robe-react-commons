@@ -48,9 +48,11 @@ export default class LocalEndPoint {
                         restriction = Restrictions.in(filter.key, filter.value);
                         break;
                     default:
-                        continue;
+                        restriction = null;
                 }
-                restrictions.push(restriction);
+                if (restriction) {
+                    restrictions.push(restriction);
+                }
             }
         }
         return restrictions;
@@ -64,24 +66,31 @@ export default class LocalEndPoint {
             let sort: Array = sorts[i];
             if (sort) {
                 let order;
-                switch (sort[1]) {
-                    case "ASC":
-                        order = Order.asc(sort[0]);
-                        break;
-                    case "DESC":
-                        order = Order.desc(sort[0]);
-                        break;
-                    default:
-                        continue;
+                if (typeof sort[1] === "string") {
+                    switch (sort[1]) {
+                        case "ASC":
+                            order = Order.asc(sort[0]);
+                            break;
+                        case "DESC":
+                            order = Order.desc(sort[0]);
+                            break;
+                        default:
+                    }
+                } else {
+                    // TODO Custom sort will implement.
+                    throw new Error("Unknown Sort Parameter ! ");
                 }
-                orders.push(order);
+                if (order) {
+                    orders.push(order);
+                    order = null;
+                }
             }
         }
         return orders;
     }
 
     /**
-     * 
+     *
      *
      */
     read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
