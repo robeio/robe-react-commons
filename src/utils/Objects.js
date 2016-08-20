@@ -44,16 +44,16 @@ class Objects {
         let bytes = 0;
         while (stack.length) {
             let value = stack.pop();
-            if (typeof value === 'boolean') {
+            if (typeof value === "boolean") {
                 bytes += 4;
-            } else if (typeof value === 'string') {
+            } else if (typeof value === "string") {
                 bytes += value.length * 2;
-            } else if (typeof value === 'number') {
+            } else if (typeof value === "number") {
                 bytes += 8;
-            } else if (typeof value === 'object' && objectList.indexOf( value ) === -1) {
+            } else if (typeof value === "object" && objectList.indexOf(value) === -1) {
                 objectList.push(value);
-                for( let i in value ) {
-                    stack.push( value[ i ] );
+                for (let i in value) {
+                    stack.push(value[i]);
                 }
             }
         }
@@ -84,7 +84,7 @@ class Objects {
                     break;
                 // the object is a string
                 case "string":
-                    size += 2 * objects[index].length;
+                    size += 2 * obj.length;
                     break;
                 // the object is a generic object
                 case "object":
