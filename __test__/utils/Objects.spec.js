@@ -27,4 +27,17 @@ describe("Objects.js", () => {
         };
         chai.assert.equal(Objects.calculateObjectSize(object), 88);
     });
+    it("sizeOf", () => {
+        let object = {
+            bool: true,
+            number: 2,
+            string: "the string",
+            nestedObject: {
+                bool: false,
+                number: 3,
+                string: "another string"
+            }
+        };
+        chai.assert.equal(Objects.sizeOf(object), 160);
+    });
 });

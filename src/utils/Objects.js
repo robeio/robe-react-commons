@@ -16,7 +16,7 @@ class Objects {
      * @param {any} dest Destination object to compare the equality
      * @returns : {boolean} if the string value of the given source equals the string value of the given destination then "true" else "false"
      */
-    equals(src : Object, dest: Object) : boolean {
+    equals(src:Object, dest:Object):boolean {
         return JSON.stringify(src) === JSON.stringify(dest);
     }
 
@@ -29,7 +29,7 @@ class Objects {
      * @param src the given source object
      * @returns the clonse of the given source object
      */
-    deepCopy(src : Object) : Object {
+    deepCopy(src:Object):Object {
         return JSON.parse(JSON.stringify(src));
     }
 
@@ -38,7 +38,7 @@ class Objects {
      *  @param object
      *  @return size in bytes
      */
-    calculateObjectSize(object: Object) : Number {
+    calculateObjectSize(object:Object):Number {
         let objectList = [];
         let stack = [object];
         let bytes = 0;
@@ -64,46 +64,40 @@ class Objects {
      * parameter is:
      * object - the object whose size should be determined
      */
-    sizeOf(object: Object): number {
+    sizeOf(object:Object):number {
         // initialise the list of objects and size
-        let objects = [object];
         let size = 0;
-        let index = 0;
         // loop over the objects
-        for (; index < objects.length; index++) {
-            // determine the type of the object
-            let obj = objects[index];
-            switch (typeof obj) {
-                // the object is a boolean
-                case "boolean":
-                    size += 4;
-                    break;
-                // the object is a number
-                case "number":
-                    size += 8;
-                    break;
-                // the object is a string
-                case "string":
-                    size += 2 * obj.length;
-                    break;
-                // the object is a generic object
-                case "object":
-                    // if the object is not an array, add the sizes of the keys
-                    if (objectChecker.toString.call(obj) !== "[object Array]") {
-                        for (let key in obj) {
-                            if (objectChecker.hasOwnProperty.call(obj, key)) {
-                                size += 2 * key.length;
-                                size += this.sizeOf(obj[key]);
-                            }
-                        }
-                    } else { // array objects
-                        for (let i = 0; i < obj.length; i++) {
-                            size += this.sizeOf(obj[i]);
+        switch (typeof object) {
+            // the object is a boolean
+            case "boolean":
+                size += 4;
+                break;
+            // the object is a number
+            case "number":
+                size += 8;
+                break;
+            // the object is a string
+            case "string":
+                size += 2 * object.length;
+                break;
+            // the object is a generic object
+            case "object":
+                // if the object is not an array, add the sizes of the keys
+                if (objectChecker.toString.call(object) !== "[object Array]") {
+                    for (let key in object) {
+                        if (objectChecker.hasOwnProperty.call(object, key)) {
+                            size += 2 * key.length;
+                            size += this.sizeOf(object[key]);
                         }
                     }
-                    break;
-                default:
-            }
+                } else { // array objects
+                    for (let i = 0; i < object.length; i++) {
+                        size += this.sizeOf(object[i]);
+                    }
+                }
+                break;
+            default:
         }
         // return the calculated size
         return size;
