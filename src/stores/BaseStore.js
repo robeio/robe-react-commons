@@ -1,12 +1,12 @@
 import React from "react";
 import Assertions from "../utils/Assertions";
 import Maps from "../utils/Maps";
-import BinderClass from "../utils/BinderClass";
+import Class from "../class/Class";
 
 /**
  * Base of Store to keep data and to trigger dependencies component.
  */
-export default class BaseStore extends BinderClass {
+export default class BaseStore extends Class {
     static propTypes = {
         idField: React.PropTypes.string,
         importer: React.PropTypes.func,
