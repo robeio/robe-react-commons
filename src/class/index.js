@@ -1,1 +1,7 @@
-export { default as Class } from "./Class";
+import Class from "./Class";
+
+const ClassInstance = new Class();
+export {
+    ClassInstance,
+    Class
+};

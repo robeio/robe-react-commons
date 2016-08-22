@@ -7,19 +7,19 @@ import Assertions from "../utils/Assertions";
  */
 export default class Class {
     constructor() {
-        this.__bindAll(this);
+        this.bindAll(this);
     }
 
     /**
      * Binds all methods to the instance.
      * @param {Object} instance to bind
      */
-    __bindAll(instance: Object) {
+    bindAll(instance: Object) {
         let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
         for (let i = 0; i < names.length; i++) {
             let name = names[i];
             if (name !== "constructor" && Assertions.isFunction(instance[name])) {
-                instance[name] = instance[name].bind(this);
+                instance[name] = instance[name].bind(instance);
             }
         }
     }

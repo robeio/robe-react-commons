@@ -12,7 +12,6 @@ export { default as Objects } from "./utils/Objects";
 export { default as Maps } from "./utils/Maps";
 export { default as Cookies } from "./utils/Cookies";
 export { default as Assertions } from "./utils/Assertions";
-export { default as BinderClass } from "./utils/BinderClass";
 
 export { default as MapArray } from "./collections/MapArray";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import shallowCompare from "react-addons-shallow-compare";
 import Assertions from "../utils/Assertions";
-
+import { ClassInstance } from "../class";
 /**
  * A component which extends React.Component and implements shouldComponentUpdate with using shallowCompare and and  __bindAll which binds all methods to the instance.
  * It is like a basic component with minimal update control.
@@ -19,7 +19,7 @@ export default class ShallowComponent extends React.Component {
      */
     constructor(props: Object) {
         super(props);
-        this.__bindAll(this);
+        ClassInstance.bindAll(this);
     }
 
     /**
@@ -46,19 +46,5 @@ export default class ShallowComponent extends React.Component {
      */
     getName = (): string => {
         return this.constructor.name;
-    }
-
-    /**
-    * Binds all methods to the instance.
-    * @param {Object} instance to bind
-    */
-    __bindAll(instance: Object) {
-        let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
-        for (let i = 0; i < names.length; i++) {
-            let name = names[i];
-            if (name !== "constructor" && Assertions.isFunction(instance[name])) {
-                instance[name] = instance[name].bind(this);
-            }
-        }
     }
 }
