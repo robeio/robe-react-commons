@@ -73,7 +73,6 @@ export default class StoreComponent extends ShallowComponent {
      */
     constructor(props: Object) {
         super(props);
-        console.log(props);
         this.stores = StoreComponent.checkAndGetStore(this, props);
         this.__objectId = StoreComponent.componentCount++;
     }
