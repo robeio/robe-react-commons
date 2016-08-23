@@ -99,7 +99,7 @@ export default class StoreComponent extends ShallowComponent {
     /**
      * Triggered before component unmount from the DOM. Unregisters itself to the all its stores.
      */
-    componentWillUnMount() {
+    componentWillUnmount() {
         for (let i = 0; i < this.stores.length; i++) {
             this.stores[i].unRegister(this);
         }
