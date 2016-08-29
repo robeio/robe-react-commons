@@ -1,6 +1,7 @@
 import React from "react";
 import IsJS from "is-js";
 
+const toString = Object.prototype.toString;
 const checkerObject = {};
 
 /**
@@ -280,6 +281,33 @@ class Assertions {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Checks given value type is Number, Boolean, Array, String, Date, RegExp, Null, Function, Undefined
+     * @param obj
+     * @param error
+     * @returns {boolean}
+     */
+    isKnownType(obj: Object, error: boolean) {
+        switch (toString.call(obj)) {
+            case "[object Number]":
+            case "[object Boolean]":
+            case "[object Array]":
+            case "[object String]":
+            case "[object Date]":
+            case "[object RegExp]":
+            case "[object Null]":
+            case "[object Function]":
+            case "[object Undefined]":
+                return true;
+            default :
+                if (error) {
+                    throw new Error(`Given object is unknown ! Object:  ${obj}`);
+                }
+                return false;
+
+        }
     }
 }
 

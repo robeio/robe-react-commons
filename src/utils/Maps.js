@@ -89,10 +89,12 @@ class Maps {
     mergeDeep(src : Object, dest : Object): Object {
         for (const key in src) {
             if (checkerObject.hasOwnProperty.call(src, key)) {
-                if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
-                    dest[key] = this.merge(src[key], dest[key]);
-                } else {
+                let destValue = dest[key];
+                let sourceValue = src[key];
+                if (Assertions.isKnownType(destValue) || Assertions.isKnownType(sourceValue)) {
                     dest[key] = src[key];
+                } else {
+                    dest[key] = this.mergeDeep(src[key], dest[key]);
                 }
             }
         }
