@@ -58,7 +58,7 @@ export default class StoreComponent extends ShallowComponent {
         if (props.store && props.stores) {
             throw new Error(`Store must assign 'store' as object or 'stores' as array and pass as props to the ${this.constructor.name} component`);
         }
-        return props.store ? [props.store]: props.stores;
+        return props.store ? [props.store] : props.stores;
     }
 
     /**

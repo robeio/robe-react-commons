@@ -31,14 +31,7 @@ export default class RemoteEndPoint {
         });
     }
 
-    read(offset: string, limit: string, query: string, filter: string, fields: string, successCallBack: Function, errorCallback: Function): boolean {
-        let queryParams = {
-            offset: offset,
-            limit: limit,
-            query: query,
-            filter: filter,
-            fields: fields
-        };
+    read(queryParams: Object, successCallBack: Function, errorCallback: Function): boolean {
         let onSuccess = (data: Object, textStatus: string, xhr: Object) => {
             let result = {
                 data: data,

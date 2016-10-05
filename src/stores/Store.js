@@ -34,14 +34,10 @@ export default class Store extends BaseStore {
      * @param fields
      * @returns {boolean|*}
      */
-    read(successCallBack: Function, errorCallback: Function, offset: string, limit: string, query: string, filter: string, fields: string): boolean {
+    read(successCallBack: Function, errorCallback: Function, queryParams: Object): boolean {
         return (
             this.__props.endPoint.read(
-                offset,
-                limit,
-                query,
-                filter,
-                fields,
+                queryParams,
                 this.__readSuccessCallback(successCallBack),
                 this.__errorCallBack("read", errorCallback)
             ));

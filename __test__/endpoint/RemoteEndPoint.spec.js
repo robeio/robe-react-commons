@@ -33,7 +33,7 @@ describe("endpoint/RemoteEndPoint.js", () => {
             done(xhr);
         }
 
-        endpoint.read(undefined, undefined, undefined, undefined, undefined, success, error);
+        endpoint.read(undefined, success, error);
     });
     it("create", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
