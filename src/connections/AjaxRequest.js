@@ -1,5 +1,7 @@
 import jajax from "robe-ajax";
 import Maps from "../utils/Maps";
+import QueryParams from "./QueryParams";
+
 
 
 /**
@@ -60,55 +62,9 @@ export default class AjaxRequest {
         }
 
         if (queryParams !== undefined) {
-            this.props.url = this.serializeQueryParams(this.props.url, queryParams);
+            this.props.url += QueryParams.stringify(queryParams);
         }
 
         jajax.ajax(this.props);
-    };
-
-
-    /**
-     * Serializes  query parameter map and merges with the url.
-     * @param {Object} queryParams parameter map.
-     * @return {string} url with the query parameters.
-     */
-    serializeQueryParams = (url: string, queryParams: Object): string => {
-        let { offset, limit, query, filter, fields } = queryParams;
-        let hasOffset = offset !== undefined;
-        let hasLimit = limit !== undefined;
-        let hasQuery = query !== undefined;
-        let hasFilter = filter !== undefined;
-        let hasFields = fields !== undefined;
-
-
-        if (hasOffset) {
-            url += (`${this.__getQParamPrefix(url)}_offset=${offset}`);
-        }
-
-        if (hasLimit) {
-            url += (`${this.__getQParamPrefix(url)}_limit=${limit}`);
-        }
-
-        if (hasQuery) {
-            url += (`${this.__getQParamPrefix(url)}_q=${query}`);
-        }
-        if (hasFilter) {
-            url += (`${this.__getQParamPrefix(url)}_filter=${filter}`);
-        }
-        if (hasFields) {
-            url += (`${this.__getQParamPrefix(url)}_fields=${fields}`);
-        }
-
-        return url;
-    };
-    /**
-     * Returns query parameter prefix.
-     * @param {string} url to check.
-     * @return "?" if it is the first parameter of the url , else "&"
-     * @private
-     */
-    __getQParamPrefix = (url: string): string => {
-        let firstElement = url.indexOf("?") === -1;
-        return firstElement ? "?" : "&";
     };
 }

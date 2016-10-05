@@ -83,9 +83,9 @@ describe("AjaxRequest.js", () => {
         let queryParams = {
             offset: 0,
             limit: 10,
-            query: "a",
-            filter: "a=b",
-            fields: "id,name"
+            q: "a",
+            filters: [["a", "=", "b"]],
+            fields: ["id", "name"]
         };
         request.call({}, queryParams, success, error, ["1"]);
     });

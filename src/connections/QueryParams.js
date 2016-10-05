@@ -9,9 +9,8 @@ class QueryParams {
         // TODO: Additional validations will be added later.
         Assertions.isNotUndefined(params, true);
 
-        let url = ["url"];
+        let url = [];
         let isFirstParam = true;
-
         this.__integerValidation(params.offset, 0, () => {
             url.push(`${this.__getQParamPrefix(isFirstParam)}_offset=${params.offset}`);
             isFirstParam = false;
@@ -24,11 +23,12 @@ class QueryParams {
             url.push(`${this.__getQParamPrefix(isFirstParam)}_q=${params.q}`);
             isFirstParam = false;
         });
-        this.__stringArrayValidation(params.fields, "fields", () => {
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_fields=${params.fields.join()}`);
-            isFirstParam = false;
-        });
-
+        if (Assertions.isNotUndefinedAndNull(params.fields)) {
+            this.__stringArrayValidation(params.fields, "fields", () => {
+                url.push(`${this.__getQParamPrefix(isFirstParam)}_fields=${params.fields.join()}`);
+                isFirstParam = false;
+            });
+        }
 
         if (Assertions.isNotUndefinedAndNull(params.sort)) {
             if (!Assertions.isArray(params.sort)) {
