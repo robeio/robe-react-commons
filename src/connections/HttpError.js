@@ -20,7 +20,7 @@ class HttpError {
             try {
                 responseJSON = JSON.parse(jqXHR.responseText);
             } catch (e) {
-                console.warn("Couldn't find json result in responseJSON or responseText");
+                console.warn("Couldn't find json result in responseJSON or responseText"); //eslint-disable-line
             }
         }
 

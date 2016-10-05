@@ -64,7 +64,7 @@ export default class BaseStore extends Class {
      * </code></pre>
      * @param {Object} props
      */
-    constructor(props) {
+    constructor(props: Object) {
         super();
         this.__props = Maps.merge(BaseStore.defaultPropTypes, {});
         this.__props = Maps.merge(props, this.__props);
@@ -118,7 +118,7 @@ export default class BaseStore extends Class {
      * @param component
      * @param key
      */
-    register(object) {
+    register(object: Object) {
         Assertions.isNotUndefined(object, true);
         this.__registeredObjects[object.getName() + object.getObjectId()] = object;
         if (this.__props.result.data.length > 0) {
@@ -132,7 +132,7 @@ export default class BaseStore extends Class {
      * @param key
      * @returns {*}
      */
-    unRegister(object): number {
+    unRegister(object: Object): number {
         Assertions.isNotUndefined(object, true);
         delete this.__registeredObjects[object.getName() + object.getObjectId()];
         if (Object.keys(this.__registeredObjects).length === 0) {
@@ -146,7 +146,7 @@ export default class BaseStore extends Class {
      * @protected
      */
     _dispatchChanges() {
-        Maps.forEach(this.__registeredObjects, (object) => {
+        Maps.forEach(this.__registeredObjects, (object: Object) => {
             this._dispatchChange(object);
         });
     }

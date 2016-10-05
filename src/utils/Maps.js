@@ -106,7 +106,7 @@ class Maps {
      * @param {string} name
      * @returns {Array}
      */
-    getObjectsWhichHasKeyInMap(map: Object, key: string, type: string) {
+    getObjectsWhichHasKeyInMap(map: Object, key: string, type: string): Array {
         let values = [];
         for (let name in map) {
             if (checkerObject.hasOwnProperty.call(map, name)) {
