@@ -1,6 +1,6 @@
 import Assertions from "./Assertions";
 
-const checkerObject = {};
+const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Maps { Object } Utility
  */
@@ -13,7 +13,7 @@ class Maps {
      */
     forEach(map : Object, callback : Function) {
         for (const key in map) {
-            if (checkerObject.hasOwnProperty.call(map, key)) {
+            if (hasOwnProperty.call(map, key)) {
                 callback(map[key], key, map);
             }
         }
@@ -27,7 +27,7 @@ class Maps {
     toArray(map : Object) : Array {
         let array = [];
         for (let key in map) {
-            if (checkerObject.hasOwnProperty.call(map, key)) {
+            if (hasOwnProperty.call(map, key)) {
                 array.push(map[key]);
             }
         }
@@ -41,7 +41,7 @@ class Maps {
      */
     merge(src : Object, dest : Object): Object {
         for (const key in src) {
-            if (checkerObject.hasOwnProperty.call(src, key)) {
+            if (hasOwnProperty.call(src, key)) {
                 dest[key] = src[key];
             }
         }
@@ -55,7 +55,7 @@ class Maps {
      */
     mergeMissing(src : Object, dest : Object) {
         for (let key in src) {
-            if (checkerObject.hasOwnProperty.call(src, key) && !checkerObject.hasOwnProperty.call(dest, key)) {
+            if (hasOwnProperty.call(src, key) && !hasOwnProperty.call(dest, key)) {
                 dest[key] = src[key];
             }
         }
@@ -88,11 +88,13 @@ class Maps {
      */
     mergeDeep(src : Object, dest : Object): Object {
         for (const key in src) {
-            if (checkerObject.hasOwnProperty.call(src, key)) {
-                if (Assertions.isObject(src[key]) && Assertions.isObject(dest[key])) {
-                    dest[key] = this.merge(src[key], dest[key]);
-                } else {
+            if (hasOwnProperty.call(src, key)) {
+                let destValue = dest[key];
+                let sourceValue = src[key];
+                if (Assertions.isKnownType(destValue) || Assertions.isKnownType(sourceValue)) {
                     dest[key] = src[key];
+                } else {
+                    dest[key] = this.mergeDeep(src[key], dest[key]);
                 }
             }
         }
@@ -109,7 +111,7 @@ class Maps {
     getObjectsWhichHasKeyInMap(map: Object, key: string, type: string): Array {
         let values = [];
         for (let name in map) {
-            if (checkerObject.hasOwnProperty.call(map, name)) {
+            if (hasOwnProperty.call(map, name)) {
                 let child = map[name];
                 if (child[key] && (!type || typeof child[key] === type)) {
                     values.push(map[name]);
@@ -117,6 +119,23 @@ class Maps {
             }
         }
         return values;
+    }
+    /**
+     * find Map size
+     * @param obj
+     * @returns {number}
+     */
+    getLength(obj: Object): number {
+        if (obj === undefined || obj === null) {
+            return 0;
+        }
+        let size = 0;
+        for (let key in obj) {
+            if (hasOwnProperty.call(obj, key)) {
+                size++;
+            }
+        }
+        return size;
     }
 }
 

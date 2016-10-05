@@ -1,6 +1,7 @@
 import React from "react";
 import Assertions from "../utils/Assertions";
 import Maps from "../utils/Maps";
+import Objects from "../utils/Objects";
 import Class from "../class/Class";
 
 /**
@@ -135,10 +136,11 @@ export default class BaseStore extends Class {
     unRegister(object: Object): number {
         Assertions.isNotUndefined(object, true);
         delete this.__registeredObjects[object.getName() + object.getObjectId()];
-        if (Object.keys(this.__registeredObjects).length === 0) {
+        let len = Maps.getLength(this.__registeredObjects);
+        if (len === 0) {
             setTimeout(this._disposeContent, 1500);
         }
-        return Object.keys(this.__registeredObjects).length;
+        return len;
     }
 
     /**
@@ -165,7 +167,7 @@ export default class BaseStore extends Class {
      * @private
      */
     _disposeContent() {
-        if (Object.keys(this.__registeredObjects).length === 0) {
+        if (Maps.getLength(this.__registeredObjects) === 0) {
             // TODO: Do all stuff
         }
     }

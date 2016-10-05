@@ -1,4 +1,5 @@
-const objectChecker = {};
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+const toString = Object.prototype.toString;
 /**
  * A singleton class which implements mostly used json object operations.
  *
@@ -84,9 +85,9 @@ class Objects {
             // the object is a generic object
             case "object":
                 // if the object is not an array, add the sizes of the keys
-                if (objectChecker.toString.call(object) !== "[object Array]") {
+                if (toString.call(object) !== "[object Array]") {
                     for (let key in object) {
-                        if (objectChecker.hasOwnProperty.call(object, key)) {
+                        if (hasOwnProperty.call(object, key)) {
                             size += 2 * key.length;
                             size += this.sizeOf(object[key]);
                         }

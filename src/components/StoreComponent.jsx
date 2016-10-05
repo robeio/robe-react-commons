@@ -1,6 +1,7 @@
 import React from "react";
 import ShallowComponent from "./ShallowComponent";
-import Store from "../stores/Store";
+import BaseStore from "../stores/BaseStore";
+
 /**
  * A component which extends ShallowComponent and manages store operations.
  * Usually used for components with store operations.
@@ -31,8 +32,34 @@ export default class StoreComponent extends ShallowComponent {
      * @static
      */
     static propTypes = {
-        stores: React.PropTypes.array.isRequired
+        /**
+         * bind store to the component
+         */
+        store: React.PropTypes.object,
+        /**
+         * bind stores array to the component
+         */
+        stores: React.PropTypes.array
     };
+
+    /**
+     * Check store or stores property.
+     * @param props
+     */
+    static checkAndGetStore(parent: StoreComponent, props: Object): Array<BaseStore> {
+        if (
+            props === undefined || (
+                (props.store === undefined || props.store === null) &&
+                (props.stores === undefined || props.stores.length === 0)
+            )
+        ) {
+            throw new Error(`Must defined at least one store in a ${parent.constructor.name}`);
+        }
+        if (props.store && props.stores) {
+            throw new Error(`Store must assign 'store' as object or 'stores' as array and pass as props to the ${this.constructor.name} component`);
+        }
+        return props.store ? [props.store]: props.stores;
+    }
 
     /**
      * Store array of the component.
@@ -46,11 +73,8 @@ export default class StoreComponent extends ShallowComponent {
      */
     constructor(props: Object) {
         super(props);
-        if (this.props === undefined || this.props.stores === undefined || this.props.stores.length === 0) {
-            throw new Error(`Must defined at least one store in a ${this.constructor.name}`);
-        }
+        this.stores = StoreComponent.checkAndGetStore(this, props);
         this.__objectId = StoreComponent.componentCount++;
-        this.stores = this.props.stores;
     }
 
     /**
@@ -62,13 +86,13 @@ export default class StoreComponent extends ShallowComponent {
     }
     /**
      * return the stores array
-     * @returns {Array<Store>}
+     * @returns {Array<BaseStore>}
      */
     /**
      * Returns store array of the component
-     * @returns {Array<Store>}
+     * @returns {Array<BaseStore>}
      */
-    getStores(): Array<Store> {
+    getStores(): Array<BaseStore> {
         return this.stores;
     }
 
@@ -76,7 +100,7 @@ export default class StoreComponent extends ShallowComponent {
      * Return first item of the stores array
      * @returns {Store} first item of stores
      */
-    getStore(): Store {
+    getStore(): BaseStore {
         return this.stores[0];
     }
 
@@ -84,7 +108,7 @@ export default class StoreComponent extends ShallowComponent {
      * Triggers components state change.
      * @param {Store} that updates component.
      */
-    triggerChange(store: Store) {
+    triggerChange(store: BaseStore) {
         throw new Error(`${store.getName()} store couldn't set to the ${this.getName()} component. Trigger change must be implemented by ${this.getName()} component`);
     }
 

@@ -1,7 +1,7 @@
 import chai from "chai";
 import Objects from "utils/Objects";
 
-describe("Objects.js", () => {
+describe("utils/Objects.js", () => {
     it("equals", () => {
         let map1 = { key: "a", value: "a1" };
         let map2 = { key: "a", value: "a1" };

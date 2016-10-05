@@ -1,8 +1,7 @@
 import jajax from "robe-ajax";
 import Maps from "../utils/Maps";
 import QueryParams from "./QueryParams";
-
-
+import Application from "../application/Application";
 
 /**
  * An ajax request class. Helps organising multiple calls with the same properties.
@@ -37,7 +36,7 @@ export default class AjaxRequest {
      */
     constructor(props: Object) {
         Maps.mergeDeep(props, this.props);
-        this.__url = this.props.url;
+        this.__url = Application.getUrl(props.url);
     }
 
     /**

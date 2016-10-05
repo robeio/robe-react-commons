@@ -117,5 +117,18 @@ describe("utils/Maps.js", () => {
         ];
         chai.assert.deepEqual(exptectedArray, Maps.getObjectsWhichHasKeyInMap(map, "isValid", "function"));
     });
+    it("getLength", () => {
+        let object = {
+            bool: true,
+            number: 2,
+            string: "the string",
+            nestedObject: {
+                bool: false,
+                number: 3,
+                string: "another string"
+            }
+        };
+        chai.assert.equal(Maps.getLength(object), 4);
+    });
 });
 
