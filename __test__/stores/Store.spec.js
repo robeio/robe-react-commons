@@ -185,7 +185,7 @@ describe("Store.js", () => {
         store.read(() => {
             chai.assert(false, "Request should give error ! URL is not correct ! ");
         }, (error: Map) => {
-            chai.assert.equal(error.code, 508);
+            chai.assert.equal(error.code, 404);
         });
 
         store = new Store({

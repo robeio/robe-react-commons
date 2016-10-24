@@ -20,8 +20,8 @@ export default class Store extends BaseStore {
      * @param onSuccess
      * @param onError
      */
-    load(onSuccess: Function, onError: Function) {
-        this.read(onSuccess, onError);
+    load(onSuccess: Function, onError: Function, queryParams: Object) {
+        this.read(onSuccess, onError, queryParams);
     }
     /**
      *
