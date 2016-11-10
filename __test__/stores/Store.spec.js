@@ -304,4 +304,54 @@ describe("Store.js", () => {
             }
         });
     });
+
+    it("callbacks - onConstructor", (done: Function) => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "page not found"
+            }),
+            onError: (error, operator) => {
+                chai.assert.equal(operator, "read");
+                chai.assert.isNotNull(error);
+                done();
+            }
+        });
+        store.read(
+            () => { },
+            undefined);
+    });
+    it("callbacks - onConstructor autoload", (done: Function) => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "page not found"
+            }),
+            autoLoad: true,
+            onError: (error, operator) => {
+                chai.assert.equal(operator, "read");
+                chai.assert.isNotNull(error);
+                done();
+            }
+        });
+    });
+
+    it("callbacks - onOperation", (done: Function) => {
+        let store = new Store({
+            endPoint: new RemoteEndPoint({
+                url: "page not found"
+            }),
+            autoLoad: false,
+            onError: (error, operator) => {
+                chai.assert.equal(operator, "");
+                chai.assert.isNull(error);
+                done(error);
+            }
+        });
+        store.read(
+            () => { },
+            (error, operator) => {
+                chai.assert.equal(operator, "read");
+                chai.assert.isNull(error);
+                done();
+            });
+    });
 });

@@ -8,21 +8,21 @@ import BaseStore from "./BaseStore";
 export default class Store extends BaseStore {
 
     __dataMap;
-
+    onSuccess;
+    onError;
     /* eslint-disable no-useless-constructor */
     constructor(props: Object) {
         super(props);
         Assertions.isNotUndefined(this.__props.endPoint, true);
+
+        if (Assertions.isFunction(props.onSuccess)) {
+            this.onSuccess = props.onSuccess;
+        }
+        if (Assertions.isFunction(props.onError)) {
+            this.onError = props.onError;
+        }
     }
 
-    /**
-     * load called from BaseStore
-     * @param onSuccess
-     * @param onError
-     */
-    load(onSuccess: Function, onError: Function, queryParams: Object) {
-        this.read(onSuccess, onError, queryParams);
-    }
     /**
      *
      * @param successCallBack
@@ -54,21 +54,6 @@ export default class Store extends BaseStore {
             this.__dataMap = new MapArray(result.data, this.__props.idField);
             this.setResult(this.__dataMap.getData(), result.totalCount);
             this._onSuccess("read", result, successCallback);
-        };
-    }
-
-    /**
-     *
-     * @param {string} operator
-     * @param {Function} errorCallback
-     * @returns {Function}
-     * @private
-     */
-    __errorCallBack(operator: string, errorCallback: Function): Function {
-        return (error: string) => {
-            if (errorCallback) {
-                errorCallback(error);
-            }
         };
     }
 
@@ -174,6 +159,8 @@ export default class Store extends BaseStore {
     _onSuccess(operator: string, result: Map, successCallback: Function): boolean {
         if (successCallback) {
             successCallback(result);
+        } else if (this.onSuccess !== undefined) {
+            this.onSuccess(result, operator);
         }
         this.__error = null;
         this._dispatchChanges();
@@ -183,13 +170,19 @@ export default class Store extends BaseStore {
     /**
      *
      * @param {string} operator
-     * @param {number} errorCode
-     * @param {string} error
-     * @returns {boolean}
-     * @protected
+     * @param {Function} errorCallback
+     * @returns {Function}
+     * @private
      */
-    _onError(operator: string, error: Map): boolean {
-        this.__error = error;
-        return true;
+    __errorCallBack(operator: string, errorCallback: Function): Function {
+        console.log(operator, "Oooooo");
+        return (error: string) => {
+            
+            if (errorCallback) {
+                errorCallback(error);
+            } else if (this.onError !== undefined) {
+                this.onError(error, operator);
+            }
+        };
     }
 }

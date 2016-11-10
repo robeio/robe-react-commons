@@ -73,7 +73,7 @@ export default class BaseStore extends Class {
         Assertions.isFunction(this.__props.importer, true);
 
         if (this.__props.autoLoad === true) {
-            this.load(this.__props.onSuccess, this.__props.onError);
+            this.read();
         }
     }
 
@@ -170,10 +170,5 @@ export default class BaseStore extends Class {
         if (Maps.getLength(this.__registeredObjects) === 0) {
             // TODO: Do all stuff
         }
-    }
-
-    /* eslint-disable no-unused-vars */
-    load(onSuccess: Function, onError: Function) {
-        throw new Error("Not implemented ! ");
     }
 }

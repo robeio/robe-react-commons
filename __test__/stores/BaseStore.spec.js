@@ -13,19 +13,12 @@ import TestUtils from "react-addons-test-utils";
 describe("BaseStore.js", () => {
     const url = "http://localhost:3000/posts";
 
-        let store = new BaseStore({
-            endPoint: new RemoteEndPoint({
-                url: url
-            }),
-            autoLoad: false,
-            idField: "id"
-        });
-
-
-    it("load", () => {
-        chai.assert.throws(() => {
-            store.load();
-        }, "Not implemented ! ", undefined, "Must throw an exception");
+    let store = new BaseStore({
+        endPoint: new RemoteEndPoint({
+            url: url
+        }),
+        autoLoad: false,
+        idField: "id"
     });
 
 
