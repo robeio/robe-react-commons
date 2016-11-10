@@ -343,7 +343,6 @@ describe("Store.js", () => {
         store.read(
             () => { },
             (error) => {
-                chai.assert.equal(error.code, 404);
                 chai.assert.isNotNull(error);
                 done();
             });
