@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
