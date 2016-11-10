@@ -175,9 +175,7 @@ export default class Store extends BaseStore {
      * @private
      */
     __errorCallBack(operator: string, errorCallback: Function): Function {
-        console.log(operator, "Oooooo");
-        return (error: string) => {
-            
+        return (error: string) => { 
             if (errorCallback) {
                 errorCallback(error);
             } else if (this.onError !== undefined) {

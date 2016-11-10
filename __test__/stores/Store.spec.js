@@ -182,12 +182,6 @@ describe("Store.js", () => {
             })
         });
 
-        store.read(() => {
-            chai.assert(false, "Request should give error ! URL is not correct ! ");
-        }, (error: Map) => {
-            chai.assert.equal(error.code, 404);
-        });
-
         store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -348,9 +342,9 @@ describe("Store.js", () => {
         });
         store.read(
             () => { },
-            (error, operator) => {
-                chai.assert.equal(operator, "read");
-                chai.assert.isNull(error);
+            (error) => {
+                chai.assert.equal(error.code, 404);
+                chai.assert.isNotNull(error);
                 done();
             });
     });
