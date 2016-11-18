@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.59
+* npm ingore updated. Now unnecessary files removed from npm repository.
+
 ## 1.0.58
 * npm ingore updated. Now unnecessary files removed from npm repository.
 

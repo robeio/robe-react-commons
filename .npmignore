@@ -48,3 +48,5 @@ dist
 testdb.json
 webpack.config.build.js
 webpack.config.test.dev.js
+ConfigUtil.js
+yarn.lock
