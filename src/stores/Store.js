@@ -94,9 +94,9 @@ export default class Store extends BaseStore {
      * @returns {Function}
      * @private
      */
-    __updateSuccessCallback(oldItem: Map, successCallback: Function): Function {
+    __updateSuccessCallback(successCallback: Function): Function {
         return (result: Object) => {
-            this.__dataMap.replace(oldItem, result.data);
+            this.__dataMap.replace(result.data);
             this.setResult(this.__dataMap.getData(), this.__props.result.totalCount);
             this._onSuccess("update", result, successCallback);
         };
@@ -108,12 +108,12 @@ export default class Store extends BaseStore {
      * @param successCallback
      * @param errorCallback
      */
-    update(oldItem: Map, newItem: Map, successCallback: Function, errorCallback: Function): boolean {
+    update(newItem: Map, successCallback: Function, errorCallback: Function): boolean {
         return (
             this.__props.endPoint.update(
                 newItem,
                 this.__props.idField,
-                this.__updateSuccessCallback(oldItem, successCallback),
+                this.__updateSuccessCallback(successCallback),
                 this.__errorCallBack("update", errorCallback)
             )
         );
@@ -175,7 +175,7 @@ export default class Store extends BaseStore {
      * @private
      */
     __errorCallBack(operator: string, errorCallback: Function): Function {
-        return (error: string) => { 
+        return (error: string) => {
             if (errorCallback) {
                 errorCallback(error);
             } else if (this.onError !== undefined) {

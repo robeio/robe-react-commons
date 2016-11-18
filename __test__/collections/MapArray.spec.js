@@ -53,19 +53,14 @@ describe("MapArray.js", () => {
 
         let item = { id: 7, name: "789" };
         chai.assert.equal(maparr.add(item), true, "Must add if it does not exists and return 'true'");
-       
+
         chai.assert.equal(maparr.add(item), false, "Don't add if it exists and return 'false'");
     });
 
     it("replace", () => {
         let maparr = new MapArray(data, "id");
-
-        let oldItem = { id: 2, name: "234" };
         let newItem = { id: 2, name: "235" };
-        let wrongItem = { id: 9, name: "235" };
-
-        chai.assert.equal(maparr.replace(oldItem, newItem), true, "Must replace if exists and return 'true'");
-        chai.assert.equal(maparr.replace(wrongItem, newItem), false, "Don't replace if not exists and return 'false'");
+        chai.assert.equal(maparr.replace(newItem), true, "Must replace if exists and return 'true'");
     });
 
     it("remove", () => {

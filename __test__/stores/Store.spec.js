@@ -240,11 +240,9 @@ describe("Store.js", () => {
             onSuccess: () => {
                 let count = store.getResult().data.length;
                 if (count > 1) {
-                    let oldItem = store.getResult().data[1];
                     let updatedItem = store.getResult().data[1];
                     updatedItem.title = "updated title";
                     store.update(
-                        oldItem,
                         updatedItem,
                         () => {
                             chai.assert.equal(store.getResult().data.length, count);

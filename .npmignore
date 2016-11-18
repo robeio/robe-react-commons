@@ -44,3 +44,4 @@ manual
 .travis.yml
 esdoc.json
 src
+dist

@@ -94,12 +94,11 @@ export default class MapArray extends Class {
 
     /**
     * Replaces the oldItem with the given newItem.
-    * @param {Object} oldItem to find
     * @param {Object} newItem to put
     * @return {boolean} "true" item replaced / "false" oldItem does not exists.
     */
-    replace(oldItem: Object, newItem: Object): boolean {
-        let result = this.__findById(this.__getId(oldItem), (parent: Object, index: number): Object => {
+    replace(newItem: Object): boolean {
+        let result = this.__findById(this.__getId(newItem), (parent: Object, index: number): Object => {
             delete parent[index];
             parent[index] = newItem;
             return newItem;

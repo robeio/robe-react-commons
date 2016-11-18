@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.55",
+  "version": "1.0.57",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "testd": "karma start webpack.config.test.dev.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "./node_modules/.bin/esdoc -c esdoc.json",
-    "build": "webpack --config webpack.config.build.js  --progress --profile --colors && babel ./src --out-dir ./lib   --copy-files"
+    "build": "babel ./src --out-dir ./lib   --copy-files"
   },
   "keywords": [
     "webpack",
