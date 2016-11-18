@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.0.58
+* npm ingore updated. Now unnecessary files removed from npm repository.
 
 ## 1.0.57
 * *replace* method of **MapArray** changed. We do not take old item any more. You just send the new item and it matches the old item by id.
