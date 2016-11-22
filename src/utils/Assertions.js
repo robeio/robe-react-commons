@@ -300,6 +300,8 @@ class Assertions {
             case "[object Null]":
             case "[object Function]":
             case "[object Undefined]":
+            case "[object FormData]":
+            case "[object File]":
                 return true;
             default :
                 if (error) {
