@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.60
+* *isKnownType* method of **Assertions** changed. `FormData`, `File` objects accepted as known type.
+
 ## 1.0.59
 * npm ingore updated. Now unnecessary files removed from npm repository.
 
