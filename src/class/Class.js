@@ -1,4 +1,27 @@
+import { Component } from "react";
 import Assertions from "../utils/Assertions";
+
+
+const es6Methods = [
+    "constructor"
+]
+
+
+const reactMethods = [
+    "constructor",
+    "componentWillMount",
+    "render",
+    "componentDidMount",
+    "componentWillReceiveProps",
+    "shouldComponentUpdate",
+    "componentWillUpdate",
+    "render",
+    "componentDidUpdate",
+    "componentWillUnmount",
+    "setState",
+    "forceUpdate"
+];
+
 /**
  * A class which  implements __bindAll which binds all methods to the instance.
  * Essential to use at all classes if you don't want to use fat-arrows or manuel bindings.
@@ -18,7 +41,8 @@ export default class Class {
         let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
         for (let i = 0; i < names.length; i++) {
             let name = names[i];
-            if (name !== "constructor" && Assertions.isFunction(instance[name])) {
+            let restrictMethods = instance instanceof Component ? reactMethods : es6Methods;
+            if (restrictMethods.indexOf(name) === -1 && Assertions.isFunction(instance[name])) {
                 instance[name] = instance[name].bind(instance);
             }
         }

@@ -1,6 +1,6 @@
 import React from "react";
 import shallowCompare from "react-addons-shallow-compare";
-import Assertions from "../utils/Assertions";
+import Objects from "../utils/Objects";
 import { ClassInstance } from "../class";
 /**
  * A component which extends React.Component and implements shouldComponentUpdate with using shallowCompare and and  __bindAll which binds all methods to the instance.
@@ -46,5 +46,9 @@ export default class ShallowComponent extends React.Component {
      */
     getName = (): string => {
         return this.constructor.name;
+    }
+
+    cloneState() {
+        return Objects.clone(this.state);
     }
 }

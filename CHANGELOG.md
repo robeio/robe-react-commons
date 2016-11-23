@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.61
+* *cloneState* method added to **ShallowComponent**. 
+* *clone* method added to **Objects** gets Object clone.
+* *bindsAll* method of **Class** changed. Restricted binding of React Component's standart methods.
+
 ## 1.0.60
 * *isKnownType* method of **Assertions** changed. `FormData`, `File` objects accepted as known type.
 

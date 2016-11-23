@@ -34,33 +34,6 @@ class Objects {
         return JSON.parse(JSON.stringify(src));
     }
 
-    /**
-     *  @description Calculates object size in bytes.
-     *  @param object
-     *  @return size in bytes
-     */
-    calculateObjectSize(object:Object):Number {
-        let objectList = [];
-        let stack = [object];
-        let bytes = 0;
-        while (stack.length) {
-            let value = stack.pop();
-            if (typeof value === "boolean") {
-                bytes += 4;
-            } else if (typeof value === "string") {
-                bytes += value.length * 2;
-            } else if (typeof value === "number") {
-                bytes += 8;
-            } else if (typeof value === "object" && objectList.indexOf(value) === -1) {
-                objectList.push(value);
-                for (let i in value) {
-                    stack.push(value[i]);
-                }
-            }
-        }
-        return bytes;
-    }
-
     /* Returns the approximate memory usage, in bytes, of the specified object. The
      * parameter is:
      * object - the object whose size should be determined
@@ -102,6 +75,26 @@ class Objects {
         }
         // return the calculated size
         return size;
+    }
+
+    clone(obj) {
+        if (obj === null || typeof obj !== "object" || "isActiveClone" in obj) {
+            return obj;
+        }
+        let temp;
+        if (obj instanceof Date) {
+            temp = new obj.constructor(); // or new Date(obj);
+        } else {
+            temp = obj.constructor();
+        }
+        for (let key in obj) {
+            if (hasOwnProperty.call(obj, key)) {
+                obj.isActiveClone = null;
+                temp[key] = this.clone(obj[key]);
+                delete obj.isActiveClone;
+            }
+        }
+        return temp;
     }
 }
 

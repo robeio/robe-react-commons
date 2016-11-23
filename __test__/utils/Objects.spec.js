@@ -14,19 +14,6 @@ describe("utils/Objects.js", () => {
         let map2 = Objects.deepCopy(map1);
         chai.assert.deepEqual(map1, map2);
     });
-    it("calculateObjectSize", () => {
-        let object = {
-            bool: true,
-            number: 2,
-            string: "the string",
-            nestedObject: {
-                bool: false,
-                number: 3,
-                string: "another string"
-            }
-        };
-        chai.assert.equal(Objects.calculateObjectSize(object), 88);
-    });
     it("sizeOf", () => {
         let object = {
             bool: true,

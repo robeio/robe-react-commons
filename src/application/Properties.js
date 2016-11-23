@@ -21,7 +21,7 @@ export default class Properties {
     set = (key: string, value: any): boolean => {
         Assertions.isNotEmpty(key, true);
         Assertions.isNotUndefined(value, true);
-        let sizeOfValue = Objects.calculateObjectSize(value);
+        let sizeOfValue = Objects.sizeOf(value);
         if (sizeOfValue >= this.params.MAX_PROPERTY_SIZE) {
             throw new Error(`Object size cannot be greater than ${this.params.MAX_PROPERTY_SIZE} bytes. The key is ${key}`);
         }
