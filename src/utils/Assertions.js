@@ -269,7 +269,7 @@ class Assertions {
     static isReactComponentClass(clazz: Function, error: boolean): boolean {
         if (!(checkerObject.isPrototypeOf.call(React.Component, clazz))) {
             if (error) {
-                throw new Error(`Given component class is not a React.Component ! Class :${clazz}`);
+                throw new Error("Given component class is not a React.Component !");
             }
             return false;
         }

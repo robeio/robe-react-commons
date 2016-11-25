@@ -313,6 +313,6 @@ describe("utils/Assertions.js", () => {
 
         chai.assert.throws(() => {
             Assertions.isReactComponentClass(component, true);
-        }, "Given component class is not a React.Component ! Class :[object Object]", undefined, "Must throw an exception");
+        }, "Given component class is not a React.Component !", undefined, "Must throw an exception");
     });
 });
