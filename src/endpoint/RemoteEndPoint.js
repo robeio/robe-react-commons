@@ -15,37 +15,57 @@ export default class RemoteEndPoint {
     _deleteRequest;
 
     constructor(props : Object) {
-        let defaultProps = {
-            read: {
-                type: "GET",
-                url: this.__url
-            },
-            create: {
-                type: "POST",
-                url: this.__url
-            },
-            update: {
-                type: "PUT",
-                url: this.__url
-            },
-            delete: {
-                type: "DELETE",
-                url: this.__url
-            }
-        };
+        let defaultProps = {};
+        
+        if (Assertions.isString(props.url)) {
+            this.__url = Application.getUrl(props.url);
+            defaultProps = {
+                read: {
+                    type: "GET",
+                    url: this.__url
+                },
+                create: {
+                    type: "POST",
+                    url: this.__url
+                },
+                update: {
+                    type: "PUT",
+                    url: this.__url
+                },
+                delete: {
+                    type: "DELETE",
+                    url: this.__url
+                }
+            };
 
-        if (Assertions.isObject(props.url)) {
+            this._readRequest = new AjaxRequest(defaultProps.read);
+            this._createRequest = new AjaxRequest(defaultProps.create);
+            this._updateRequest = new AjaxRequest(defaultProps.update);
+            this._deleteRequest = new AjaxRequest(defaultProps.delete);
+        } else {
+            defaultProps = {
+                read: {
+                    type: "GET",
+                    url: this.__url
+                },
+                create: {
+                    type: "POST",
+                    url: this.__url
+                },
+                update: {
+                    type: "PUT",
+                    url: this.__url
+                },
+                delete: {
+                    type: "DELETE",
+                    url: this.__url
+                }
+            };
             this._readRequest = new AjaxRequest(Maps.mergeDeep(props.url.read, defaultProps.read));
             this._createRequest = new AjaxRequest(Maps.mergeDeep(props.url.create, defaultProps.create));
             this._updateRequest = new AjaxRequest(Maps.mergeDeep(props.url.update, defaultProps.update));
             this._deleteRequest = new AjaxRequest(Maps.mergeDeep(props.url.delete, defaultProps.delete));
             this.__url = defaultProps;
-        } else if (Assertions.isString(props.url)) {
-            this.__url = Application.getUrl(props.url);
-            this._readRequest = new AjaxRequest(defaultProps.read);
-            this._createRequest = new AjaxRequest(defaultProps.create);
-            this._updateRequest = new AjaxRequest(defaultProps.update);
-            this._deleteRequest = new AjaxRequest(defaultProps.delete);
         }
     }
 

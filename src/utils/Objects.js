@@ -38,7 +38,7 @@ class Objects {
      * parameter is:
      * object - the object whose size should be determined
      */
-    sizeOf(object: Object): number {
+    static sizeOf(object: Object): number {
         // initialise the list of objects and size
         let size = 0;
         // loop over the objects
@@ -62,12 +62,12 @@ class Objects {
                     for (let key in object) {
                         if (hasOwnProperty.call(object, key)) {
                             size += 2 * key.length;
-                            size += this.sizeOf(object[key]);
+                            size += Objects.sizeOf(object[key]);
                         }
                     }
                 } else { // array objects
                     for (let i = 0; i < object.length; i += 1) {
-                        size += this.sizeOf(object[i]);
+                        size += Objects.sizeOf(object[i]);
                     }
                 }
                 break;
@@ -77,7 +77,7 @@ class Objects {
         return size;
     }
 
-    clone(obj: Object): Object {
+    static clone(obj: Object): Object {
         if (obj === null || typeof obj !== "object" || "isActiveClone" in obj) {
             return obj;
         }
@@ -90,7 +90,7 @@ class Objects {
         for (let key in obj) {
             if (hasOwnProperty.call(obj, key)) {
                 obj.isActiveClone = null;
-                temp[key] = this.clone(obj[key]);
+                temp[key] = Objects.clone(obj[key]);
                 delete obj.isActiveClone;
             }
         }
@@ -98,4 +98,4 @@ class Objects {
     }
 }
 
-export default new Objects();
+export default Objects;

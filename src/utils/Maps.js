@@ -4,8 +4,6 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Maps { Object } Utility
  */
-/* eslint class-methods-use-this: ["error", { "exceptMethods": ["forEach","toArray","merge","mergeMissing","getObjectsWhichHasKeyInMap","getLength"] }] */
-
 class Maps {
 
     /**
@@ -13,7 +11,7 @@ class Maps {
      * @param map
      * @param callback
      */
-    forEach(map : Object, callback : Function) {
+    static forEach(map : Object, callback : Function) {
         for (const key in map) {
             if (hasOwnProperty.call(map, key)) {
                 callback(map[key], key, map);
@@ -26,7 +24,7 @@ class Maps {
      * @param map
      * @returns {Array}
      */
-    toArray(map : Object) : Array {
+    static toArray(map : Object) : Array {
         let array = [];
         for (let key in map) {
             if (hasOwnProperty.call(map, key)) {
@@ -41,7 +39,7 @@ class Maps {
      * @param src
      * @param dest
      */
-    merge(src : Object, dest : Object): Object {
+    static merge(src : Object, dest : Object): Object {
         for (const key in src) {
             if (hasOwnProperty.call(src, key)) {
                 dest[key] = src[key];
@@ -55,7 +53,7 @@ class Maps {
      * @param src
      * @param dest
      */
-    mergeMissing(src : Object, dest : Object) {
+    static mergeMissing(src : Object, dest : Object) {
         for (let key in src) {
             if (hasOwnProperty.call(src, key) && !hasOwnProperty.call(dest, key)) {
                 dest[key] = src[key];
@@ -88,7 +86,7 @@ class Maps {
      * @param src
      * @param dest
      */
-    mergeDeep(src : Object, dest : Object): Object {
+    static mergeDeep(src : Object, dest : Object): Object {
         for (const key in src) {
             if (hasOwnProperty.call(src, key)) {
                 let destValue = dest[key];
@@ -96,7 +94,7 @@ class Maps {
                 if (Assertions.isKnownType(destValue) || Assertions.isKnownType(sourceValue)) {
                     dest[key] = src[key];
                 } else {
-                    dest[key] = this.mergeDeep(src[key], dest[key]);
+                    dest[key] = Maps.mergeDeep(src[key], dest[key]);
                 }
             }
         }
@@ -110,12 +108,12 @@ class Maps {
      * @param {string} name
      * @returns {Array}
      */
-    getObjectsWhichHasKeyInMap(map: Object, key: string, type: string): Array {
+    static getObjectsWhichHasKeyInMap(map: Object, key: string, type: string): Array {
         let values = [];
         for (let name in map) {
             if (hasOwnProperty.call(map, name)) {
                 let child = map[name];
-                if (child[key] && (!type || typeof child[key] === typeof type)) {
+                if (child[key] && (!type || typeof child[key] === type)) { // eslint-disable-line
                     values.push(map[name]);
                 }
             }
@@ -127,7 +125,7 @@ class Maps {
      * @param obj
      * @returns {number}
      */
-    getLength(obj: Object): number {
+    static getLength(obj: Object): number {
         if (obj === undefined || obj === null) {
             return 0;
         }
@@ -141,4 +139,4 @@ class Maps {
     }
 }
 
-export default new Maps();
+export default Maps;

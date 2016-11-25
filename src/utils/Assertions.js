@@ -4,24 +4,8 @@ import IsJS from "is-js";
 const toString = Object.prototype.toString;
 const checkerObject = {};
 
-/**
- * A singleton class which implements mostly used validation operations.
- */
-/*
-eslint class-methods-use-this:
-["error", {"exceptMethods":
-    [
-        "isNotEmpty","isNotUndefined",
-        "isNotUndefinedAndNull","isObject",
-        "isJson","isInteger","isString",
-        "isArray","isReactComponent","isReactComponentClass",
-        "isKnownType"
-    ]
-}]*/
-
 class Assertions {
 
-    checkerObject = {};
     /**
      * url pattern explaining
      * "^(https?:\/\/)?"+ // protocol
@@ -34,9 +18,7 @@ class Assertions {
      * check if the string is url then
      * @type {RegExp}
      */
-    constructor() {
-        this.urlPattern = /^(([a-z]+:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ #]*)#?([^ #]*))|((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$/;// eslint-disable-line no-useless-escape
-    }
+    static urlPattern = /^(([a-z]+:\/+)([^/\s]*)([a-z0-9\-@^=%&;/~+]*)[?]?([^ #]*)#?([^ #]*))|((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$/;
 
     /**
      * Checks if the string is a valid URL.
@@ -45,8 +27,8 @@ class Assertions {
      * @returns {boolean} "true": is url , "false": is not url.
      * @throws exception if error is true and url provided is not valid.
      */
-    isUrl(url: String, error: boolean): boolean {
-        if (!this.urlPattern.test(url)) {
+    static isUrl(url: String, error: boolean): boolean {
+        if (!Assertions.urlPattern.test(url)) {
             if (error) {
                 throw new Error(`Given url is not valid ! URL :${url}`);
             }
@@ -62,7 +44,7 @@ class Assertions {
      * @returns {boolean} "true": is not empty , "false": is empty.
      * @throws exception if error is true and object provided is  empty.
      */
-    isNotEmpty(arg: any, error: boolean): boolean {
+    static isNotEmpty(arg: any, error: boolean): boolean {
         if (IsJS.empty(arg)) {
             if (error) {
                 throw new Error("Given argument is empty or null !");
@@ -80,7 +62,7 @@ class Assertions {
      * @returns {boolean} "true": is not undefined , "false": is undefined.
      * @throws exception if error is true and object provided is  undefined.
      */
-    isNotUndefined(arg: any, error: boolean): boolean {
+    static isNotUndefined(arg: any, error: boolean): boolean {
         if (arg === undefined) {
             if (error) {
                 throw new Error("Given argument is undefined !");
@@ -97,7 +79,7 @@ class Assertions {
      * @returns {boolean} "true": is not undefined and null , "false": is undefined or null.
      * @throws exception if error is true and object provided is  undefined or null.
      */
-    isNotUndefinedAndNull(arg: any, error: boolean): boolean {
+    static isNotUndefinedAndNull(arg: any, error: boolean): boolean {
         if (arg === undefined) {
             if (error) {
                 throw new Error("Given argument is undefined !");
@@ -119,9 +101,9 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isFunction(func: Function, error: boolean): boolean {
-        if (this.isNotUndefined(func, error)) {
-            let isFunc = this.checkerObject.toString.call(func) === "[object Function]";
+    static isFunction(func: Function, error: boolean): boolean {
+        if (Assertions.isNotUndefined(func, error)) {
+            let isFunc = checkerObject.toString.call(func) === "[object Function]";
             if (!isFunc) {
                 if (error) {
                     throw new Error("Given argument is not a function !");
@@ -139,9 +121,9 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isNotAnonymous(func: Function, error: boolean): boolean {
-        if (this.isFunction(func, error)) {
-            if (!this.isNotEmpty(func.name, false)) {
+    static isNotAnonymous(func: Function, error: boolean): boolean {
+        if (Assertions.isFunction(func, error)) {
+            if (!Assertions.isNotEmpty(func.name, false)) {
                 if (error) {
                     throw new Error("Given argument is a anonymous function !");
                 }
@@ -158,7 +140,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isObject(obj: Object, error: boolean): boolean {
+    static isObject(obj: Object, error: boolean): boolean {
         if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given format is not valid object !");
@@ -174,7 +156,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isJson(obj: Map, error: boolean): boolean {
+    static isJson(obj: Map, error: boolean): boolean {
         if (!IsJS.object(obj)) {
             if (error) {
                 throw new Error("Given format is not valid json format !");
@@ -190,7 +172,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isInteger(n: number, error: boolean): boolean {
+    static isInteger(n: number, error: boolean): boolean {
         /* eslint-disable eqeqeq */
         if (!(Number(n) == n && n % 1 === 0)) {
             if (error) {
@@ -207,7 +189,7 @@ class Assertions {
     * @param error
     * @returns {boolean}
     */
-    isString(obj: string, error: boolean): boolean {
+    static isString(obj: string, error: boolean): boolean {
         if (!IsJS.string(obj)) {
             if (error) {
                 throw new Error("Given format is not valid string !");
@@ -223,7 +205,7 @@ class Assertions {
     * @param error
     * @returns {boolean}
     */
-    isArray(obj: string, error: boolean): boolean {
+    static isArray(obj: string, error: boolean): boolean {
         if (!IsJS.array(obj)) {
             if (error) {
                 throw new Error("Given format is not valid array !");
@@ -239,15 +221,15 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isMap = (obj: Map, error: boolean): boolean => {
+    static isMap = (obj: Map, error: boolean): boolean => {
         let result = true;
         if (IsJS.hash(obj)) {
             for (const key in obj) {
-                if (this.isFunction(obj[key])) {
+                if (Assertions.isFunction(obj[key])) {
                     result = false;
                     break;
                 } else if (IsJS.hash(obj[key])) {
-                    result = this.isMap(obj[key]);
+                    result = Assertions.isMap(obj[key]);
                     if (!result) {
                         break;
                     }
@@ -268,7 +250,7 @@ class Assertions {
      * @param {boolean} error
      * @returns {boolean}
      */
-    isReactComponent(instance: Object, error: boolean): boolean {
+    static isReactComponent(instance: Object, error: boolean): boolean {
         /* disable-eslint no-underscore-dangle */
         if (!(instance && instance.$$typeof)) {
             if (error) {
@@ -284,7 +266,7 @@ class Assertions {
      * @param {boolean} error
      * @returns {boolean}
      */
-    isReactComponentClass(clazz: Function, error: boolean): boolean {
+    static isReactComponentClass(clazz: Function, error: boolean): boolean {
         if (!(checkerObject.isPrototypeOf.call(React.Component, clazz))) {
             if (error) {
                 throw new Error(`Given component class is not a React.Component ! Class :${clazz}`);
@@ -300,7 +282,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isKnownType(obj: Object, error: boolean): boolean {
+    static isKnownType(obj: Object, error: boolean): boolean {
         switch (toString.call(obj)) {
             case "[object Number]":
             case "[object Boolean]":
@@ -324,4 +306,4 @@ class Assertions {
     }
 }
 
-export default new Assertions();
+export default Assertions;

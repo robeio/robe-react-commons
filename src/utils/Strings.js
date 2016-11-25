@@ -31,4 +31,4 @@ class Strings {
     }
 }
 
-export default new Strings();
+export default Strings;
