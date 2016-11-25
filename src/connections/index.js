@@ -1,1 +1,1 @@
-export { default as AjaxRequest } from "./AjaxRequest";
+export { default as AjaxRequest } from "./AjaxRequest"; // eslint-disable-line

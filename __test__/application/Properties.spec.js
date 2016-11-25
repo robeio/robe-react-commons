@@ -1,5 +1,5 @@
-import Properties from "application/Properties";
-import chai from "chai";
+import Properties from "application/Properties"; // eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 const should = chai.should();
 const assert = chai.assert;

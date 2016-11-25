@@ -1,5 +1,5 @@
-import Maps from "utils/Maps";
-import chai from "chai";
+import Maps from "utils/Maps";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("utils/Maps.js", () => {
     let func1 = () => {

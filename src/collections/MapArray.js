@@ -1,4 +1,4 @@
-import is from "is-js";
+import is from "is-js";// eslint-disable-line import/extensions
 import Class from "../class/Class";
 
 /**
@@ -6,6 +6,8 @@ import Class from "../class/Class";
  * Also it supports for custom idField keys.
  * @class MapArray
  */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["__returnIdCallBack"] }] */
+
 export default class MapArray extends Class {
 
     /**
@@ -139,7 +141,8 @@ export default class MapArray extends Class {
      */
     __findById(id: Object, cb: Function): Object {
         let i = this.__data.length;
-        while (i--) {
+        while (i > 0) {
+            i -= 1;
             if (this.__getId(this.__data[i]) === id) {
                 // Return the position of the match to use as reference.
                 return cb(this.__data, i);

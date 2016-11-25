@@ -1,11 +1,9 @@
-import React from "react";
+import React from "react";// eslint-disable-line
 import ReactDOM from "react-dom";
-import chai from "chai";
-import StoreComponent from "components/StoreComponent";
-import Store from "stores/Store";
-import TestUtils from "react-addons-test-utils";
-
-import { RemoteEndPoint } from "index";
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import StoreComponent from "components/StoreComponent";// eslint-disable-line import/no-extraneous-dependencies,import/extensions,import/no-unresolved
+import Store from "stores/Store";// eslint-disable-line import/no-extraneous-dependencies,import/extensions,import/no-unresolved
+import { RemoteEndPoint } from "index";// eslint-disable-line import/no-extraneous-dependencies,import/extensions,import/no-unresolved
 
 class TestComponent extends StoreComponent {
     constructor(props: Object) {

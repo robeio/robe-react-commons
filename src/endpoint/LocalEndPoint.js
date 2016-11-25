@@ -1,6 +1,7 @@
 import { Criteria, Restrictions, Order } from "js-criteria";
 import Assertions from "../utils/Assertions";
 
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["__filter","__stringValidation","__sort"] }] */
 
 export default class LocalEndPoint {
     __data;
@@ -11,7 +12,7 @@ export default class LocalEndPoint {
     __filter(filters: Array<Object>): Array<Function> {
         let restrictions: Array<Function> = [];
         Assertions.isArray(filters, false);
-        for (let i = 0; i < filters.length; i++) {
+        for (let i = 0; i < filters.length; i += 1) {
             let filter = filters[i];
             if (filter) {
                 let restriction;
@@ -62,7 +63,7 @@ export default class LocalEndPoint {
         let orders = [];
         Assertions.isArray(sorts, false);
 
-        for (let i = 0; i < sorts.length; i++) {
+        for (let i = 0; i < sorts.length; i += 1) {
             let sort: Array = sorts[i];
             if (sort) {
                 let order;
@@ -111,7 +112,7 @@ export default class LocalEndPoint {
                 if (query.filters) {
                     let filters = this.__filter(query.filters);
 
-                    for (let i = 0; i < filters.length; i++) {
+                    for (let i = 0; i < filters.length; i += 1) {
                         criteria.add(filters[i]);
                     }
                 }
@@ -119,7 +120,7 @@ export default class LocalEndPoint {
                 if (query.sort) {
                     let orders = this.__sort(query.sort);
 
-                    for (let i = 0; i < orders.length; i++) {
+                    for (let i = 0; i < orders.length; i += 1) {
                         criteria.addOrder(orders[i]);
                     }
                 }

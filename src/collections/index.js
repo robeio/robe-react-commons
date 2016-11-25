@@ -1,1 +1,1 @@
-export { default as MapArray } from "./MapArray";
+export { default as MapArray } from "./MapArray"; // eslint-disable-line

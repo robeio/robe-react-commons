@@ -1,18 +1,20 @@
-import chai from "chai";
-import Class from "class/Class";
+import Class from "class/Class";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 const assert = chai.assert;
 
 describe("Class.js", () => {
     it("All methods should be binded", () => {
+        /* eslint class-methods-use-this: ["error", { "exceptMethods": ["testSuper"] }] */
+
         class ClassA extends Class {
-            test() {
+            test(): string {
                 return this.constructor.name;
             }
-            testA() {
+            testA(): string {
                 return this.constructor.name;
             }
-            testSuper() {
+            testSuper(): string {
                 return "super";
             }
         }
@@ -20,10 +22,10 @@ describe("Class.js", () => {
         assert.equal(classA.test(), "ClassA", "This refenrence must be ClassA instance");
 
         class ClassB extends ClassA {
-            test() {
-                return this.constructor.name + "New";
+            test(): string {
+                return `${this.constructor.name}New`;
             }
-            testB() {
+            testB(): string {
                 return this.constructor.name;
             }
         }

@@ -4,6 +4,8 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
 /**
  * Maps { Object } Utility
  */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["forEach","toArray","merge","mergeMissing","getObjectsWhichHasKeyInMap","getLength"] }] */
+
 class Maps {
 
     /**
@@ -113,7 +115,7 @@ class Maps {
         for (let name in map) {
             if (hasOwnProperty.call(map, name)) {
                 let child = map[name];
-                if (child[key] && (!type || typeof child[key] === type)) {
+                if (child[key] && (!type || typeof child[key] === typeof type)) {
                     values.push(map[name]);
                 }
             }
@@ -132,7 +134,7 @@ class Maps {
         let size = 0;
         for (let key in obj) {
             if (hasOwnProperty.call(obj, key)) {
-                size++;
+                size += 1;
             }
         }
         return size;

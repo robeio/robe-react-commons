@@ -10,7 +10,7 @@ class Strings {
      * @param dest
      * @returns {boolean}
      */
-    startsWith(value:string, searchString: string, position: number): boolean {
+    static startsWith(value: string, searchString: string, position: number): boolean {
         position = position || 0;
         return value.substr(position, searchString.length) === searchString;
     }
@@ -22,7 +22,7 @@ class Strings {
      * @param position
      * @returns {boolean}
      */
-    endsWith(value:string, searchString: string, position: number): boolean {
+    static endsWith(value: string, searchString: string, position: number): boolean {
         if (!value || !searchString || value.length < searchString.length) {
             return false;
         }

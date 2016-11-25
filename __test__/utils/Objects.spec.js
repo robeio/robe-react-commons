@@ -1,5 +1,5 @@
-import chai from "chai";
-import Objects from "utils/Objects";
+import Objects from "utils/Objects";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("utils/Objects.js", () => {
     it("equals", () => {

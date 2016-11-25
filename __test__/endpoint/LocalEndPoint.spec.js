@@ -1,10 +1,5 @@
-import LocalEndPoint from "endpoint/LocalEndPoint";
-import chai from "chai";
-import {
-    Criteria,
-    Restrictions,
-    Order
-} from "js-criteria";
+import LocalEndPoint from "endpoint/LocalEndPoint";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 const data = [
     {
@@ -70,12 +65,12 @@ describe("LocalEndPoint.js", () => {
         result = localEndPoint.read(query);
         chai.assert.equal(result, true);
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, data.length);
         });
 
         query.sort = [["id", "DESC"], ["name", "ASC"], ["name", "NOPE"], undefined];
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             let count = response.totalCount;
             chai.assert.equal(count, 9);
             let localData = response.data;
@@ -100,7 +95,7 @@ describe("LocalEndPoint.js", () => {
         let filters = [{ operator: "=", key: "id", value: "1" }, undefined, { operator: "NOPE", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 1);
         });
 
@@ -108,14 +103,14 @@ describe("LocalEndPoint.js", () => {
         filters = [{ operator: "!=", key: "id", value: "1" }, { operator: "=", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) =>{
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 8);
         });
 
         filters = [{ operator: "~=", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 1);
         });
 
@@ -123,49 +118,49 @@ describe("LocalEndPoint.js", () => {
         filters = [{ operator: "=~", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 1);
         });
 
         filters = [{ operator: "~", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 1);
         });
 
         filters = [{ operator: "<", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 0);
         });
 
         filters = [{ operator: "<=", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 1);
         });
 
         filters = [{ operator: ">", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 8);
         });
 
         filters = [{ operator: ">=", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 9);
         });
 
         filters = [{ operator: "|=", key: "id", value: "1" }];
         query.filters = filters;
 
-        result = localEndPoint.read(query, (response) => {
+        result = localEndPoint.read(query, (response: Object) => {
             chai.assert.equal(response.data.length, 8);
         });
     });

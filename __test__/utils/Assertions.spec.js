@@ -1,7 +1,7 @@
-import React from "react";
-import Assertions from "utils/Assertions";
-import ShallowComponent from "components/ShallowComponent";
-import chai from "chai";
+import React from "react";// eslint-disable-line
+import Assertions from "utils/Assertions";// eslint-disable-line
+import ShallowComponent from "components/ShallowComponent";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("utils/Assertions.js", () => {
     it("isUrl", () => {
@@ -27,10 +27,10 @@ describe("utils/Assertions.js", () => {
         let value = {
             a: "1"
         };
-        chai.assert.isTrue(Assertions.isNotEmpty(value), `${JSON.stringify(value)} must be valid`);
+        chai.assert.isTrue(Assertions.isNotEmpty(value, false), `${JSON.stringify(value)} must be valid`);
 
         value = {};
-        chai.assert.isFalse(Assertions.isNotEmpty(value), `${JSON.stringify(value)} must be invalid`);
+        chai.assert.isFalse(Assertions.isNotEmpty(value, false), `${JSON.stringify(value)} must be invalid`);
 
         chai.assert.throws(() => {
             Assertions.isNotEmpty(value, true);
@@ -288,7 +288,7 @@ describe("utils/Assertions.js", () => {
         value = {
             a: 1
         };
-        value.__proto__.aa = 2;
+        value.__proto__.aa = 2;// eslint-disable-line no-proto
         chai.assert.isFalse(Assertions.isMap(value), `${JSON.stringify(value)} must be invalid`);
     });
 

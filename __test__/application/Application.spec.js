@@ -1,5 +1,6 @@
-import Application from "application/Application";
-import chai from "chai";
+import Application from "application/Application";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies,import/extensions,import/no-unresolved
+
 const assert = chai.assert;
 
 describe("Application.js", () => {

@@ -1,6 +1,6 @@
-import RemoteEndPoint from "endpoint/RemoteEndPoint";
-import chai from "chai";
-import Arrays from "utils/Arrays";
+import RemoteEndPoint from "endpoint/RemoteEndPoint";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import Arrays from "utils/Arrays";// eslint-disable-line
 
 describe("endpoint/RemoteEndPoint.js", () => {
     const url = "http://localhost:3000/posts";
@@ -13,6 +13,18 @@ describe("endpoint/RemoteEndPoint.js", () => {
         chai.assert.isDefined(result.totalCount, "Response totalCount should not be undefined.");
         chai.assert.isNotNaN(result.totalCount, "Response totalCount should not be NaN.");
     }
+
+    it("constructor", () => {
+        let props = {
+            read: {
+                url: "test",
+                type: "GET"
+            }
+        };
+        let endpoint = new RemoteEndPoint({ url: props });
+
+        chai.assert.equal(endpoint.getUrl().read, props);
+    });
 
     it("getUrl", () => {
         let endpoint = new RemoteEndPoint({ url: url });

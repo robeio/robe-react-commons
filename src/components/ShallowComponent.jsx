@@ -48,7 +48,7 @@ export default class ShallowComponent extends React.Component {
         return this.constructor.name;
     }
 
-    cloneState() {
+    cloneState(): Object {
         return Objects.clone(this.state);
     }
 }

@@ -3,6 +3,8 @@ import Assertions from "../utils/Assertions";
 /**
  * A singleton class which helps generating API query parameters supported by Robe.
  */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["__integerValidation","__stringValidation","__stringArrayValidation","__getQParamPrefix","__opValidation"] }] */
+
 class QueryParams {
 
     stringify(params: Object): string {
@@ -37,7 +39,7 @@ class QueryParams {
             url.push(`${this.__getQParamPrefix(isFirstParam)}_sort=`);
             isFirstParam = false;
             let sorts = [];
-            for (let i = 0; i < params.sort.length; i++) {
+            for (let i = 0; i < params.sort.length; i += 1) {
                 let item = params.sort[i];
                 this.__stringArrayValidation(item, `sort[${i}]`);
                 switch (item[1]) {
@@ -61,7 +63,7 @@ class QueryParams {
             url.push(`${this.__getQParamPrefix(isFirstParam)}_filter=`);
             isFirstParam = false;
             let filters = [];
-            for (let i = 0; i < params.filters.length; i++) {
+            for (let i = 0; i < params.filters.length; i += 1) {
                 let item = params.filters[i];
                 this.__opValidation(item, `filters[${i}]`);
                 if (item[1] === "|=") {
@@ -102,7 +104,7 @@ class QueryParams {
             if (!Assertions.isArray(value)) {
                 throw new Error(`Given ${tag} value (${value}) must a valid array.`);
             }
-            for (let i = 0; i < value.length; i++) {
+            for (let i = 0; i < value.length; i += 1) {
                 if (!Assertions.isString(value[i])) {
                     throw new Error(`Given ${tag} value at ${i} (${value[i]}) must a valid string.`);
                 }
@@ -118,7 +120,7 @@ class QueryParams {
         if (!Assertions.isArray(value)) {
             throw new Error(`Given ${tag} value (${value}) must a valid array.`);
         }
-        for (let i = 0; i < value.length; i++) {
+        for (let i = 0; i < value.length; i += 1) {
             // if (!Assertions.isString(value[i])) {
             //     throw new Error(`Given ${tag} value at ${i} (${value[i]}) must a valid string.`);
             // }

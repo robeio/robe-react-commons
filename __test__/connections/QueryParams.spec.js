@@ -1,5 +1,5 @@
-import QueryParams from "connections/QueryParams";
-import chai from "chai";
+import QueryParams from "connections/QueryParams";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("QueryParams.js", () => {
     const params = {
@@ -135,8 +135,6 @@ describe("QueryParams.js", () => {
     });
 
     it("stringify - __stringValidation", () => {
-        let original = params.q;
-
         params.q = undefined;
         chai.assert.doesNotThrow(() => {
             QueryParams.stringify(params);
@@ -149,8 +147,6 @@ describe("QueryParams.js", () => {
     });
 
     it("stringify - __stringArrayValidation", () => {
-        let original = params.q;
-
         params.q = undefined;
         chai.assert.doesNotThrow(() => {
             QueryParams.stringify(params);

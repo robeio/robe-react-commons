@@ -1,5 +1,5 @@
-import MapArray from "collections/MapArray";
-import chai from "chai";
+import MapArray from "collections/MapArray";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 const assert = chai.assert;
 

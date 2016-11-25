@@ -3,6 +3,9 @@ import cookie from "react-cookie";
 /**
  * A singleton class which implements mostly used cookie operations.
  */
+
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["__createCookie"] }] */
+
 class Cookies {
 
     /**
@@ -36,7 +39,7 @@ class Cookies {
      */
     clearAll() {
         let cookies = document.cookie.split(";");
-        for (let i = 0; i < cookies.length; i++) {
+        for (let i = 0; i < cookies.length; i += 1) {
             this.__deleteCookie(cookies[i].split("=")[0]);
         }
     }

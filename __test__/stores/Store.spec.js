@@ -1,10 +1,10 @@
-import React from "react";
-import Store from "stores/Store";
-import StoreComponent from "components/StoreComponent";
-import Assertions from "utils/Assertions";
-import { RemoteEndPoint } from "index";
-import chai from "chai";
-import TestUtils from "react-addons-test-utils";
+import React from "react";// eslint-disable-line
+import Store from "stores/Store";// eslint-disable-line
+import StoreComponent from "components/StoreComponent";// eslint-disable-line
+import Assertions from "utils/Assertions";// eslint-disable-line
+import { RemoteEndPoint } from "index";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import TestUtils from "react-addons-test-utils";// eslint-disable-line import/no-extraneous-dependencies
 
 
 /** @test {Store} */
@@ -302,7 +302,7 @@ describe("Store.js", () => {
             endPoint: new RemoteEndPoint({
                 url: "page not found"
             }),
-            onError: (error, operator) => {
+            onError: (error: Object, operator: string) => {
                 chai.assert.equal(operator, "read");
                 chai.assert.isNotNull(error);
                 done();
@@ -318,12 +318,13 @@ describe("Store.js", () => {
                 url: "page not found"
             }),
             autoLoad: true,
-            onError: (error, operator) => {
+            onError: (error: Object, operator: string) => {
                 chai.assert.equal(operator, "read");
                 chai.assert.isNotNull(error);
                 done();
             }
         });
+        chai.assert.isNotNull(store);
     });
 
     it("callbacks - onOperation", (done: Function) => {
@@ -332,7 +333,7 @@ describe("Store.js", () => {
                 url: "page not found"
             }),
             autoLoad: false,
-            onError: (error, operator) => {
+            onError: (error: Object, operator: string) => {
                 chai.assert.equal(operator, "");
                 chai.assert.isNull(error);
                 done(error);
@@ -340,7 +341,7 @@ describe("Store.js", () => {
         });
         store.read(
             () => { },
-            (error) => {
+            (error: Object) => {
                 chai.assert.isNotNull(error);
                 done();
             });

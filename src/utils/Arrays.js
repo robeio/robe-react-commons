@@ -10,8 +10,8 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {boolean} "true": target removed , "false": target not found.
      */
-    remove(source: Array<any>, target: any): boolean {
-        for (let i = source.length; i--;) {
+    static remove(source: Array<any>, target: any): boolean {
+        for (let i = source.length; i > 0; i -= 1) {
             if (source[i] === target) {
                 source.splice(i, 1);
                 return true;
@@ -27,8 +27,8 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {boolean} "true": target removed , "false": target not found.
      */
-    removeByKey(source: Array<any>, key: string, target: any): boolean {
-        for (let i = source.length; i--;) {
+    static removeByKey(source: Array<any>, key: string, target: any): boolean {
+        for (let i = source.length; i > 0; i -= 1) {
             if (source[i][key] === target[key]) {
                 source.splice(i, 1);
                 return true;
@@ -44,8 +44,8 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {number} The index of the target. Returns "-1" in case of no match.
      */
-    indexOf(source: Array<any>, target: any): number {
-        for (let i = source.length; i--;) {
+    static indexOf(source: Array<any>, target: any): number {
+        for (let i = source.length; i > 0; i -= 1) {
             if (source[i] === target) {
                 return i;
             }
@@ -60,8 +60,8 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {number} The index of the target. Returns "-1" in case of no match.
      */
-    indexOfByKey(source: Array<any>, key: string, target: any): number {
-        for (let i = source.length; i--;) {
+    static indexOfByKey(source: Array<any>, key: string, target: any): number {
+        for (let i = source.length; i > 0; i -= 1) {
             if (source[i][key] === target) {
                 return i;
             }
@@ -88,8 +88,8 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {boolean} If exists "true", else "false".
      */
-    isExistByKey(source: Array<any>, key: string, target: any): boolean {
-        for (let i = source.length; i--;) {
+    static isExistByKey(source: Array<any>, key: string, target: any): boolean {
+        for (let i = source.length; i > 0; i -= 1) {
             if (source[i][key] === target[key]) {
                 return true;
             }
@@ -104,9 +104,9 @@ class Arrays {
      * @param {string} key Key for checking array items.
      * @returns {Array} The resulting array with the values. Returns an empty array in case of no key match.
      */
-    extractValueArray(source: Array<any>, key: string): Array<any> {
+    static extractValueArray(source: Array<any>, key: string): Array<any> {
         let array = [];
-        for (let i = 0; i < source.length; i++) {
+        for (let i = 0; i < source.length; i += 1) {
             if (checkerObject.hasOwnProperty.call(source[i], key)) {
                 array.push(source[i][key]);
             }
@@ -121,9 +121,9 @@ class Arrays {
      * @param {any} target Target to match.
      * @returns {Array} The resulting array of items matches. Returns an empty array in case of no key match.
      */
-    extractItemArray(source: Array<any>, key: string, target: any): Array<any> {
+    static extractItemArray(source: Array<any>, key: string, target: any): Array<any> {
         let newArray = [];
-        for (let i = 0; i < source.length; i++) {
+        for (let i = 0; i < source.length; i += 1) {
             if (source[i][key] === target) {
                 newArray.push(source[i]);
             }

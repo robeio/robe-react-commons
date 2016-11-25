@@ -1,19 +1,16 @@
-import HttpError from "connections/HttpError";
-import chai from "chai";
-import Messages from "application/Messages";
-/* eslint-disable no-unused-vars */
-import Application from "application/Application";
-/* eslint-disable quote-props */
+import HttpError from "connections/HttpError";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import Messages from "application/Messages";// eslint-disable-line
 describe("HttpError.js", () => {
     // parse = (jqXHR: any, exception: any): Map => {
     it("parse().responseJSON", () => {
         let errorCode = 403;
         let errorMessage = "Custom Error Message";
         let errorXHR = {
-            "url": "http://localhost:8080/example",
+            url: "http://localhost:8080/example",
             responseJSON: {
-                "code": errorCode,
-                "message": errorMessage
+                code: errorCode,
+                message: errorMessage
             }
         };
 
@@ -34,7 +31,7 @@ describe("HttpError.js", () => {
         let errorCode = 403;
         let errorMessage = "Custom Error Message";
         let errorXHR = {
-            "url": "http://localhost:8080/example",
+            url: "http://localhost:8080/example",
             responseText: `{ "code": ${errorCode}, "message": "${errorMessage}" }`
         };
 
@@ -48,7 +45,7 @@ describe("HttpError.js", () => {
         expectedError.message = Messages.http[errorCode];
 
         errorXHR = {
-            "url": "http://localhost:8080/example",
+            url: "http://localhost:8080/example",
             responseText: `{ "code": ${errorCode} }`
         };
 
@@ -59,7 +56,7 @@ describe("HttpError.js", () => {
         let errorCode = 403;
         let errorMessage = "Custom Error Message";
         let errorXHR = {
-            "url": "http://localhost:8080/example",
+            url: "http://localhost:8080/example",
             status: errorCode
         };
 

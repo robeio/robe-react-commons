@@ -1,5 +1,5 @@
-import Arrays from "utils/Arrays";
-import chai from "chai";
+import Arrays from "utils/Arrays";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 /** @test {Arrays} */
 

@@ -1,5 +1,5 @@
-import AjaxRequest from "connections/AjaxRequest";
-import chai from "chai";
+import AjaxRequest from "connections/AjaxRequest";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("AjaxRequest.js", () => {
     it("callEmpty", (done: Function) => {

@@ -17,7 +17,7 @@ class Objects {
      * @param {any} dest Destination object to compare the equality
      * @returns : {boolean} if the string value of the given source equals the string value of the given destination then "true" else "false"
      */
-    equals(src:Object, dest:Object):boolean {
+    static equals(src: Object, dest: Object): boolean {
         return JSON.stringify(src) === JSON.stringify(dest);
     }
 
@@ -30,7 +30,7 @@ class Objects {
      * @param src the given source object
      * @returns the clonse of the given source object
      */
-    deepCopy(src:Object):Object {
+    static deepCopy(src: Object): Object {
         return JSON.parse(JSON.stringify(src));
     }
 
@@ -38,7 +38,7 @@ class Objects {
      * parameter is:
      * object - the object whose size should be determined
      */
-    sizeOf(object:Object):number {
+    sizeOf(object: Object): number {
         // initialise the list of objects and size
         let size = 0;
         // loop over the objects
@@ -66,7 +66,7 @@ class Objects {
                         }
                     }
                 } else { // array objects
-                    for (let i = 0; i < object.length; i++) {
+                    for (let i = 0; i < object.length; i += 1) {
                         size += this.sizeOf(object[i]);
                     }
                 }
@@ -77,7 +77,7 @@ class Objects {
         return size;
     }
 
-    clone(obj) {
+    clone(obj: Object): Object {
         if (obj === null || typeof obj !== "object" || "isActiveClone" in obj) {
             return obj;
         }

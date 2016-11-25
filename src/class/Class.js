@@ -4,7 +4,7 @@ import Assertions from "../utils/Assertions";
 
 const es6Methods = [
     "constructor"
-]
+];
 
 
 const reactMethods = [
@@ -28,6 +28,8 @@ const reactMethods = [
  * @export
  * @class Class
  */
+/* eslint class-methods-use-this: ["error", { "exceptMethods": ["bindAll"] }] */
+
 export default class Class {
     constructor() {
         this.bindAll(this);
@@ -39,7 +41,7 @@ export default class Class {
      */
     bindAll(instance: Object) {
         let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
-        for (let i = 0; i < names.length; i++) {
+        for (let i = 0; i < names.length; i += 1) {
             let name = names[i];
             let restrictMethods = instance instanceof Component ? reactMethods : es6Methods;
             if (restrictMethods.indexOf(name) === -1 && Assertions.isFunction(instance[name])) {

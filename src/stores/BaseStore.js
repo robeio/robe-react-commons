@@ -1,7 +1,6 @@
 import React from "react";
 import Assertions from "../utils/Assertions";
 import Maps from "../utils/Maps";
-import Objects from "../utils/Objects";
 import Class from "../class/Class";
 
 /**
@@ -11,11 +10,11 @@ export default class BaseStore extends Class {
     static propTypes = {
         idField: React.PropTypes.string,
         importer: React.PropTypes.func,
+        loadProps: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
         result: React.PropTypes.shape({
             data: React.PropTypes.array,
             totalCount: React.PropTypes.number
-        }),
-        loadProps: React.PropTypes.object
+        })
     };
 
     static defaultPropTypes = {
@@ -69,7 +68,7 @@ export default class BaseStore extends Class {
         super();
         this.__props = Maps.merge(BaseStore.defaultPropTypes, {});
         this.__props = Maps.merge(props, this.__props);
-        this.__props.objectId = BaseStore.storeCount++;
+        this.__props.objectId = BaseStore.storeCount += 1;
         Assertions.isFunction(this.__props.importer, true);
 
         if (this.__props.autoLoad === true) {

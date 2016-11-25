@@ -1,5 +1,5 @@
-import Cookies from "utils/Cookies";
-import chai from "chai";
+import Cookies from "utils/Cookies";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("Cookies.js", () => {
     it("get&put", () => {

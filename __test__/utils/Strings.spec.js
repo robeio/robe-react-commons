@@ -1,5 +1,5 @@
-import chai from "chai";
-import Strings from "utils/Strings";
+import Strings from "utils/Strings";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("utils/Strings.js", () => {
     it("startsWith", () => {

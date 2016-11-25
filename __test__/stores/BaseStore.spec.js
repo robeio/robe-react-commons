@@ -1,11 +1,10 @@
-import React from "react";
-import BaseStore from "stores/BaseStore";
-import Store from "stores/Store";
-import StoreComponent from "components/StoreComponent";
-import Assertions from "utils/Assertions";
-import chai from "chai";
-import { RemoteEndPoint } from "index";
-import TestUtils from "react-addons-test-utils";
+import React from "react";// eslint-disable-line
+import BaseStore from "stores/BaseStore";// eslint-disable-line
+import Store from "stores/Store";// eslint-disable-line
+import StoreComponent from "components/StoreComponent";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import { RemoteEndPoint } from "index";// eslint-disable-line
+import TestUtils from "react-addons-test-utils";// eslint-disable-line import/no-extraneous-dependencies
 
 
 /** @test {BaseStore} */
@@ -35,9 +34,9 @@ describe("BaseStore.js", () => {
             render(): string {
                 return (<div>{this.state.size}</div>);
             }
-            triggerChange(store: Store) {
+            triggerChange(newStore: Store) {
                 this.setState({
-                    size: store.getResult().data.length
+                    size: newStore.getResult().data.length
                 });
             }
         }
@@ -48,7 +47,6 @@ describe("BaseStore.js", () => {
         chai.assert.equal(domNode.innerText, 0);
 
         store.unRegister(test);
-        store._disposeContent();
+        store._disposeContent();// eslint-disable-line no-underscore-dangle
     });
-
 });

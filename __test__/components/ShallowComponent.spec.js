@@ -1,7 +1,7 @@
-import React from "react";
-import TestUtils from "react-addons-test-utils";
-import chai from "chai";
-import ShallowComponent from "components/ShallowComponent";
+import React from "react";// eslint-disable-line
+import TestUtils from "react-addons-test-utils";// eslint-disable-line import/no-extraneous-dependencies
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
+import ShallowComponent from "components/ShallowComponent";// eslint-disable-line import/no-extraneous-dependencies,import/extensions,import/no-unresolved
 
 describe("ShallowComponent.js", () => {
     class TestComponent extends ShallowComponent {

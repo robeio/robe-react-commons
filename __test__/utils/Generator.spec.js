@@ -1,5 +1,5 @@
-import Generator from "utils/Generator";
-import chai from "chai";
+import Generator from "utils/Generator";// eslint-disable-line
+import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 
 describe("utils/Generator.js", () => {
     it("s4", () => {

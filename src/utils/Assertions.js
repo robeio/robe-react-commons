@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react";// eslint-disable-line import/extensions
 import IsJS from "is-js";
 
 const toString = Object.prototype.toString;
@@ -7,6 +7,17 @@ const checkerObject = {};
 /**
  * A singleton class which implements mostly used validation operations.
  */
+/*
+eslint class-methods-use-this:
+["error", {"exceptMethods":
+    [
+        "isNotEmpty","isNotUndefined",
+        "isNotUndefinedAndNull","isObject",
+        "isJson","isInteger","isString",
+        "isArray","isReactComponent","isReactComponentClass",
+        "isKnownType"
+    ]
+}]*/
 
 class Assertions {
 
@@ -24,7 +35,7 @@ class Assertions {
      * @type {RegExp}
      */
     constructor() {
-        this.urlPattern = /^(([a-z]+:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ #]*)#?([^ #]*))|((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$/;
+        this.urlPattern = /^(([a-z]+:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ #]*)#?([^ #]*))|((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$/;// eslint-disable-line no-useless-escape
     }
 
     /**
@@ -130,7 +141,7 @@ class Assertions {
      */
     isNotAnonymous(func: Function, error: boolean): boolean {
         if (this.isFunction(func, error)) {
-            if (!this.isNotEmpty(func.name)) {
+            if (!this.isNotEmpty(func.name, false)) {
                 if (error) {
                     throw new Error("Given argument is a anonymous function !");
                 }
@@ -289,7 +300,7 @@ class Assertions {
      * @param error
      * @returns {boolean}
      */
-    isKnownType(obj: Object, error: boolean) {
+    isKnownType(obj: Object, error: boolean): boolean {
         switch (toString.call(obj)) {
             case "[object Number]":
             case "[object Boolean]":

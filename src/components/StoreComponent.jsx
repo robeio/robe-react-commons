@@ -35,11 +35,11 @@ export default class StoreComponent extends ShallowComponent {
         /**
          * bind store to the component
          */
-        store: React.PropTypes.object,
+        store: React.PropTypes.object,//eslint-disable-line
         /**
          * bind stores array to the component
          */
-        stores: React.PropTypes.array
+        stores: React.PropTypes.array //eslint-disable-line
     };
 
     /**
@@ -74,7 +74,7 @@ export default class StoreComponent extends ShallowComponent {
     constructor(props: Object) {
         super(props);
         this.stores = StoreComponent.checkAndGetStore(this, props);
-        this.__objectId = StoreComponent.componentCount++;
+        this.__objectId = StoreComponent.componentCount += 1;
     }
 
     /**
@@ -116,7 +116,7 @@ export default class StoreComponent extends ShallowComponent {
      * Triggered after component mounted to the DOM. Registers itself to the all its stores.
      */
     componentDidMount() {
-        for (let i = 0; i < this.stores.length; i++) {
+        for (let i = 0; i < this.stores.length; i += 1) {
             this.stores[i].register(this);
         }
     }
@@ -124,7 +124,7 @@ export default class StoreComponent extends ShallowComponent {
      * Triggered before component unmount from the DOM. Unregisters itself to the all its stores.
      */
     componentWillUnmount() {
-        for (let i = 0; i < this.stores.length; i++) {
+        for (let i = 0; i < this.stores.length; i += 1) {
             this.stores[i].unRegister(this);
         }
     }
