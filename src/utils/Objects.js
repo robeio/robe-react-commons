@@ -1,3 +1,5 @@
+import Assertions from "./Assertions";
+
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 const toString = Object.prototype.toString;
 /**
@@ -78,7 +80,7 @@ class Objects {
     }
 
     static clone(obj: Object): Object {
-        if (obj === null || typeof obj !== "object" || "isActiveClone" in obj) {
+        if (obj === null || typeof obj !== "object" || "isActiveClone" in obj || Assertions.isReactComponent(obj)) {
             return obj;
         }
         let temp;

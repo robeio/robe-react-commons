@@ -27,4 +27,17 @@ describe("utils/Objects.js", () => {
         };
         chai.assert.equal(Objects.sizeOf(object), 160);
     });
+    it("clone", () => {
+        let object = {
+            bool: true,
+            number: 2,
+            string: "the string",
+            nestedObject: {
+                bool: false,
+                number: 3,
+                string: "another string"
+            }
+        };
+        chai.assert.deepEqual(Objects.clone(object), object);
+    });
 });

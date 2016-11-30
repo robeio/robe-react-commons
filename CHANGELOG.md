@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.62
+* changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
+
 ## 1.0.61
 * *cloneState* method added to **ShallowComponent**. 
 * *clone* method added to **Objects** gets Object clone.
