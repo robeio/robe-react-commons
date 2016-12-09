@@ -1,9 +1,10 @@
 # Change Log
 
-
 ## 1.0.64
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
-
+* added *getTypeName*, *hasProperty* utility method to **Objects**
+* added cloning methods *cloneChilds*, , *cloneArray*, *cloneObject*, *clone* to **Objects** 
+  
 ## 1.0.63
 * Dependencies update.
 * Store create operation before read bug fixed.

@@ -49,6 +49,6 @@ export default class ShallowComponent extends React.Component {
     }
 
     cloneState(): Object {
-        return Objects.clone(this.state);
+        return Objects.clone(this.state, false, [Array]);
     }
 }
