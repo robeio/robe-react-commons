@@ -79,24 +79,42 @@ class Objects {
         return size;
     }
 
-    static clone(obj: Object): Object {
-        if (obj === null || typeof obj !== "object" || "isActiveClone" in obj || Assertions.isReactComponent(obj)) {
-            return obj;
-        }
-        let temp;
-        if (obj instanceof Date) {
-            temp = new obj.constructor(); // or new Date(obj);
-        } else {
-            temp = obj.constructor();
-        }
-        for (let key in obj) {
-            if (hasOwnProperty.call(obj, key)) {
-                obj.isActiveClone = null;
-                temp[key] = Objects.clone(obj[key]);
-                delete obj.isActiveClone;
+    /* eslint-disable no-plusplus */
+    static clone(src: Object, ...references): Object {
+        let objecType = toString.call(src);
+        let destination;
+
+        if (references) {
+            for (let i = 0; i < references.length; i++) {
+                if (src instanceof references[i]) return src;
             }
         }
-        return temp;
+        switch (objecType) {
+            case "[object Array]":
+                destination = [];
+                for (let i = 0; i < src.length; i++) {
+                    destination[i] = Objects.clone(src[i]);
+                }
+                return destination;
+            case ["object Object"]:
+                // React Component then return
+                if (Assertions.isReactComponent(src)) {
+                    return src;
+                }
+                // DOM Element
+                if (src.nodeType && typeof src.cloneNode === "function") {
+                    return src;
+                }
+                destination = {};
+                for (let key in src) {
+                    if (hasOwnProperty.call(src, key)) {
+                        destination[key] = Objects.clone(src[key]);
+                    }
+                }
+                return destination;
+            default:
+                return src;
+        }
     }
 }
 
