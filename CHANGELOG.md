@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.64
+* changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
+
 ## 1.0.62
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
 
