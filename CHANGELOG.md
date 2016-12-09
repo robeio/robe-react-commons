@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.0.64
+## 1.0.65
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
 * added *getTypeName*, *hasProperty* utility method to **Objects**
 * added cloning methods *cloneChilds*, , *cloneArray*, *cloneObject*, *clone* to **Objects** 
