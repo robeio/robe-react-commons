@@ -21,6 +21,8 @@ export default class Store extends BaseStore {
         if (Assertions.isFunction(props.onError)) {
             this.onError = props.onError;
         }
+        this.__dataMap = new MapArray([], this.__props.idField);
+
     }
 
     /**
