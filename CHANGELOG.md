@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.63
+* Dependencies update.
+* Store create operation before read bug fixed.
+
 ## 1.0.62
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
 
