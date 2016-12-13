@@ -1,14 +1,14 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.66",
+  "version": "1.0.67",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
-    "test": "karma start webpack.config.test.js",
-    "testd": "karma start webpack.config.test.dev.js",
+    "test": "karma start config/webpack.config.test.js",
+    "testd": "karma start config/webpack.config.test.dev.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "docs": "node ./prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
-    "build": "node ./prebuild.js ./lib & babel ./src --out-dir ./lib   --copy-files"
+    "docs": "node ./config/prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
+    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir ./lib   --copy-files"
   },
   "keywords": [
     "webpack",

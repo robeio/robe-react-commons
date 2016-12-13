@@ -8,7 +8,8 @@ describe("utils/Types.js", () => {
     });
     it("getCloneFunction", () => {
         let object = "Example";
-        let cloneFunction = Types.getCloneFunction("example");
+        let typeName = Types.getTypeName(object);
+        let cloneFunction = Types.getCloneFunction(typeName);
         let result = cloneFunction(object);
         chai.assert.equal(object, result);
     });

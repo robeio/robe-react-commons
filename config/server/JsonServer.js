@@ -1,3 +1,5 @@
+const Utility =  require("../util/Utility");
+const path = require("path");
 const jsonServer = require("json-server");
 
 const  config = {};
@@ -6,7 +8,7 @@ config.createJsonServer = (port,routePath) => {
     // server.js
 
     const server = jsonServer.create();
-    const router = jsonServer.router(routePath);
+    const router = jsonServer.router(path.join(Utility.projectDir, routePath));
     const middlewares = jsonServer.defaults();
 
     server.use(middlewares);
