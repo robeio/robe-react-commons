@@ -48,8 +48,7 @@ export default class Types {
         }
         return typeString.substring(TYPE_PREFIX.length, typeString.length - 1);
     }
-    static getCloneFunction(obj: any): any {
-        let typeName = Types.getTypeName(obj);
+    static getCloneFunction(typeName: any): any {
         return CLONE_FUNCTIONS[typeName];
     }
 
