@@ -46,7 +46,7 @@ describe("utils/Objects.js", () => {
     })
 
     it("cloneArray", () => {
-        let x = {"obj": "example" };
+        let x = { obj: "example" };
         let y = [x];
         let result = Objects.cloneArray(y);
         chai.assert.isOk(y !== result);

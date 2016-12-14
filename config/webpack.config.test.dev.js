@@ -1,13 +1,14 @@
+const Utility =  require("./config/util/Utility");
+process.env.NODE_ENV = "testd";
 /**
  * import common webpack settings
  */
 const commonSettings = require("./webpack.config.common.js")("src", "dist", "__test__");
-
 /**
  * Json Server
  * @type {config|exports|module.exports}
  */
-const ConfigUtils = require("./ConfigUtil");
+const JsonServer = require("./server/JsonServer");
 
 /**
  * @link https://webpack.github.io/docs/configuration.html#cache
@@ -36,69 +37,47 @@ commonSettings.debug = true;
  * source-map - A SourceMap is emitted. See also output.sourceMapFilename.
  * @type {string}
  */
-commonSettings.devtool = "source-map";
+commonSettings.devtool = "inline-source-map";
 
 commonSettings.module.preLoaders.push({ test: /.jsx?$/, loader: "eslint", exclude: /node_modules/ });
-commonSettings.module.loaders.push({
-    test: /\.jsx?/,
-    exclude: /(__test__|node_modules|bower_components)\//,
-    loader: "isparta"
-}
-);
 
-// *optional* isparta options: istanbul behind isparta will use it
-commonSettings.isparta = {
-    embedSource: true,
-    noAutoWrap: true,
-    // these babel options will be passed only to isparta and not to babel-loader
-    babel: {
-        presets: ["es2015", "stage-0", "react"]
-    }
-};
-
-ConfigUtils.createJsonServer(3000, commonSettings.paths.root + "/testdb.json");
+JsonServer.createJsonServer(3000, "config/data/testdb.json");
 module.exports = function configure(config) {
     config.set({
+        basePath: "../",
+        colors: true,
         captureTimeout: 3000,
         browserDisconnectTimeout: 3000,
         browserDisconnectTolerance: 1,
         browserNoActivityTimeout: 60000,
-        browsers: ["Chrome_travis_ci"],
+        browsers: ["Chrome_DEV"],
+        singleRun: false,
+        frameworks: ["mocha"],
         customLaunchers: {
-            Chrome_travis_ci: {
+            Chrome_DEV: {
                 base: "Chrome",
-                flags: ["--no-sandbox"]
+                flags: ["--disable-web-security"]
             }
         },
-        singleRun: true,
-        frameworks: ["mocha"],
         plugins: [
             "karma-chrome-launcher",
             "karma-chai",
             "karma-mocha",
             "karma-sourcemap-loader",
             "karma-webpack",
-            "karma-coverage",
             "karma-mocha-reporter"
         ],
         files: [
-            "__test__/index.js"
+            "__test__/index.dev.js"
         ],
         preprocessors: {
-            "__test__/index.js": ["webpack", "sourcemap"]
+            "__test__/index.dev.js": ["webpack"]
         },
         webpack: commonSettings,
         webpackServer: {
             noInfo: true
         },
-        reporters: ["mocha", "coverage"],
-        coverageReporter: {
-            // specify a common output directory
-            dir: "coverage",
-            reporters: [
-                { type: "lcov", subdir: "report-lcov" }
-            ]
-        },
+        reporters: ["mocha"],
         client: {
             mocha: {
                 timeout: 15000
