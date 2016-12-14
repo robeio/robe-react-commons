@@ -3,12 +3,13 @@
 ## 1.0.67
 * changed Structure Folder and files configuration of the project.
 * fixed *clone* method problem which is defined of **Objects**  .
+* was updated ajax options given as props for endpoint
+* javadoc updated in BaseStore and Store
   
 ## 1.0.66
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
 * added *getTypeName*, *hasProperty* utility method to **Types**
 * added cloning methods *cloneChilds*, , *cloneArray*, *cloneObject*, *clone* to **Objects** 
-* was updated ajax options given as props for endpoint
   
 ## 1.0.63
 * Dependencies update.

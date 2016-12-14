@@ -29,11 +29,7 @@ export default class Store extends BaseStore {
      *
      * @param successCallBack
      * @param errorCallback
-     * @param offset
-     * @param limit
-     * @param query
-     * @param filter
-     * @param fields
+     * @param queryParams
      * @returns {boolean|*}
      */
     read(successCallBack: Function, errorCallback: Function, queryParams: Object): boolean {
@@ -105,7 +101,6 @@ export default class Store extends BaseStore {
     }
     /**
      *
-     * @param oldItem
      * @param newItem
      * @param successCallback
      * @param errorCallback
