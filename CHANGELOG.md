@@ -4,6 +4,7 @@
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
 * added *getTypeName*, *hasProperty* utility method to **Types**
 * added cloning methods *cloneChilds*, , *cloneArray*, *cloneObject*, *clone* to **Objects** 
+* was updated ajax options given as props for endpoint
   
 ## 1.0.63
 * Dependencies update.
