@@ -17,8 +17,9 @@ export default class RemoteEndPoint {
     constructor(props:Object) {
         this._transport = {};
 
-        if (Assertions.isString(props.url))
+        if (Assertions.isString(props.url)) {
             this._transport.url = Application.getUrl(props.url);
+        }
 
         let defaultProps = {
             url: this._transport.url,
@@ -50,23 +51,27 @@ export default class RemoteEndPoint {
 
         if (props.read) {
             defaultProps.read = Maps.mergeDeep(props.read, defaultProps.read);
-            if (props.read.url)
+            if (props.read.url) {
                 defaultProps.read.url = Application.getUrl(defaultProps.read.url);
+            }
         }
         if (props.create) {
             defaultProps.create = Maps.mergeDeep(props.create, defaultProps.create);
-            if (props.create.url)
+            if (props.create.url) {
                 defaultProps.create.url = Application.getUrl(defaultProps.create.url);
+            }
         }
         if (props.update) {
             defaultProps.update = Maps.mergeDeep(props.update, defaultProps.update);
-            if (props.update.url)
+            if (props.update.url) {
                 defaultProps.update.url = Application.getUrl(defaultProps.update.url);
+            }
         }
         if (props.delete) {
             defaultProps.delete = Maps.mergeDeep(props.delete, defaultProps.delete);
-            if (props.delete.url)
+            if (props.delete.url) {
                 defaultProps.delete.url = Application.getUrl(defaultProps.delete.url);
+            }
         }
 
         this._readRequest = new AjaxRequest(defaultProps.read);

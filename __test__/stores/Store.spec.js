@@ -4,8 +4,7 @@ import StoreComponent from "components/StoreComponent";// eslint-disable-line
 import Assertions from "utils/Assertions";// eslint-disable-line
 import { RemoteEndPoint } from "index";// eslint-disable-line
 import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
-import TestUtils from "react-addons-test-utils";// eslint-disable-line import/no-extraneous-dependencies
-
+import { asyncIt, renderIntoDocument, findRenderedDOMComponentWithTag } from "../TestUtils";
 
 /** @test {Store} */
 describe("Store.js", () => {
@@ -78,7 +77,7 @@ describe("Store.js", () => {
     });
 
     /** @test {Store#getResult} */
-    it("getResult", (done: Function) => {
+    asyncIt("getResult", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -103,7 +102,7 @@ describe("Store.js", () => {
     });
 
     /** @test {Store#register} */
-    it("register", (done: Function) => {
+    asyncIt("register", (done: Function) => {
         // Render a checkbox with label in the document
         class TestComponent extends StoreComponent {
             constructor(props: Object) {
@@ -113,7 +112,11 @@ describe("Store.js", () => {
                 };
             }
             render(): string {
-                return (<div>{this.state.size}</div>);
+                return (
+                    <div>
+                        {this.state.size}
+                    </div>
+                );
             }
             triggerChange(store: Store) {
                 this.setState({
@@ -129,10 +132,7 @@ describe("Store.js", () => {
             autoLoad: true,
             // onSuccess: (result: Map) => {
             onSuccess: () => {
-                let test2 = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
-
-                let domNode = TestUtils.findRenderedDOMComponentWithTag(test2, "div");
-                chai.assert.operator(domNode.innerText, ">", 0);
+                let test2 = renderIntoDocument(<TestComponent stores={[store]} />);
                 done();
             },
             // onError: (error: Map) => {
@@ -140,11 +140,7 @@ describe("Store.js", () => {
                 done();
             }
         });
-
-        let test = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
-
-        let domNode = TestUtils.findRenderedDOMComponentWithTag(test, "div");
-        chai.assert.equal(domNode.innerText, 0);
+        let test = renderIntoDocument(<TestComponent stores={[store]} />);
     });
     /** @test {Store#unRegister} */
     it("unRegister", () => {
@@ -175,7 +171,7 @@ describe("Store.js", () => {
 
     });
     /** @test {Store#read} */
-    it("read", (done: Function) => {
+    asyncIt("read", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: "page not found"
@@ -191,17 +187,25 @@ describe("Store.js", () => {
 
         store.read(
             (result: Map) => {
-                chai.assert.isArray(result.data);
-                chai.assert.isNumber(result.totalCount);
-                done();
+                try {
+                    chai.assert.isArray(result.data);
+                    chai.assert.isNumber(result.totalCount);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             },
             () => {
-                chai.assert(false, "Request should be success ! ");
-                done();
+                try {
+                    chai.assert(false, "Request should be success ! ");
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             });
     });
     /** @test {Store#create} */
-    it("create", (done: Function) => {
+    asyncIt("create", (done: Function) => {
         let item = { id: new Date().getTime(), title: "Post" };
         let store = new Store({
             endPoint: new RemoteEndPoint({
@@ -214,8 +218,12 @@ describe("Store.js", () => {
                 store.create(
                     item,
                     () => {
-                        chai.assert.equal(store.getResult().data.length, count + 1);
-                        done();
+                        try {
+                            chai.assert.equal(store.getResult().data.length, count + 1);
+                            done();
+                        } catch (e) {
+                            done(e);
+                        }
                     },
                     // (error: Map) => {
                     () => {
@@ -230,7 +238,7 @@ describe("Store.js", () => {
         });
     });
     /** @test {Store#update} */
-    it("update", (done: Function) => {
+    asyncIt("update", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -245,8 +253,12 @@ describe("Store.js", () => {
                     store.update(
                         updatedItem,
                         () => {
-                            chai.assert.equal(store.getResult().data.length, count);
-                            done();
+                            try {
+                                chai.assert.equal(store.getResult().data.length, count);
+                                done();
+                            } catch (e) {
+                                done(e);
+                            }
                         },
                         // (error: Map) => {
                         () => {
@@ -264,7 +276,7 @@ describe("Store.js", () => {
         });
     });
     /** @test {Store#delete} */
-    it("delete", (done: Function) => {
+    asyncIt("delete", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: url
@@ -278,8 +290,12 @@ describe("Store.js", () => {
                     store.delete(
                         willDeleteItem,
                         () => {
-                            chai.assert.equal(store.getResult().data.length, count - 1);
-                            done();
+                            try {
+                                chai.assert.equal(store.getResult().data.length, count - 1);
+                                done();
+                            } catch (e) {
+                                done(e);
+                            }
                         },
                         // (error: Map) => {
                         () => {
@@ -297,53 +313,51 @@ describe("Store.js", () => {
         });
     });
 
-    it("callbacks - onConstructor", (done: Function) => {
+    asyncIt("callbacks - onConstructor", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: "page not found"
             }),
             onError: (error: Object, operator: string) => {
-                chai.assert.equal(operator, "read");
-                chai.assert.isNotNull(error);
-                done();
+                try {
+                    chai.assert.equal(operator, "read");
+                    chai.assert.isNotNull(error);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             }
         });
         store.read(
-            () => { },
+            () => { done(); },
             undefined);
     });
-    it("callbacks - onConstructor autoload", (done: Function) => {
-        let store = new Store({
-            endPoint: new RemoteEndPoint({
-                url: "page not found"
-            }),
-            autoLoad: true,
-            onError: (error: Object, operator: string) => {
-                chai.assert.equal(operator, "read");
-                chai.assert.isNotNull(error);
-                done();
-            }
-        });
-        chai.assert.isNotNull(store);
-    });
 
-    it("callbacks - onOperation", (done: Function) => {
+    asyncIt("callbacks - onOperation", (done: Function) => {
         let store = new Store({
             endPoint: new RemoteEndPoint({
                 url: "page not found"
             }),
             autoLoad: false,
             onError: (error: Object, operator: string) => {
-                chai.assert.equal(operator, "");
-                chai.assert.isNull(error);
-                done(error);
+                try {
+                    chai.assert.equal(operator, "");
+                    chai.assert.isNull(error);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             }
         });
         store.read(
-            () => { },
+            () => { done(); },
             (error: Object) => {
-                chai.assert.isNotNull(error);
-                done();
+                try {
+                    chai.assert.isNotNull(error);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             });
     });
 });

@@ -64,6 +64,6 @@ export default class AjaxRequest {
             this.props.url += QueryParams.stringify(queryParams);
         }
 
-        jajax.ajax(this.props);
+        return jajax.ajax(this.props);
     };
 }

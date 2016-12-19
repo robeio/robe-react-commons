@@ -117,7 +117,7 @@ class Objects {
             if (Objects.hasProperty(src, key)) {
                 let destProp = dest[key];
                 destProp = destProp ?
-                    Objects.mergeClone(src[key], destProp[key], cloneNativeTypes) :
+                    Objects.mergeClone(src[key], destProp[key], references, cloneNativeTypes) :
                     Objects.clone(src[key], references, cloneNativeTypes);
                 dest[key] = destProp;
             }

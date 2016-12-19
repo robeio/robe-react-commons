@@ -43,9 +43,6 @@ describe("BaseStore.js", () => {
 
         let test = TestUtils.renderIntoDocument(<TestComponent stores={[store]} />);
 
-        let domNode = TestUtils.findRenderedDOMComponentWithTag(test, "div");
-        chai.assert.equal(domNode.innerText, 0);
-
         store.unRegister(test);
         store._disposeContent();// eslint-disable-line no-underscore-dangle
     });

@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.69 
+* changed test configurations from karma to jest.
+
 ## 1.0.68
 * was updated ajax options given as props for endpoint
 * javadoc updated in BaseStore and Store
