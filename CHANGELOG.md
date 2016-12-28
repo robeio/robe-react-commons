@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.71
+* Store.setReadUrl method updates the reading url of the store.
+* RemoteEndPoint.setReadUrl updates the reading url of the endpoint.
+* AjaxRequest.setUrl updates the url of the request.
+
 ## 1.0.70
 * QueryParams.stringify 
     * now gets the url and returns concatted version.

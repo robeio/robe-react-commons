@@ -14,7 +14,7 @@ export default class RemoteEndPoint {
     _updateRequest;
     _deleteRequest;
 
-    constructor(props:Object) {
+    constructor(props: Object) {
         this._transport = {};
 
         if (Assertions.isString(props.url)) {
@@ -82,8 +82,8 @@ export default class RemoteEndPoint {
         this._transport = defaultProps;
     }
 
-    read(queryParams:Object, successCallBack:Function, errorCallback:Function):boolean {
-        let onSuccess = (data:Object, textStatus:string, xhr:Object) => {
+    read(queryParams: Object, successCallBack: Function, errorCallback: Function): boolean {
+        let onSuccess = (data: Object, textStatus: string, xhr: Object) => {
             let result = {
                 data: data,
                 totalCount: parseInt(xhr.getResponseHeader("X-Total-Count"), 10) || 0
@@ -96,8 +96,8 @@ export default class RemoteEndPoint {
             .call(undefined, queryParams, onSuccess, this.__createOnError(errorCallback));
     }
 
-    create(item:Map, successCallback:Function, errorCallback:Function):boolean {
-        let onSuccess = (data:Object) => {
+    create(item: Map, successCallback: Function, errorCallback: Function): boolean {
+        let onSuccess = (data: Object) => {
             let result = {
                 data: data,
                 totalCount: 1
@@ -109,8 +109,8 @@ export default class RemoteEndPoint {
             .call(item, undefined, onSuccess, this.__createOnError(errorCallback));
     }
 
-    update(newItem:Map, idField:string, successCallback:Function, errorCallback:Function) {
-        let onSuccess = (data:Object) => {
+    update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
+        let onSuccess = (data: Object) => {
             let result = {
                 data: data,
                 totalCount: 1
@@ -123,7 +123,7 @@ export default class RemoteEndPoint {
             .call(newItem, undefined, onSuccess, this.__createOnError(errorCallback), [newItem[idField]]);
     }
 
-    delete(item:Map, idField:string, successCallback:Function, errorCallback:Function) {
+    delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
         let onSuccess = () => {
             let result = {
                 data: item,
@@ -136,12 +136,15 @@ export default class RemoteEndPoint {
             .call(item, undefined, onSuccess, this.__createOnError(errorCallback), [item[idField]]);
     }
 
-    getUrl():string {
+    getUrl(): string {
         return this._transport.url;
     }
+    setReadUrl(url: string): string {
+        this._readRequest.setUrl(url);
+    }
 
-    __createOnError(errorCallback:Function):Function {
-        return (xhr:Object, exception:string) => {
+    __createOnError(errorCallback: Function): Function {
+        return (xhr: Object, exception: string) => {
             let error = HttpError.parse(xhr, exception);
             errorCallback(error);
         };

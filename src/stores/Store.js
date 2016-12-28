@@ -24,6 +24,10 @@ export default class Store extends BaseStore {
         this.__dataMap = new MapArray([], this.__props.idField);
     }
 
+    setReadUrl(url: string): string {
+        this.__props.endPoint.setReadUrl(url);
+    }
+
     /**
      *
      * @param successCallBack

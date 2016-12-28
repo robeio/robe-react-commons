@@ -39,6 +39,10 @@ export default class AjaxRequest {
         this.__url = Application.getUrl(props.url);
     }
 
+    setUrl(url: string): string {
+        this.__url = Application.getUrl(url);
+    }
+
     /**
      * Makes an ajax call with the given data,query parameters and callback functions
      * @param {Object} data to serialize and send.
