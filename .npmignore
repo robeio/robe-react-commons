@@ -46,6 +46,7 @@ manual
 esdoc.json
 src
 dist
+config
 testdb.json
 webpack.config.build.js
 webpack.config.test.dev.js
