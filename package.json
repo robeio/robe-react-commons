@@ -1,14 +1,16 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.64",
+  "version": "1.0.69",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
-    "test": "karma start webpack.config.test.js",
-    "testd": "karma start webpack.config.test.dev.js",
+    "test_karma": "karma start config/webpack.config.test.js",
+    "test": "node ./config/server/start.js 3000 & jest --config ./config/jest.json && killall node",
+    "testd": "karma start config/webpack.config.test.dev.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "docs": "node ./prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
-    "build": "node ./prebuild.js ./lib & babel ./src --out-dir ./lib   --copy-files"
+    "docs": "node ./config/prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
+    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir ./lib   --copy-files",
+    "server": "node ./config/server/start.js 3000"
   },
   "keywords": [
     "webpack",
@@ -29,10 +31,12 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "app-root-path": "^2.0.1",
     "babel-cli": "6.18.0",
     "babel-core": "6.20.0",
     "babel-eslint": "7.1.1",
     "babel-loader": "6.2.9",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-preset-es2015": "6.18.0",
     "babel-preset-react": "6.16.0",
     "babel-preset-stage-0": "6.16.0",
@@ -50,6 +54,8 @@
     "eslint-plugin-react": "6.8.0",
     "file-loader": "0.9.0",
     "isparta-loader": "2.0.0",
+    "jest": "^17.0.3",
+    "jest-cli": "^18.0.0",
     "json-server": "0.9.4",
     "karma": "1.3.0",
     "karma-chai": "0.1.0",
@@ -62,6 +68,7 @@
     "mocha": "3.2.0",
     "react-addons-test-utils": "15.4.1",
     "react-hot-loader": "1.3.1",
+    "react-test-renderer": "^15.4.1",
     "webpack": "1.14.0"
   },
   "dependencies": {

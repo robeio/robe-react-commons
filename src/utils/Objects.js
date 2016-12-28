@@ -1,7 +1,10 @@
 import Assertions from "./Assertions";
+import Types from "./Types";
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 const toString = Object.prototype.toString;
+
+
 /**
  * A singleton class which implements mostly used json object operations.
  *
@@ -79,24 +82,132 @@ class Objects {
         return size;
     }
 
-    static clone(obj: Object): Object {
-        if (obj === null || typeof obj !== "object" || "isActiveClone" in obj || Assertions.isReactComponent(obj)) {
-            return obj;
-        }
-        let temp;
-        if (obj instanceof Date) {
-            temp = new obj.constructor(); // or new Date(obj);
-        } else {
-            temp = obj.constructor();
-        }
-        for (let key in obj) {
-            if (hasOwnProperty.call(obj, key)) {
-                obj.isActiveClone = null;
-                temp[key] = Objects.clone(obj[key]);
-                delete obj.isActiveClone;
+    /**
+     *
+     * @param object
+     * @param key
+     * @returns {boolean}
+     */
+    static getTypeName(object: Object) {
+        return Types.getTypeName(object);
+    }
+
+    /**
+     *
+     * @param object
+     * @param key
+     * @returns {boolean}
+     */
+    static hasProperty(object: Object, key: string) {
+        return hasOwnProperty.call(object, key);
+    }
+
+    /**
+     *
+     * @param src
+     * @param dest
+     * @param references
+     * @param cloneNativeTypes
+     * @returns {Object}
+     */
+    static mergeClone(src: Object, dest: Object, references: Array<Function>, cloneNativeTypes: boolean): Object {
+        if (src == null) return dest;
+        if (dest == null) return Objects.clone(src, references, cloneNativeTypes);
+        for (let key in src) {
+            if (Objects.hasProperty(src, key)) {
+                let destProp = dest[key];
+                destProp = destProp ?
+                    Objects.mergeClone(src[key], destProp[key], references, cloneNativeTypes) :
+                    Objects.clone(src[key], references, cloneNativeTypes);
+                dest[key] = destProp;
             }
         }
-        return temp;
+        return dest;
+    }
+
+    /**
+     * @param array
+     * @param cloneNativeTypes
+     * @param references
+     * @returns {Array}
+     */
+    static cloneArray(array: Array, references: Array<Function>, cloneNativeTypes: boolean): Object {
+        let destination = [];
+        for (let i = 0; i < array.length; i += 1) {
+            /* eslint-disable no-underscore-dangle */
+            destination[i] = Objects.__clone(array[i], references, cloneNativeTypes);
+        }
+        return destination;
+    }
+
+    /**
+     *
+     * @param object
+     * @param references
+     * @param cloneNativeTypes
+     * @returns {*}
+     */
+    static cloneObject(object: Object, references: Array<Function>, cloneNativeTypes: boolean): Object {
+        // React Component then return
+        if (Assertions.isReactComponent(object)) {
+            return object;
+        }
+        // DOM Element
+        if (object.nodeType && Objects.getTypeName(object.cloneNode) === "Function") {
+            return object;
+        }
+        let destination = {};
+        for (let key in object) {
+            if (hasOwnProperty.call(object, key)) {
+                destination[key] = Objects.__clone(object[key], references, cloneNativeTypes);
+            }
+        }
+        return destination;
+    }
+
+    /**
+     *
+     * @param src
+     * @param references
+     * @param cloneNativeTypes
+     * @returns {Object}
+     */
+    static clone(src: Object, references: Array<Function>, cloneNativeTypes: boolean): Object {
+        /* eslint-disable no-underscore-dangle */
+        return Objects.__clone(src, references, cloneNativeTypes);
+    }
+
+    /**
+     * @param src
+     * @param cloneNativeTypes
+     * @param references
+     * @returns {*}
+     * @private
+     */
+    static __clone(src: Object, references: Array<Function>, cloneNativeTypes: boolean): Object {
+        /* eslint-disable no-underscore-dangle */
+        let objectType = Objects.getTypeName(src);
+
+        let cloneFunction = Types.getCloneFunction(objectType);
+        if (cloneFunction) { // its native type
+            return cloneNativeTypes === true ? cloneFunction(src) : src;
+        }
+
+        if (references) {
+            for (let i = 0; i < references.length; i += 1) {
+                if (typeof references[i] === "function" && src instanceof references[i]) {
+                    return src;
+                }
+            }
+        }
+        switch (objectType) {
+            case "Array":
+                return Objects.cloneArray(src, references, cloneNativeTypes);
+            case "Object":
+                return Objects.cloneObject(src, references, cloneNativeTypes);
+            default:
+                return src;
+        }
     }
 }
 

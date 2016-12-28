@@ -34,7 +34,7 @@ export default class BaseStore extends Class {
     static storeCount = 0;
     /**
      * An number which holds error code of the last operation.
-     * @type {Map { code, message}}
+     * @type Map { code, message}
      */
     __error ;
     /**
@@ -78,7 +78,7 @@ export default class BaseStore extends Class {
 
     /**
      * Return A Map which holds properties for the store.
-     * @returns {Object}
+     * @returns {Number}
      */
     getObjectId(): number {
         return this.__props.objectId;
@@ -115,8 +115,7 @@ export default class BaseStore extends Class {
     }
     /**
      *
-     * @param component
-     * @param key
+     * @param object
      */
     register(object: Object) {
         Assertions.isNotUndefined(object, true);
@@ -127,9 +126,7 @@ export default class BaseStore extends Class {
     }
     /**
      *
-     * @param id
-     * @param component
-     * @param key
+     * @param object
      * @returns {*}
      */
     unRegister(object: Object): number {

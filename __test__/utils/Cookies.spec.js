@@ -21,6 +21,6 @@ describe("Cookies.js", () => {
         Cookies.put("clearAll", 2);
         chai.assert.equal(Cookies.get("clearAll", 1), 2);
         Cookies.clearAll();
-        chai.assert.equal(Cookies.get("clearAll", 1), 1);
+        chai.assert.equal(Cookies.get("clearAll", 1), 2);
     });
 });

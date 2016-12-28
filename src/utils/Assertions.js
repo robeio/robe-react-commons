@@ -1,7 +1,7 @@
 import React from "react";// eslint-disable-line import/extensions
 import IsJS from "is-js";
+import Objects from "./Objects";
 
-const toString = Object.prototype.toString;
 const checkerObject = {};
 
 class Assertions {
@@ -103,7 +103,7 @@ class Assertions {
      */
     static isFunction(func: Function, error: boolean): boolean {
         if (Assertions.isNotUndefined(func, error)) {
-            let isFunc = checkerObject.toString.call(func) === "[object Function]";
+            let isFunc = Objects.getTypeName(func) === "Function";
             if (!isFunc) {
                 if (error) {
                     throw new Error("Given argument is not a function !");
@@ -283,18 +283,18 @@ class Assertions {
      * @returns {boolean}
      */
     static isKnownType(obj: Object, error: boolean): boolean {
-        switch (toString.call(obj)) {
-            case "[object Number]":
-            case "[object Boolean]":
-            case "[object Array]":
-            case "[object String]":
-            case "[object Date]":
-            case "[object RegExp]":
-            case "[object Null]":
-            case "[object Function]":
-            case "[object Undefined]":
-            case "[object FormData]":
-            case "[object File]":
+        switch (Objects.getTypeName(obj)) {
+            case "Number":
+            case "Boolean":
+            case "Array":
+            case "String":
+            case "Date":
+            case "RegExp":
+            case "Null":
+            case "Function":
+            case "Undefined":
+            case "FormData":
+            case "File":
                 return true;
             default :
                 if (error) {

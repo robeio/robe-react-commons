@@ -2,6 +2,7 @@
 
 #### A complete commons library especially for react projects.  
 
+[![npm package](https://badge.fury.io/js/robe-react-commons.svg)](https://badge.fury.io/js/robe-react-commons)
 [![Build Status](https://travis-ci.org/robeio/robe-react-commons.svg?branch=master)](https://travis-ci.org/robeio/robe-react-commons)
 [![Docs Coverage](https://doc.esdoc.org/github.com/robeio/robe-react-commons/badge.svg)](https://doc.esdoc.org/github.com/robeio/robe-react-commons)
 [![codecov](https://codecov.io/gh/robeio/robe-react-commons/branch/master/graph/badge.svg)](https://codecov.io/gh/robeio/robe-react-commons)

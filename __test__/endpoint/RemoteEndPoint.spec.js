@@ -1,6 +1,7 @@
 import RemoteEndPoint from "endpoint/RemoteEndPoint";// eslint-disable-line
 import chai from "chai";// eslint-disable-line import/no-extraneous-dependencies
 import Arrays from "utils/Arrays";// eslint-disable-line
+import { asyncIt } from "../TestUtils";
 
 describe("endpoint/RemoteEndPoint.js", () => {
     const url = "http://localhost:3000/posts";
@@ -41,13 +42,16 @@ describe("endpoint/RemoteEndPoint.js", () => {
             done();
         }
         function error(xhr: Object, errorMessage: string) {
-            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
-            done(xhr);
+            try {
+                chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
+            } catch (e) {
+                done(e);
+            }
         }
 
         endpoint.read(undefined, success, error);
     });
-    it("create", (done: Function) => {
+    asyncIt("create", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });
 
         function success(result: Object) {
@@ -56,8 +60,11 @@ describe("endpoint/RemoteEndPoint.js", () => {
             done();
         }
         function error(xhr: Object, errorMessage: string) {
-            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
-            done(xhr);
+            try {
+                chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
+            } catch (e) {
+                done(e);
+            }
         }
         endpoint.create(item, success, error);
     });
@@ -72,8 +79,11 @@ describe("endpoint/RemoteEndPoint.js", () => {
             done();
         }
         function error(xhr: Object, errorMessage: string) {
-            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
-            done(xhr);
+            try {
+                chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
+            } catch (e) {
+                done(e);
+            }
         }
         endpoint.update(item, "id", success, error);
     });
@@ -85,8 +95,11 @@ describe("endpoint/RemoteEndPoint.js", () => {
             done();
         }
         function error(xhr: Object, errorMessage: string) {
-            chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
-            done(xhr);
+            try {
+                chai.assert.isOk(false, `Status: ${xhr.status} ,Error: ${errorMessage}`);
+            } catch (e) {
+                done(e);
+            }
         }
 
         endpoint.delete(item, "id", success, error);

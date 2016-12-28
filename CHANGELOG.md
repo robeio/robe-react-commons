@@ -1,9 +1,21 @@
 # Change Log
 
+## 1.0.69 
+* changed test configurations from karma to jest.
 
-## 1.0.64
+## 1.0.68
+* was updated ajax options given as props for endpoint
+* javadoc updated in BaseStore and Store
+
+## 1.0.67
+* changed Structure Folder and files configuration of the project.
+* fixed *clone* method problem which is defined of **Objects**
+  
+## 1.0.66
 * changed *clone* method of **Objects** and added *clone* test method to **Objects.spec** .
-
+* added *getTypeName*, *hasProperty* utility method to **Types**
+* added cloning methods *cloneChilds*, , *cloneArray*, *cloneObject*, *clone* to **Objects** 
+  
 ## 1.0.63
 * Dependencies update.
 * Store create operation before read bug fixed.
