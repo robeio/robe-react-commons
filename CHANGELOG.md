@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.70
+* QueryParams.stringify 
+    * now gets the url and returns concatted version.
+    * isFirstParam bug fixed (pre-paramed urls)
+
 ## 1.0.69 
 * changed test configurations from karma to jest.
 
