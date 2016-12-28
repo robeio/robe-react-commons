@@ -7,27 +7,30 @@ import Assertions from "../utils/Assertions";
 
 class QueryParams {
 
-    stringify(params: Object): string {
+    stringify(params: Object, url: String): string {
         // TODO: Additional validations will be added later.
         Assertions.isNotUndefined(params, true);
+        if (!url) {
+            url = "";
+        }
 
-        let url = [];
-        let isFirstParam = true;
+        let paramArr = [];
+        let isFirstParam = url.indexOf("?") === -1;
         this.__integerValidation(params.offset, 0, () => {
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_offset=${params.offset}`);
+            paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_offset=${params.offset}`);
             isFirstParam = false;
         });
         this.__integerValidation(params.limit, 1, () => {
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_limit=${params.limit}`);
+            paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_limit=${params.limit}`);
             isFirstParam = false;
         });
         this.__stringValidation(params.q, () => {
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_q=${params.q}`);
+            paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_q=${params.q}`);
             isFirstParam = false;
         });
         if (Assertions.isNotUndefinedAndNull(params.fields)) {
             this.__stringArrayValidation(params.fields, "fields", () => {
-                url.push(`${this.__getQParamPrefix(isFirstParam)}_fields=${params.fields.join()}`);
+                paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_fields=${params.fields.join()}`);
                 isFirstParam = false;
             });
         }
@@ -36,7 +39,7 @@ class QueryParams {
             if (!Assertions.isArray(params.sort)) {
                 throw new Error(`Given sort value (${params.sort}) must a valid array.`);
             }
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_sort=`);
+            paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_sort=`);
             isFirstParam = false;
             let sorts = [];
             for (let i = 0; i < params.sort.length; i += 1) {
@@ -53,14 +56,14 @@ class QueryParams {
                         throw new Error(`Given sort item (${item}) must a ASC or DESC.`);
                 }
             }
-            url.push(sorts.join());
+            paramArr.push(sorts.join());
         }
 
         if (Assertions.isNotUndefinedAndNull(params.filters)) {
             if (!Assertions.isArray(params.filters)) {
                 throw new Error(`Given filters value (${params.filters}) must a valid array.`);
             }
-            url.push(`${this.__getQParamPrefix(isFirstParam)}_filter=`);
+            paramArr.push(`${this.__getQParamPrefix(isFirstParam)}_filter=`);
             isFirstParam = false;
             let filters = [];
             for (let i = 0; i < params.filters.length; i += 1) {
@@ -73,9 +76,9 @@ class QueryParams {
                     filters.push(item.join(""));
                 }
             }
-            url.push(filters.join());
+            paramArr.push(filters.join());
         }
-        return url.join("");
+        return url + paramArr.join("");
     }
 
 

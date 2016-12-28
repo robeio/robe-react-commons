@@ -61,7 +61,7 @@ export default class AjaxRequest {
         }
 
         if (queryParams !== undefined) {
-            this.props.url += QueryParams.stringify(queryParams);
+            this.props.url = QueryParams.stringify(queryParams, this.props.url);
         }
 
         jajax.ajax(this.props);
