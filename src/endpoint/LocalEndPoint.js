@@ -41,8 +41,6 @@ export default class LocalEndPoint {
                 }
             }
 
-            console.log({ query });
-
             let data = criteria.list();
 
             let result = {
