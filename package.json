@@ -9,7 +9,7 @@
     "testd": "karma start config/webpack.config.test.dev.js",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "node ./config/prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
-    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir /Users/hasanmumin/Development/robe-react-ui/node_modules/robe-react-commons/lib   --copy-files",
+    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir ./lib   --copy-files",
     "server": "node ./config/server/start.js 3000"
   },
   "keywords": [
