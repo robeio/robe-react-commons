@@ -1,13 +1,114 @@
-import { Criteria, Restrictions, Order } from "js-criteria";
+import { Criteria, Order } from "js-criteria";
+import Restrictions from "js-criteria/lib/criteria/Restrictions";
 import Assertions from "../utils/Assertions";
-
+import MapArray from "../collections/MapArray";
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["__filter","__stringValidation","__sort"] }] */
 
 export default class LocalEndPoint {
-    __data;
+    __dataMap= [];
     constructor(props: Object) {
-        this.__data = props.data;
+        this.__dataMap = new MapArray(props.data, props.idField);
     }
+    read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
+        try {
+            let criteria = new Criteria(this.__dataMap.getData());
+
+            if (query) {
+                // offset
+                if (query.offset) {
+                    criteria.setFirstResult(query.offset);
+                }
+                // limit
+                if (query.limit) {
+                    criteria.setMaxResults(query.limit);
+                }
+                // filters
+
+                if (query.filters) {
+                    let filters = this.__filter(query.filters);
+
+                    for (let i = 0; i < filters.length; i += 1) {
+                        criteria.add(filters[i]);
+                    }
+                }
+                // orderings
+                if (query.sort) {
+                    let orders = this.__sort(query.sort);
+
+                    for (let i = 0; i < orders.length; i += 1) {
+                        criteria.addOrder(orders[i]);
+                    }
+                }
+            }
+
+            console.log({ query });
+
+            let data = criteria.list();
+
+            let result = {
+                data: data,
+                totalCount: data.length
+            };
+            if (successCallBack) {
+                successCallBack(result);
+            }
+
+            return true;
+        } catch (e) {
+            if (errorCallback) {
+                let code = e.code ? e.code : 500;
+                let message = e.message ? e.message : e;
+                errorCallback(code, message);
+            }
+            return false;
+        }
+    }
+
+    create(item: Map, successCallback: Function, errorCallback: Function): boolean {
+        if (this.__dataMap.add(item)) {
+            let data = this.__dataMap.getData();
+            let result = {
+                data: item,
+                totalCount: data.length
+            };
+            
+            if (successCallback) {
+                successCallback(result);
+            }
+        } else if (errorCallback) {
+            errorCallback("cannot added.");
+        }
+    }
+    
+    update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
+        if (this.__dataMap.replace(newItem)) {
+            let data = this.__dataMap.getData();
+            let result = {
+                data: newItem,
+                totalCount: data.length
+            };
+            
+            if (successCallback) {
+                successCallback(result);
+            }
+        } else if (errorCallback) {
+            errorCallback("cannot updated.");
+        }
+    }
+
+    delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
+        if (this.__dataMap.replace(item)) {
+            let data = this.__dataMap.getData();
+            let result = {
+                data: item,
+                totalCount: data.length
+            };
+            successCallback(result);
+        } else if (errorCallback) {
+            errorCallback("cannot delete.");
+        }
+    }
+
 
     __filter(filters: Array<Object>): Array<Function> {
         let restrictions: Array<Function> = [];
@@ -16,37 +117,37 @@ export default class LocalEndPoint {
             let filter = filters[i];
             if (filter) {
                 let restriction;
-                switch (filter.operator) {
+                switch (filter[1]) {
                     case "=":
-                        restriction = Restrictions.eq(filter.key, filter.value);
+                        restriction = Restrictions.eq(filter[0], filter[2]);
                         break;
                     case "~=":
-                        restriction = Restrictions.startsWith(filter.key, filter.value);
+                        restriction = Restrictions.startsWith(filter[0], filter[2]);
                         break;
                     case "=~":
-                        restriction = Restrictions.endsWith(filter.key, filter.value);
+                        restriction = Restrictions.endsWith(filter[0], filter[2]);
                         break;
                     case "~":
-                        restriction = Restrictions.contains(filter.key, filter.value);
+                        restriction = Restrictions.contains(filter[0], filter[2]);
                         break;
                     case "!=":
                         // TODO not implement yet
-                        // restriction = Restrictions.not.eq(filter.key, filter.value);
+                        // restriction = Restrictions.not.eq(filter[0],filter[2]);
                         break;
                     case "<":
-                        restriction = Restrictions.lt(filter.key, filter.value);
+                        restriction = Restrictions.lt(filter[0], filter[2]);
                         break;
                     case "<=":
-                        restriction = Restrictions.lte(filter.key, filter.value);
+                        restriction = Restrictions.lte(filter[0], filter[2]);
                         break;
                     case ">":
-                        restriction = Restrictions.gt(filter.key, filter.value);
+                        restriction = Restrictions.gt(filter[0], filter[2]);
                         break;
                     case ">=":
-                        restriction = Restrictions.gte(filter.key, filter.value);
+                        restriction = Restrictions.gte(filter[0], filter[2]);
                         break;
                     case "|=":
-                        restriction = Restrictions.in(filter.key, filter.value);
+                        restriction = Restrictions.in(filter[0], filter[2]);
                         break;
                     default:
                         restriction = null;
@@ -88,62 +189,5 @@ export default class LocalEndPoint {
             }
         }
         return orders;
-    }
-
-    /**
-     *
-     *
-     */
-    read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
-        try {
-            let criteria = new Criteria(this.__data);
-
-            if (query) {
-                // offset
-                if (query.offset) {
-                    criteria.setFirstResult(query.offset);
-                }
-                // limit
-                if (query.limit) {
-                    criteria.setMaxResults(query.limit);
-                }
-                // filters
-
-                if (query.filters) {
-                    let filters = this.__filter(query.filters);
-
-                    for (let i = 0; i < filters.length; i += 1) {
-                        criteria.add(filters[i]);
-                    }
-                }
-                // orderings
-                if (query.sort) {
-                    let orders = this.__sort(query.sort);
-
-                    for (let i = 0; i < orders.length; i += 1) {
-                        criteria.addOrder(orders[i]);
-                    }
-                }
-            }
-            let result = {
-                data: criteria.list(),
-                totalCount: this.__data.length
-            };
-            if (successCallBack) {
-                successCallBack(result);
-            }
-
-            return true;
-        } catch (e) {
-            let code: number;
-            let message: string;
-            code = e.code ? e.code : 500;
-            message = e.message ? e.message : e;
-            if (errorCallback) {
-                errorCallback(code, message);
-            }
-
-            return false;
-        }
     }
 }

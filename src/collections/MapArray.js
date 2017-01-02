@@ -1,4 +1,5 @@
 import is from "is-js";// eslint-disable-line import/extensions
+import Generator from "../utils/Generator";
 import Class from "../class/Class";
 
 /**
@@ -86,6 +87,9 @@ export default class MapArray extends Class {
      * @return {boolean} "true" item added / "false" item already exists.
      */
     add(item: Object): boolean {
+        if (!item[this.__idField]) {
+            item[this.__idField] = Generator.guid();
+        }
         if (this.find(item) !== undefined) {
             return false;
         }
