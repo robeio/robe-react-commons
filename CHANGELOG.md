@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.72
+* LocalEndPoint bug fixed.
+
 ## 1.0.71
 * Store.setReadUrl method updates the reading url of the store.
 * RemoteEndPoint.setReadUrl updates the reading url of the endpoint.
