@@ -1,6 +1,9 @@
 # Change Log
 
-## 1.0.74 -- Developing...
+## 1.0.75 -- Developing...
+
+## 1.0.74
+* Class bug fixed.
 
 ## 1.0.73
 * js-criteria version incremented.
