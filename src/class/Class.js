@@ -47,8 +47,8 @@ export default class Class {
             var names = Object.getOwnPropertyNames(parent);
             for (var i = 0; i < names.length; i += 1) {
                 var name = names[i];
-                var restrictMethods = instance instanceof _react.Component ? reactMethods : es6Methods;
-                if (restrictMethods.indexOf(name) === -1 && _Assertions2.default.isFunction(instance[name])) {
+                var restrictMethods = instance instanceof Component ? reactMethods : es6Methods;
+                if (restrictMethods.indexOf(name) === -1 && Assertions.isFunction(instance[name])) {
                     if (!bindedKeys[name]) {
                         instance[name] = instance[name].bind(instance);
                         bindedKeys[name] = true;
