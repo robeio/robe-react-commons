@@ -3,6 +3,8 @@
 ## 1.0.73
 * js-criteria version incremented.
 * LocalEndPoint q support added.
+* WebSocketStore added.
+* Class bug fixed.
 
 ## 1.0.72
 * LocalEndPoint bug fixed.

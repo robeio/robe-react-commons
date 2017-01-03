@@ -1,4 +1,4 @@
-import { Component } from "react";
+import {Component} from "react";
 import Assertions from "../utils/Assertions";
 
 
@@ -39,14 +39,23 @@ export default class Class {
      * Binds all methods to the instance.
      * @param {Object} instance to bind
      */
-    bindAll(instance: Object) {
-        let names = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
-        for (let i = 0; i < names.length; i += 1) {
-            let name = names[i];
-            let restrictMethods = instance instanceof Component ? reactMethods : es6Methods;
-            if (restrictMethods.indexOf(name) === -1 && Assertions.isFunction(instance[name])) {
-                instance[name] = instance[name].bind(instance);
+    bindAll(instance:Object) {
+        var list = ["Object", "ReactComponent", "Component", "Class", "Date", "File"];
+        var parent = Object.getPrototypeOf(instance);
+        var bindedKeys = [];
+        while (list.indexOf(parent.constructor.name) === -1) {
+            var names = Object.getOwnPropertyNames(parent);
+            for (var i = 0; i < names.length; i += 1) {
+                var name = names[i];
+                var restrictMethods = instance instanceof _react.Component ? reactMethods : es6Methods;
+                if (restrictMethods.indexOf(name) === -1 && _Assertions2.default.isFunction(instance[name])) {
+                    if (!bindedKeys[name]) {
+                        instance[name] = instance[name].bind(instance);
+                        bindedKeys[name] = true;
+                    }
+                }
             }
+            parent = Object.getPrototypeOf(parent);
         }
     }
 }
