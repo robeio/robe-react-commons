@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.73
+* js-criteria version incremented.
+* LocalEndPoint q support added.
+
 ## 1.0.72
 * LocalEndPoint bug fixed.
 

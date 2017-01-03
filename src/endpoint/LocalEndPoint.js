@@ -1,5 +1,4 @@
-import { Criteria, Order } from "js-criteria";
-import Restrictions from "js-criteria/lib/criteria/Restrictions";
+import { Criteria, Order, Restrictions } from "js-criteria";
 import Assertions from "../utils/Assertions";
 import MapArray from "../collections/MapArray";
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["__filter","__stringValidation","__sort"] }] */
@@ -21,6 +20,13 @@ export default class LocalEndPoint {
                 // limit
                 if (query.limit) {
                     criteria.setMaxResults(query.limit);
+                }
+
+                if (query.q) {
+                    criteria.addQuery({
+                        value: query.q,
+                        ignoreList: ["id", "oid"]
+                    });
                 }
                 // filters
 
