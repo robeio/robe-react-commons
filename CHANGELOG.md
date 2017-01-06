@@ -1,8 +1,8 @@
 # Change Log
 
-## 1.0.76 -- Developing...
+## 1.0.77 -- Developing...
 
-## 1.0.75
+## 1.0.76
 
 * add *stringsToArray* method to **util/Strings** as utility method.
 * changed *json-server* as *robe-json-server*
