@@ -9,6 +9,15 @@ describe("utils/Objects.js", () => {
         chai.assert.equal(Objects.equals(map1, map2), true);
         chai.assert.equal(Objects.equals(map1, map3), false);
     });
+
+    it("deepEqual", () => {
+        let map1 = { key: "a", value: "a1" };
+        let map2 = { key: "a", value: "a1" };
+        let map3 = { key: "a", value: "a2" };
+        chai.assert.equal(true, Objects.deepEqual(map1, map2));
+        chai.assert.equal(false, Objects.deepEqual(map1, map3));
+    });
+
     it("deepCopy", () => {
         let map1 = { key: "a", value: "a1" };
         let map2 = Objects.deepCopy(map1);
@@ -50,7 +59,7 @@ describe("utils/Objects.js", () => {
         let y = [x];
         let result = Objects.cloneArray(y);
         chai.assert.isOk(y !== result);
-    })
+    });
 
     it("cloneObject", () => {
         let object = {
@@ -64,7 +73,7 @@ describe("utils/Objects.js", () => {
             }
         };
         chai.assert.deepEqual(Objects.clone(object), object);
-    })
+    });
 
     it("clone", () => {
         let object = {

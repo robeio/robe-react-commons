@@ -76,4 +76,46 @@ describe("Arrays.js", () => {
         let valueArray = Arrays.extractItemArray(array, "key", "a");
         chai.assert.deepEqual(valueArray, expectedKeyArray);
     });
+
+    it("mergeArrays", () => {
+        let array1 = ["a", "b", "c"];
+        let array2 = ["a", "d", "e"];
+        let result = Arrays.mergeArrays(array1, array2);
+
+        let expectedKeyArray = [
+            "a", "b", "c", "d", "e"
+        ];
+        chai.assert.deepEqual(expectedKeyArray, result);
+    });
+
+    it("mergeArraysForNativeType", () => {
+        let array1 = ["a", "b", "c"];
+        let array2 = ["a", "d", "e"];
+        let result = Arrays.mergeArraysForNativeType(array1, array2);
+        let expectedKeyArray = [
+            "a", "b", "c", "d", "e"
+        ];
+        chai.assert.deepEqual(expectedKeyArray, result);
+    });
+
+    it("removeAll", () => {
+        let expectedKeyArray = ["b", "c"];
+
+        let array1 = ["a", "b", "c"];
+        let removeArray1 = ["a", "d"];
+        let result = Arrays.removeAll(array1, removeArray1);
+
+        chai.assert.deepEqual(expectedKeyArray, result);
+    });
+
+    it("removeAllForNativeType", () => {
+        let expectedKeyArray = ["b", "c"];
+
+        let array1 = ["a", "b", "c"];
+        let removeArray1 = ["a", "d"];
+        let result = Arrays.removeAllForNativeType(array1, removeArray1);
+
+        chai.assert.deepEqual(expectedKeyArray, result);
+    });
+
 });

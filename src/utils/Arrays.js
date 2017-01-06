@@ -1,3 +1,5 @@
+import Objects from "./Objects";
+
 const checkerObject = {};
 /**
  * A singleton class which implements mostly used array operations.
@@ -130,6 +132,108 @@ class Arrays {
         }
         return newArray;
     }
+
+    /**
+     * Merges the given arrays.
+     * Note: It used deepEqual to check equality.
+     * @see Objects.deepEqual
+     * @param {Array<Array<any>>} arrays
+     * @return {Array<any>}
+     */
+    static mergeArrays(...arrays: Array<Array<any>>): Array<any> {
+        if (!arrays) return [];
+        let resultArray: Array<any> = [];
+        for (let i = 0; i < arrays.length; i++) {
+            let array = arrays[i];
+            if (array) {
+                for (let j = 0; j < array.length; j++) {
+                    let isExist = false;
+                    for (let t = 0; t < resultArray.length; t++) {
+                        if (Objects.deepEqual(array[j], resultArray[t])) {
+                            isExist = true;
+                            break;
+                        }
+                    }
+                    if (!isExist) {
+                        resultArray.push(array[j]);
+                    }
+                }
+            }
+        }
+        return resultArray;
+    }
+
+    /**
+     * Merges the given arrays.
+     * Note: It used indexOf to check equality.
+     * IndexOf can be success on accepted Native Types = [number, boolean, string, null, function, undefined]
+     * @param {Array<Array<T>>} arrays
+     * @return {Array<T>}
+     */
+    static mergeArraysForNativeType<T>(...arrays: Array<Array<T>>): Array<T> {
+        if (!arrays) return [];
+        let resultArray: T[] = [];
+        for (let i = 0; i < arrays.length; i++) {
+            let array = arrays[i];
+            if (array) {
+                for (let j = 0; j < array.length; j++) {
+                    if (resultArray.indexOf(array[j]) === -1) {
+                        resultArray.push(array[j]);
+                    }
+                }
+            }
+        }
+        return resultArray;
+    }
+
+    /**
+     * Removes the given items from the given source array.
+     * Note: It used deepEqual to check equality.
+     * @see Objects.deepEqual
+     * @param from
+     * @param what
+     * @return {*}
+     */
+    static removeAll<T>(from: T[], what: T[]): T[] {
+        if (!from) return [];
+        if (!what || what.length === 0) return from.slice(0);
+        let newArray = [];
+        for (let i = 0; i < from.length; i++) {
+            let willRemove = false;
+            for (let j = 0; j < what.length; j++) {
+                if (Objects.equals(from[i], what[j])) {
+                    willRemove = true;
+                    break;
+                }
+            }
+            if (!willRemove) {
+                newArray.push(from[i]);
+            }
+        }
+        return newArray;
+    }
+
+    /**
+     * Removes the given items from the given source array.
+     * Note: It used indexOf to check equality.
+     * IndexOf can be success on accepted Native Types = [number, boolean, string, null, function, undefined]
+     * @param from
+     * @param what
+     * @return {any[]}
+     */
+    static removeAllForNativeType<T>(from: T[], what: T[]): any[] {
+        if (!from) return [];
+        if (!what || what.length === 0) return from.slice(0);
+        let newArray = [];
+        for (let i = 0; i < from.length; i++) {
+            let value = from[i];
+            if (what.indexOf(value) === -1) {
+                newArray.push(from[i]);
+            }
+        }
+        return newArray;
+    }
+
 }
 
 export default Arrays;

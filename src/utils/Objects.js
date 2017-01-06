@@ -27,6 +27,54 @@ class Objects {
     }
 
     /**
+     * @description Checks the given source object (any ) and  the given destination object (any)
+     *
+     * @param {any} src Source object to compare the equality
+     * @param {any} dest Destination object to compare the equality
+     * @returns : {boolean} if the string value of the given source equals the string value of the given destination then "true" else "false"
+     */
+    static deepEqual(src: any, dest: any): boolean {
+        if (!src) return src === dest;
+        let type1 = toString.call(src);
+        let type2 = toString.call(dest);
+        if (type1 !== type2) return false;
+        let result = true;
+        switch (type1) {
+            case "[object Object]": {
+                let size = 0;
+                for (let key in src) {
+                    if (hasOwnProperty.call(src, key)) {
+                        if (!hasOwnProperty.call(src, key)) {
+                            result = false;
+                            break;
+                        }
+                        result = result && Objects.deepEqual(src[key], dest[key]);
+                        size += 1;
+                    }
+                }
+                if (size === 0) {
+                    for (let key in dest) {
+                        if (hasOwnProperty.call(dest, key)) {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+            case "[object Array]": {
+                if (src.length !== dest.length) return false;
+                for (let i = 0; i < src.length; i++) {
+                    result = result && Objects.deepEqual(src[i], src[i]);
+                }
+                break;
+            }
+            default:
+                result = (src === dest);
+        }
+        return result;
+    }
+    /**
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
      * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
      *

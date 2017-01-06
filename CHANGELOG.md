@@ -1,6 +1,13 @@
 # Change Log
 
-## 1.0.77 -- Developing...
+## 1.0.78 -- Developing...
+
+## 1.0.77
+
+* add *mergeArrays* method to **util/Arrays** as utility method.
+* add *mergeArraysForNativeType* method to **util/Arrays** as utility method.
+* add *removeAll* method to **util/Arrays** as utility method.
+* add *removeAllForNativeType* method to **util/Arrays** as utility method.
 
 ## 1.0.76
 
