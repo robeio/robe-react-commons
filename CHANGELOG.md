@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.0.78 -- Developing...
+* removed unused webpack configurations.
 
 ## 1.0.77
 
