@@ -1,3 +1,4 @@
+import Assertions from "./Assertions";
 /**
  * A singleton class which implements mostly used string operations.
  *
@@ -28,6 +29,20 @@ class Strings {
         }
         position = position || value.length;
         return value.substring(position - searchString.length, position) === searchString;
+    }
+
+    /**
+     * Converts the given arguments as string aray but difference is check arguments if arguments has one parameter and the parameter is an array then return it as string array.
+     * @param {Array<string>} args
+     * @return {Array<string>}
+     */
+    static stringsToArray(args: Array<string>): Array<string> {
+        if (!args) return [];
+        if (args.length === 0) return args;
+        if (args.length === 1 && Assertions.isArray(args[0])) {
+            return args[0];
+        }
+        return args;
     }
 }
 

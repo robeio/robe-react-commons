@@ -1,4 +1,9 @@
 {
+  "env": {
+    "test": {
+      "sourceMaps": "both"
+    }
+  },
   "presets": [
      "react",
      "es2015",

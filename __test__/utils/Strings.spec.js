@@ -19,4 +19,13 @@ describe("utils/Strings.js", () => {
         chai.assert.isNotOk(Strings.endsWith(subjectString, searchString));
         chai.assert.isOk(Strings.endsWith(subjectString, searchString, 6));
     });
+
+    it("stringsToArray", () => {
+        let array1 = ["nanimo", "kavaranay"];
+        let array2 = [["nanimo", "kavaranay"]];
+
+        let array1Result = Strings.stringsToArray(array1);
+        let array2Result = Strings.stringsToArray(array2);
+        chai.assert.deepEqual(array1Result, array2Result);
+    });
 });

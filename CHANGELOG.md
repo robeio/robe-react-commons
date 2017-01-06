@@ -1,6 +1,19 @@
 # Change Log
 
-## 1.0.75 -- Developing...
+## 1.0.76 -- Developing...
+
+## 1.0.75
+
+* add *stringsToArray* method to **util/Strings** as utility method.
+* changed *json-server* as *robe-json-server*
+* removed webpack test configurations.
+* refconfigurate eslint configurations.
+* add grunt to execute eslint
+* add eslint command to the test command. 
+* removed karma library and karma plugins.
+* reconfigured dependencies libraries.
+* provides to execute developer and travis tests with jest.
+
 
 ## 1.0.74
 * Class bug fixed.
