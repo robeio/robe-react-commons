@@ -1,6 +1,9 @@
 # Change Log
 
-## 1.0.79 -- Developing...
+## 1.0.80 -- Developing
+
+## 1.0.79
+* Application.i18n method now takes code array. 
 
 ## 1.0.78
 * removed unused webpack configurations.

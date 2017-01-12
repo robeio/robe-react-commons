@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.78",
+  "version": "1.0.79",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -50,8 +50,8 @@
     "jest": "^18.1.0",
     "load-grunt-tasks": "3.5.2",
     "react-addons-test-utils": "15.4.2",
-    "robe-json-server": "^0.8.19",
-    "webpack": "^1.14.0"
+    "robe-json-server": "0.8.19",
+    "webpack": "1.14.0"
   },
   "dependencies": {
     "is-js": "0.1.1",

@@ -78,6 +78,7 @@ class Application {
      */
     loadI18n = (messagesMap: Map) => {
         Maps.forEach(messagesMap, (value: any, code: string) => {
+            // TODO: merge
             this.setI18n(code, value);
         });
     }
@@ -94,8 +95,21 @@ class Application {
      * @param {string} code
      * @returns {any}
      */
-    i18n = (code: string): any => {
-        return this.messages[code];
+    i18n = (...codes: Array): any => {
+        let data = this.messages;
+        for (let i = 0; i < codes.length - 1; i++) {
+            let code = codes[i];
+            if (data[code]) {
+                data = data[code];
+            }
+        }
+        data = data[codes[codes.length - 1]];
+        if (data) {
+            return data;
+        }
+        let codesj = codes.join();
+        console.error(`Can't load i18n data for ${codesj}`);
+        return `ERROR: ${codesj}`;
     }
 }
 
