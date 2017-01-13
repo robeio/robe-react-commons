@@ -113,7 +113,7 @@ class Maps {
         for (let name in map) {
             if (hasOwnProperty.call(map, name)) {
                 let child = map[name];
-                if (child[key] && (!type || typeof child[key] === type)) { // eslint-disable-line
+                if (child && child[key] && (!type || typeof child[key] === type)) { // eslint-disable-line
                     values.push(map[name]);
                 }
             }
