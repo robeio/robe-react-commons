@@ -27,7 +27,7 @@ class HttpError {
         if (responseJSON && responseJSON.code) {
             response = responseJSON;
             if (!response.message) {
-                response.message = Application.i18n("http")[response.code];
+                response.message = Application.i18n(undefined, "http", response.code);
             }
             return response;
         }
@@ -38,25 +38,25 @@ class HttpError {
         if (Assertions.isInteger(jqXHR.status) && jqXHR.status != 0) {
             response.code = jqXHR.status;
             if (!exception || exception.trim() === "" || exception === "error") {
-                response.message = Application.i18n("http")[response.code];
+                response.message = Application.i18n(undefined, "http", response.code);
             } else {
                 response.message = exception;
             }
         } else if (jqXHR.url === undefined) {
             response.code = 508;
-            response.message = Application.i18n("http")[response.code];
+            response.message = Application.i18n(undefined, "http", response.code);
         } else if (exception === "parsererror") {
             response.code = 520;
-            response.message = Application.i18n("http")[response.code];
+            response.message = Application.i18n(undefined, "http", response.code);
         } else if (exception === "timeout") {
             response.code = 521;
-            response.message = Application.i18n("http")[response.code];
+            response.message = Application.i18n(undefined, "http", response.code);
         } else if (exception === "abort") {
             response.code = 523;
-            response.message = Application.i18n("http")[response.code];
+            response.message = Application.i18n(undefined, "http", response.code);
         } else {
             response.code = 551;
-            response.message = Application.i18n("http")[response.code];
+            response.message = Application.i18n(undefined, "http", response.code);
         }
         return response;
     };

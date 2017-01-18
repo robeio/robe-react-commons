@@ -1,6 +1,10 @@
 # Change Log
 
-## 1.0.81 -- Developing
+## 1.0.82 -- Developing
+
+## 1.0.81 
+* Application loadI18n and i18n methods changed for the new multi-lang support.
+* Application i18n supports 2 types of usage `Application.i18n(Class,"code1","code1",...)` for defaultProps and `Application.i18n(undefined,"code1","code1",...)` in render usage.
 
 ## 1.0.80
 * Maps.getObjectsWhichHasKeyInMap null control added.

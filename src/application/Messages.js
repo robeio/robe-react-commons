@@ -4,9 +4,9 @@
  * @class messages
  */
 const messages = {
-     /**
-     * http key is for http default messages.
-     */
+    /**
+    * http key is for http default messages.
+    */
     http: {
         100: "Continue",
         101: "Switching Protocols",
@@ -49,7 +49,7 @@ const messages = {
         423: "Locked",
         424: "Method failure",
         500: "Internal Server Error",
-        501: "Uygulanmamış",
+        501: "Not Implemented",
         502: "Invalid gateway",
         503: "Service unavaliable",
         504: "Gateway Timeout",

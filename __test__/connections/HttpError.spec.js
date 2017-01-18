@@ -126,17 +126,4 @@ describe("HttpError.js", () => {
         };
         chai.assert.deepEqual(HttpError.parse(errorXHR, "abort"), expectedError);
     });
-    it("parse().551", () => {
-        let errorCode = 551;
-
-        let errorXHR = {
-            url: "http:/localhost:8080/example"
-        };
-
-        let expectedError = {
-            code: errorCode,
-            message: Messages.http[errorCode]
-        };
-        chai.assert.deepEqual(HttpError.parse(errorXHR, "unknown"), expectedError);
-    });
 });

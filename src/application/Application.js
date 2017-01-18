@@ -81,7 +81,31 @@ class Application {
             // TODO: merge
             this.setI18n(code, value);
         });
+        this.refreshDefaultProps();
     }
+    refreshDefaultProps = () => {
+        Maps.forEach(this.references, (value: any, code: string) => {
+            if (value) {
+                let defaultProps = value.defaultProps;
+                let codes = code.split(":");
+                let obj = defaultProps;
+                let data = this.messages[codes[0]];
+                let lastIdx = codes.length - 1;
+                for (let i = 1; i < lastIdx; i++) {
+                    let item = codes[i];
+                    if (data[item] && obj[item]) {
+                        obj = obj[item];
+                        data = data[item];
+                    }
+                }
+                let key = codes[lastIdx];
+                if (obj && data && obj[key] && data[key]) {
+                    obj[key] = data[key];
+                }
+            }
+        });
+    }
+
     /**
      * Sets a message with the spesific key given.
      * @param {string} code language key
@@ -95,7 +119,12 @@ class Application {
      * @param {string} code
      * @returns {any}
      */
-    i18n = (...codes: Array): any => {
+    i18n = (clazz, ...codes: Array): any => {
+
+        if (clazz) {
+            this.references[codes.join(":")] = clazz;
+        }
+
         let data = this.messages;
         for (let i = 0; i < codes.length - 1; i++) {
             let code = codes[i];
@@ -107,10 +136,12 @@ class Application {
         if (data) {
             return data;
         }
-        let codesj = codes.join();
+        let codesj = codes.join(":");
         console.error(`Can't load i18n data for ${codesj}`);
-        return `ERROR: ${codesj}`;
+        return `ERROR:${codesj}`;
     }
+
+    references = {};
 }
 
 export default new Application();
