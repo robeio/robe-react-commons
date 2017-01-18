@@ -4,7 +4,6 @@
 
 [![npm package](https://badge.fury.io/js/robe-react-commons.svg)](https://badge.fury.io/js/robe-react-commons)
 [![Build Status](https://travis-ci.org/robeio/robe-react-commons.svg?branch=master)](https://travis-ci.org/robeio/robe-react-commons)
-[![Docs Coverage](https://doc.esdoc.org/github.com/robeio/robe-react-commons/badge.svg)](https://doc.esdoc.org/github.com/robeio/robe-react-commons)
 [![codecov](https://codecov.io/gh/robeio/robe-react-commons/branch/master/graph/badge.svg)](https://codecov.io/gh/robeio/robe-react-commons)
 [![dependencies](https://www.versioneye.com/user/projects/57839ae176ef40003fba80f6/badge.svg)](https://www.versioneye.com/user/projects/57839ae176ef40003fba80f6?child=summary)
 
@@ -23,7 +22,6 @@ Aims to be a complete solution for our common project needs. All coded with ES6 
 * [Isparta](https://github.com/douglasduteil/isparta) for ES6 code coverage.
 * [Istanbul](https://github.com/gotwarlost/istanbul) for code coveragereporting.
 * [React](https://facebook.github.io/react/) for ui components.
-* [ESDocs](https://esdoc.org/) for documentation generation.
 
 ### Quick Start
 #### How to use
