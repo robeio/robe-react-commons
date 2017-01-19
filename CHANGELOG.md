@@ -1,6 +1,7 @@
 # Change Log
 
-## 1.0.82 -- Developing
+## 1.0.82
+* LocalEndPoint totalCount bug fixed. [Issue](https://github.com/robeio/robe-react-ui/issues/34)
 
 ## 1.0.81 
 * Application loadI18n and i18n methods changed for the new multi-lang support.

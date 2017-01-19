@@ -51,7 +51,7 @@ export default class LocalEndPoint {
 
             let result = {
                 data: data,
-                totalCount: data.length
+                totalCount: this.__dataMap.getData().length
             };
             if (successCallBack) {
                 successCallBack(result);
