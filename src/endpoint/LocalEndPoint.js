@@ -12,6 +12,7 @@ export default class LocalEndPoint {
         try {
             let criteria = new Criteria(this.__dataMap.getData());
 
+            console.log({ query });
             if (query) {
                 // offset
                 if (query.offset) {

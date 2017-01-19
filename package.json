@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.82",
+  "version": "1.0.83",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "is-js": "0.1.1",
-    "js-criteria": "1.0.4",
+    "js-criteria": "1.0.5",
     "react": "15.4.2",
     "react-addons-shallow-compare": "15.4.2",
     "react-cookie": "1.0.4",

@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.0.83
+* LocalEndPoint pagination bug fixed. [Issue](https://github.com/robeio/robe-react-ui/issues/39)
+
 ## 1.0.82
 * LocalEndPoint totalCount bug fixed. [Issue](https://github.com/robeio/robe-react-ui/issues/34)
 
