@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.0.84
+* upgrade js-criteria library. 
+* fixed js-criteria library build problem.
+
+
 ## 1.0.83
 * LocalEndPoint pagination bug fixed. [Issue](https://github.com/robeio/robe-react-ui/issues/39)
 

@@ -47,6 +47,8 @@ describe("AjaxRequest.js", () => {
         function error() {
             done();
         }
+        let readRequest = new AjaxRequest({ url: "users", type: "GET", xhrFields: { withCredentials: false } });
+        console.log(readRequest.props);
         let request = new AjaxRequest(props);
         request.call(undefined, undefined, success, error);
     });

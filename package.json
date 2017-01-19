@@ -1,6 +1,6 @@
 {
   "name": "robe-react-commons",
-  "version": "1.0.83",
+  "version": "1.0.84",
   "description": "Robe React Commons",
   "main": "lib/index.js",
   "scripts": {
@@ -46,7 +46,6 @@
     "eslint-plugin-react": "6.8.0",
     "grunt": "1.0.1",
     "grunt-eslint": "19.0.0",
-    "is-js": "^0.1.1",
     "jest": "^18.1.0",
     "load-grunt-tasks": "3.5.2",
     "react-addons-test-utils": "15.4.2",
@@ -55,7 +54,7 @@
   },
   "dependencies": {
     "is-js": "0.1.1",
-    "js-criteria": "1.0.5",
+    "js-criteria": "1.0.6",
     "react": "15.4.2",
     "react-addons-shallow-compare": "15.4.2",
     "react-cookie": "1.0.4",
