@@ -11,8 +11,6 @@ export default class LocalEndPoint {
     read(query: Object, successCallBack: Function, errorCallback: Function): boolean {
         try {
             let criteria = new Criteria(this.__dataMap.getData());
-
-            console.log({ query });
             if (query) {
                 // offset
                 if (query.offset) {
