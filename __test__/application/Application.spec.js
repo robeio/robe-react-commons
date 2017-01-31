@@ -40,4 +40,33 @@ describe("Application.js", () => {
         assert.equal(app.i18n(undefined, "meaningOfLife"), "42", "Can't get a message from loaded message map");
         assert.equal(app.i18n(undefined, "http", 100), "Continue", "HTTP messages has not been merged properly into i18n");
     });
+    it("loadI18n - defaultProps", () => {
+        class Sample {
+            static defaultProps = {
+                meaningOfLife: Application.i18n(Sample, "meaningOfLife"),
+                cascading: {
+                    value: Application.i18n(Sample, "cascading", "value"),
+                    value2: {
+                        value2: Application.i18n(Sample, "cascading", "value2", "value2"),
+                        value3: Application.i18n(Sample, "cascading", "value2", "value3")
+                    }
+                }
+            }
+        }
+        Application.loadI18n({
+            meaningOfLife: "42",
+            nullMessage: undefined,
+            cascading: {
+                value: "cascading",
+                value2: {
+                    value2: "value2"
+                }
+            }
+        });
+        assert.equal(Application.i18n(Sample, "meaningOfLife"), "42", "Can't get a message from loaded message map");
+        assert.equal(Application.i18n(Sample, "meaningOfLife2"), "ERROR:meaningOfLife2", "Can't load correct error message");
+        assert.equal(Application.i18n(Sample, "cascading", "value"), "cascading", "Can't load cascading messages");
+        assert.equal(Application.i18n(Sample, "cascading", "value2", "value2"), "value2", "Can't load cascading messages");
+        assert.equal(Application.i18n(Sample, "cascading", "value2", "value3"), "ERROR:cascading:value2:value3", "Can't load cascading messages");
+    });
 });

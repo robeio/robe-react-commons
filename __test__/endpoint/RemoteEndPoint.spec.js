@@ -15,22 +15,72 @@ describe("endpoint/RemoteEndPoint.js", () => {
         chai.assert.isNotNaN(result.totalCount, "Response totalCount should not be NaN.");
     }
 
-    it("constructor", () => {
-        // let props = {
-        //     read: {
-        //         url: "test",
-        //         type: "GET"
-        //     }
-        // };
-        // let endpoint = new RemoteEndPoint({ url: props });
+    it("constructor - read", () => {
+        let props = {
+            url: url,
+            read: {
+                type: "GET"
+            }
+        };
+        let endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.read.url, props.url);
 
-        // chai.assert.equal(endpoint.getUrl().read, props);
+        props.read.url = "test";
+        endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.read.url, props.read.url);
+    });
+    it("constructor - create", () => {
+        let props = {
+            url: url,
+            create: {
+                type: "GET"
+            }
+        };
+        let endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.create.url, props.url);
+
+        props.create.url = "test";
+        endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.create.url, props.create.url);
+    });
+    it("constructor - update", () => {
+        let props = {
+            url: url,
+            update: {
+                type: "GET"
+            }
+        };
+        let endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.update.url, props.url);
+
+        props.update.url = "test";
+        endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.update.url, props.update.url);
     });
 
+    it("constructor - delete", () => {
+        let props = {
+            url: url,
+            delete: {
+                type: "GET"
+            }
+        };
+        let endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.delete.url, props.url);
+
+        props.delete.url = "test";
+        endpoint = new RemoteEndPoint(props);
+        chai.assert.equal(endpoint._transport.delete.url, props.delete.url);
+    });
     it("getUrl", () => {
         let endpoint = new RemoteEndPoint({ url: url });
-
         chai.assert.equal(endpoint.getUrl(), url);
+    });
+    it("setReadUrl", () => {
+        let endpoint = new RemoteEndPoint({ url: url });
+        endpoint.setReadUrl("test");
+        chai.assert.equal(endpoint._readRequest.__url, "test");
+
     });
     it("read", (done: Function) => {
         let endpoint = new RemoteEndPoint({ url: url });

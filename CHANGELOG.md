@@ -1,4 +1,8 @@
 # Change Log
+## 1.0.85
+* Dependencies updated.
+* Test coverage fixed.
+* LocalEndPoint tests added.
 
 ## 1.0.84
 * upgrade js-criteria library. 

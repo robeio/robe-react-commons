@@ -4,7 +4,7 @@ import MapArray from "../collections/MapArray";
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["__filter","__stringValidation","__sort"] }] */
 
 export default class LocalEndPoint {
-    __dataMap= [];
+    __dataMap = [];
     constructor(props: Object) {
         this.__dataMap = new MapArray(props.data, props.idField);
     }
@@ -74,7 +74,7 @@ export default class LocalEndPoint {
                 data: item,
                 totalCount: data.length
             };
-            
+
             if (successCallback) {
                 successCallback(result);
             }
@@ -82,7 +82,7 @@ export default class LocalEndPoint {
             errorCallback("cannot added.");
         }
     }
-    
+
     update(newItem: Map, idField: string, successCallback: Function, errorCallback: Function) {
         if (this.__dataMap.replace(newItem)) {
             let data = this.__dataMap.getData();
@@ -90,7 +90,7 @@ export default class LocalEndPoint {
                 data: newItem,
                 totalCount: data.length
             };
-            
+
             if (successCallback) {
                 successCallback(result);
             }
@@ -100,13 +100,15 @@ export default class LocalEndPoint {
     }
 
     delete(item: Map, idField: string, successCallback: Function, errorCallback: Function) {
-        if (this.__dataMap.replace(item)) {
+        if (this.__dataMap.remove(item)) {
             let data = this.__dataMap.getData();
             let result = {
                 data: item,
                 totalCount: data.length
             };
-            successCallback(result);
+            if (successCallback) {
+                successCallback(result);
+            }
         } else if (errorCallback) {
             errorCallback("cannot delete.");
         }
