@@ -3,6 +3,7 @@
 * Dependencies updated.
 * Test coverage fixed.
 * LocalEndPoint tests added.
+* Package files upgraded
 
 ## 1.0.84
 * upgrade js-criteria library. 
