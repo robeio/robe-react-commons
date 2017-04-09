@@ -2,6 +2,7 @@
 
 ## 1.0.86
 * Package files upgraded
+* function.name not supported in IE bug fixed
 
 ## 1.0.85
 * Dependencies updated.

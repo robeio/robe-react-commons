@@ -43,7 +43,8 @@ export default class Class {
         var list = ["Object", "ReactComponent", "Component", "Class", "Date", "File"];
         var parent = Object.getPrototypeOf(instance);
         var bindedKeys = [];
-        while (list.indexOf(parent.constructor.name) === -1) {
+        var constructorName = parent.constructor.name || parent.constructor.toString().match(/^function\s*([^\s(]+)/)[1];
+        while (list.indexOf(constructorName) === -1) {
             var names = Object.getOwnPropertyNames(parent);
             for (var i = 0; i < names.length; i += 1) {
                 var name = names[i];
