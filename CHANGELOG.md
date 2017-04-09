@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.0.87
+
 ## 1.0.86
 * Package files upgraded
 * function.name not supported in IE bug fixed
