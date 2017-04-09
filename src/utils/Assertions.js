@@ -103,7 +103,7 @@ class Assertions {
      */
     static isFunction(func: Function, error: boolean): boolean {
         if (Assertions.isNotUndefined(func, error)) {
-            let isFunc = Objects.getTypeName(func) === "Function";
+            let isFunc = Objects.getTypeName(func) === "Function" || typeof func === "function";
             if (!isFunc) {
                 if (error) {
                     throw new Error("Given argument is not a function !");

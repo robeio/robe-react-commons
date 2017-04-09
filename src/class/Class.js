@@ -45,6 +45,9 @@ export default class Class {
         var bindedKeys = [];
         var constructorName = parent.constructor.name || parent.constructor.toString().match(/^function\s*([^\s(]+)/)[1];
         while (list.indexOf(constructorName) === -1) {
+            if (parent === null) {
+                return;
+            }
             var names = Object.getOwnPropertyNames(parent);
             for (var i = 0; i < names.length; i += 1) {
                 var name = names[i];

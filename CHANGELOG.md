@@ -1,6 +1,7 @@
 # Change Log
 
 ## 1.0.87
+* function type not supported in IE bug fixed
 
 ## 1.0.86
 * Package files upgraded
