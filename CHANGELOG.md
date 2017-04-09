@@ -1,5 +1,7 @@
 # Change Log
 
+## 1.0.88
+
 ## 1.0.87
 * function type not supported in IE bug fixed
 
