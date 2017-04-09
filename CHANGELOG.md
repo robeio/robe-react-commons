@@ -1,6 +1,9 @@
 # Change Log
 
-## 1.0.88
+## 1.0.90 Developing...
+
+## 1.0.89
+* added Function.prototype.name for unsupported Browsers.
 
 ## 1.0.87
 * function type not supported in IE bug fixed

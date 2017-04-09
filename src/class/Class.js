@@ -1,3 +1,4 @@
+import "./prototype";
 import {Component} from "react";
 import Assertions from "../utils/Assertions";
 
