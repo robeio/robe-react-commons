@@ -9,8 +9,7 @@
     "testd": "node ./config/server/start.js 3000 & jest --config ./config/jest.dev.json --watch && grunt lint && killall node",
     "codecov": "cat coverage/*/lcov.info | codecov",
     "docs": "node ./config/prebuild.js ./docs & ./node_modules/.bin/esdoc -c esdoc.json",
-    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir ./lib --copy-files",
-    "start": "node ./config/server/start.js 3000"
+    "build": "node ./config/prebuild.js ./lib & babel ./src --out-dir ./lib --copy-files"
   },
   "keywords": [
     "react",
@@ -50,21 +49,20 @@
     "load-grunt-tasks": "3.5.2",
     "react-addons-test-utils": "15.4.2",
     "robe-json-server": "0.8.19",
-    "webpack": "1.14.0"
+    "webpack": "1.14.0",
+    "react": "15.4.2",
+    "react-addons-shallow-compare": "15.4.2",
+    "react-cookie": "1.0.5",
+    "react-dom": "15.4.2"
   },
   "dependencies": {
     "is-js": "0.1.1",
     "js-criteria": "1.0.6",
-    "react": "15.4.2",
-    "react-addons-shallow-compare": "15.4.2",
-    "react-cookie": "1.0.5",
-    "react-dom": "15.4.2",
     "robe-ajax": "1.0.1"
   },
   "jest": {
     "automock": false,
     "bail": true,
-    "cover": true,
     "testRegex": "/__test__/.*\\.spec\\.jsx?$",
     "setupTestFrameworkScriptFile": "<rootDir>/config/jest.setup.jasmine.js",
     "collectCoverage": true,

@@ -4,7 +4,9 @@
 
 ## 1.0.89
 * added Function.prototype.name for unsupported Browsers.
-
+* added React to the dev dependencies.
+    - Note: if any library will use robe-react-commons then need to add 
+    **react**, **react-addons-shallow-compare**, **react-cookie**, **react-dom** libraries to dependencies.
 ## 1.0.87
 * function type not supported in IE bug fixed
 
